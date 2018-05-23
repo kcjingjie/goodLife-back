@@ -46,6 +46,7 @@ public class AuthController {
     @ResponseBody
     Result logout(String token) {
 
+
         if (authService.logout(token)) {
             return ResultGenerator.generate(ResultCode.SUCCESS);
         }
