@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/pipeline-management-service.iml" filepath="$PROJECT_DIR$/pipeline-management-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/data-collection-service.iml" filepath="$PROJECT_DIR$/data-collection-service.iml" />
     </modules>
   </component>
 </project>
