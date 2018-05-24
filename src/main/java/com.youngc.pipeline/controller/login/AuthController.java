@@ -22,6 +22,7 @@ public class AuthController {
     Result login(String username, String password) {
 
         if (username == null || username.equals("")) {
+
             return ResultGenerator.generate(ResultCode.FAIL);
         }
 
