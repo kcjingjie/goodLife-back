@@ -1,4 +1,4 @@
-package com.youngc.pipeline.service.user;
+package com.youngc.pipeline.service.system;
 
 import com.github.pagehelper.Page;
 import com.youngc.pipeline.model.UserUserManagerModel;

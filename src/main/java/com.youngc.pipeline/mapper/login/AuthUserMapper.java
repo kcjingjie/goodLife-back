@@ -1,4 +1,4 @@
-package com.youngc.pipeline.mapper;
+package com.youngc.pipeline.mapper.login;
 
 import com.youngc.pipeline.model.UserUserManagerModel;
 import org.apache.ibatis.annotations.Param;

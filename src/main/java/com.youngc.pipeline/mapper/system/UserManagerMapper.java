@@ -1,4 +1,4 @@
-package com.youngc.pipeline.mapper;
+package com.youngc.pipeline.mapper.system;
 
 import com.youngc.pipeline.model.UserUserManagerModel;
 import org.apache.ibatis.annotations.*;
@@ -7,31 +7,31 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public interface UserUserManagerMapper {
+public interface UserManagerMapper {
     @Select(" SELECT id, username, realname" +
-            " FROM auth_user WHERE id = #{userId}")
+            " FROM sys_user WHERE id = #{userId}")
     UserUserManagerModel getUserInfo(@Param("userId") Long userId);
 
-    @Update(" UPDATE auth_user SET username = #{username}, realname = #{realname}," +
+    @Update(" UPDATE sys_user SET user_name = #{username}, real_name = #{realname}," +
             " last_person = #{lastPerson}, last_time = #{lastTime} WHERE id = #{id}")
     int updateUserInfo(UserUserManagerModel userUserManagerModel);
 
-    @Update(" UPDATE auth_user SET password = #{newPassword}," +
+    @Update(" UPDATE sys_user SET password = #{newPassword}," +
             " last_person = #{lastPerson}, last_time = now() WHERE id = #{userId}")
     int updatePassword(@Param("userId") Long userId, @Param("newPassword") String newPassword, @Param("lastPerson") Long lastPerson);
 
-    @Insert(" INSERT INTO auth_user (username, password, realname, add_person, add_time, last_person, last_time)" +
+    @Insert(" INSERT INTO sys_user (user_name, password, real_name, add_person, add_time, last_person, last_time)" +
             " VALUES(#{username}, #{password}, #{realname}, #{addPerson}, #{addTime}, #{lastPerson}, #{lastTime})")
     @Options(useGeneratedKeys = true, keyColumn = "id")
     int insertNewUser(UserUserManagerModel userUserManagerModel);
 
-    @Delete(" DELETE FROM auth_user WHERE id = #{userId}")
+    @Delete(" DELETE FROM sys_user WHERE id = #{userId}")
     int deleteUser(@Param("userId") Long userId);
 
-    @Select(" SELECT id, username, realname FROM auth_user" +
-            " WHERE ((username LIKE CONCAT('%', #{keyword}, '%')) OR (realname LIKE CONCAT('%', #{keyword}, '%')))")
+    @Select(" SELECT id, user_name, real_name FROM sys_user" +
+            " WHERE ((user_name LIKE CONCAT('%', #{keyword}, '%')) OR (realname LIKE CONCAT('%', #{keyword}, '%')))")
     List<UserUserManagerModel> getList(String keyword);
 
-    @Delete(" DELETE FROM auth_user WHERE id IN (${userList})")
+    @Delete(" DELETE FROM sys_user WHERE id IN (${userList})")
     int deleteUserList(@Param("userList") String userList);
 }
