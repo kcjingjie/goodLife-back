@@ -20,11 +20,21 @@ public class UserUserManagerModel {
 
     private String realName;
 
+    private String userAddress;
+
+    private String userEmail;
+
+    private Long userSex;
+
+    private String userPhone;
+
+    private Long status;
+
     private Long addPerson;
 
     private Date addTime;
 
     private Long lastPerson;
 
-    private Date lastTime;
+    private Date lasttime;
 }

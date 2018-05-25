@@ -9,6 +9,9 @@ import com.youngc.pipeline.utils.BCryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author liweiqiang
+ */
 @Service
 public class UserManagerServiceImpl implements UserManagerService {
 
