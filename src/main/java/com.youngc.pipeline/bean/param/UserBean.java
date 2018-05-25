@@ -10,9 +10,9 @@ public class UserBean {
 
     private Long id;
 
-    private String user_name;
+    private String userName;
 
-    private String real_name;
+    private String realName;
 
     private String password;
 }
