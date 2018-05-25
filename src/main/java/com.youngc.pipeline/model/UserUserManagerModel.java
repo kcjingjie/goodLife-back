@@ -14,17 +14,17 @@ public class UserUserManagerModel {
 
     private Long id;
 
-    private String user_name;
+    private String userName;
 
     private String password;
 
-    private String real_name;
+    private String realName;
 
-    private Long add_person;
+    private Long addPerson;
 
-    private Date add_time;
+    private Date addTime;
 
-    private Long last_person;
+    private Long lastPerson;
 
-    private Date last_time;
+    private Date lastTime;
 }

@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
             Map<String, Object> result = new HashMap<String, Object>();
             result.put("token", token);
             result.put("username", username);
-            result.put("realname", user.getReal_name());
+            result.put("realname", user.getRealName());
             return result;
         }
 
