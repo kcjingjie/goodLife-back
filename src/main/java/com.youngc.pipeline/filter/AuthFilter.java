@@ -3,7 +3,6 @@ package com.youngc.pipeline.filter;
 import com.youngc.pipeline.bean.context.UserBean;
 import com.youngc.pipeline.model.UserUserManagerModel;
 import com.youngc.pipeline.service.login.AuthService;
-import com.youngc.pipeline.service.user.UserManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

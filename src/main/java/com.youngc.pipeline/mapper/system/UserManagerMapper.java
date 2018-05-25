@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 public interface UserManagerMapper {
-    @Select(" SELECT id, username, realname" +
+    @Select(" SELECT id, user_name, real_name" +
             " FROM sys_user WHERE id = #{userId}")
     UserUserManagerModel getUserInfo(@Param("userId") Long userId);
 
@@ -28,8 +28,8 @@ public interface UserManagerMapper {
     @Delete(" DELETE FROM sys_user WHERE id = #{userId}")
     int deleteUser(@Param("userId") Long userId);
 
-    @Select(" SELECT id, user_name, real_name FROM sys_user" +
-            " WHERE ((user_name LIKE CONCAT('%', #{keyword}, '%')) OR (realname LIKE CONCAT('%', #{keyword}, '%')))")
+    @Select(" SELECT id, user_name, real_name, user_sex, user_birth, user_phone, user_email, user_address, status FROM sys_user" +
+            " WHERE ((user_name LIKE CONCAT('%', #{keyword}, '%')) OR (real_name LIKE CONCAT('%', #{keyword}, '%')))")
     List<UserUserManagerModel> getList(String keyword);
 
     @Delete(" DELETE FROM sys_user WHERE id IN (${userList})")
