@@ -36,5 +36,5 @@ public class UserUserManagerModel {
 
     private Long lastPerson;
 
-    private Date lasttime;
+    private Date lastTime;
 }
