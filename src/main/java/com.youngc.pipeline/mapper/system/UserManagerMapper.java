@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 public interface UserManagerMapper {
-    @Select(" SELECT id, user_name, real_name" +
+    @Select(" SELECT id, user_name, real_name, user_sex, user_birth, user_phone, user_email, user_address, status" +
             " FROM sys_user WHERE id = #{userId}")
     UserUserManagerModel getUserInfo(@Param("userId") Long userId);
 
