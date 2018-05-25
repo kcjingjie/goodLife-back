@@ -1,9 +1,6 @@
-package com.youngc.iot.service.controller.auth;
+package com.youngc.pipeline.service.controller.auth;
 
-import com.youngc.iot.service.Application;
-import com.youngc.iot.service.mapper.AuthTokenMapper;
-import com.youngc.iot.service.mapper.AuthUserMapper;
-import com.youngc.iot.service.service.auth.impl.AuthServiceImpl;
+import com.youngc.pipeline.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,7 +64,7 @@ public class AuthControllerTest {
 
         mvc.perform(post("/auth/login")
                 .param("username", "admin")
-                .param("password", "123456")
+                .param("password", "1234567")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
