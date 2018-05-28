@@ -22,6 +22,8 @@ public class UserUserManagerModel {
 
     private String userAddress;
 
+    private String userBirth;
+
     private String userEmail;
 
     private Long userSex;
