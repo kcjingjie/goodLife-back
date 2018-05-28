@@ -3,7 +3,7 @@ package com.youngc.pipeline.service.system.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.youngc.pipeline.mapper.system.UserManagerMapper;
-import com.youngc.pipeline.model.UserUserManagerModel;
+import com.youngc.pipeline.model.UserManagerModel;
 import com.youngc.pipeline.service.system.UserManagerService;
 import com.youngc.pipeline.utils.BCryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +23,16 @@ public class UserManagerServiceImpl implements UserManagerService {
         return (Page) userManagerMapper.getList(keyword);
     }
 
-    public UserUserManagerModel getUserDetails(Long userId) {
+    public UserManagerModel getUserDetails(Long userId) {
 
         return userManagerMapper.getUserInfo(userId);
     }
 
-    public UserUserManagerModel updateUserDetails(UserUserManagerModel userUserManagerModel) {
+    public UserManagerModel updateUserDetails(UserManagerModel userManagerModel) {
 
-        userManagerMapper.updateUserInfo(userUserManagerModel);
+        userManagerMapper.updateUserInfo(userManagerModel);
 
-        return userUserManagerModel;
+        return userManagerModel;
     }
 
     public void updatePassword(Long userId, String password, Long lastPerson) {
@@ -54,12 +54,12 @@ public class UserManagerServiceImpl implements UserManagerService {
         return true;
     }
 
-    public UserUserManagerModel addUser(UserUserManagerModel userUserManagerModel) {
+    public UserManagerModel addUser(UserManagerModel userManagerModel) {
 
-        userUserManagerModel.setPassword(BCryptUtil.hashpw(userUserManagerModel
+        userManagerModel.setPassword(BCryptUtil.hashpw(userManagerModel
                 .getPassword(), BCryptUtil.gensalt(12)));
 
-        userManagerMapper.insertNewUser(userUserManagerModel);
-        return userUserManagerModel;
+        userManagerMapper.insertNewUser(userManagerModel);
+        return userManagerModel;
     }
 }

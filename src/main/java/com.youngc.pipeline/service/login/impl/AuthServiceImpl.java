@@ -3,7 +3,7 @@ package com.youngc.pipeline.service.login.impl;
 import com.youngc.pipeline.exception.ServiceException;
 import com.youngc.pipeline.mapper.login.AuthTokenMapper;
 import com.youngc.pipeline.mapper.login.AuthUserMapper;
-import com.youngc.pipeline.model.UserUserManagerModel;
+import com.youngc.pipeline.model.UserManagerModel;
 import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.service.login.AuthService;
 import com.youngc.pipeline.utils.BCryptUtil;
@@ -31,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
 
     public Map login(String userName, String rawPassword) throws ServiceException {
 
-        UserUserManagerModel user = authUserMapper.getUserByUsername(userName);
+        UserManagerModel user = authUserMapper.getUserByUsername(userName);
 
         // login successfully
         if (BCryptUtil.checkpw(rawPassword, user.getPassword())) {

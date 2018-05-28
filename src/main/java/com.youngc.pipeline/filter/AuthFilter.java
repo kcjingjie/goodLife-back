@@ -1,7 +1,7 @@
 package com.youngc.pipeline.filter;
 
 import com.youngc.pipeline.bean.context.UserBean;
-import com.youngc.pipeline.model.UserUserManagerModel;
+import com.youngc.pipeline.model.UserManagerModel;
 import com.youngc.pipeline.service.login.AuthService;
 import com.youngc.pipeline.service.system.UserManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,12 +92,12 @@ public class AuthFilter implements Filter {
         }
 
         Long userId = authService.getUserIdByToken(token);
-        UserUserManagerModel userUserManagerModel = userManagerService.getUserDetails(userId);
+        UserManagerModel userManagerModel = userManagerService.getUserDetails(userId);
 
         UserBean userBean = new UserBean();
 
-        userBean.setUserId(userUserManagerModel.getId());
-        userBean.setUserName(userUserManagerModel.getUserName());
+        userBean.setUserId(userManagerModel.getId());
+        userBean.setUserName(userManagerModel.getUserName());
         //userBean.setToken(token);
         // 数据库中没有相关字段
         //userBean.setUserRole("user");

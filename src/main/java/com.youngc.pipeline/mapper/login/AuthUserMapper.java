@@ -1,6 +1,6 @@
 package com.youngc.pipeline.mapper.login;
 
-import com.youngc.pipeline.model.UserUserManagerModel;
+import com.youngc.pipeline.model.UserManagerModel;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public interface AuthUserMapper {
 
     @Select(" SELECT id, user_name, password, real_name FROM sys_user WHERE user_name = #{username}")
-    UserUserManagerModel getUserByUsername(@Param("username") String username);
+    UserManagerModel getUserByUsername(@Param("username") String username);
 
     @Select(" SELECT password FROM sys_user" +
             " WHERE user_name = #{username}")

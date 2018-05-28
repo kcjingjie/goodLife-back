@@ -1,7 +1,7 @@
 package com.youngc.pipeline.controller.system;
 
 import com.youngc.pipeline.bean.param.UserBean;
-import com.youngc.pipeline.model.UserUserManagerModel;
+import com.youngc.pipeline.model.UserManagerModel;
 import com.youngc.pipeline.result.Result;
 import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.result.ResultGenerator;
@@ -47,21 +47,20 @@ public class UserManagerController {
     public Result putUser(@RequestBody UserBean userBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
-        System.out.println((com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user"));
-        UserUserManagerModel userUserManagerModel = new UserUserManagerModel();
+        UserManagerModel usersManagerModel = new UserManagerModel();
 
-        userUserManagerModel.setId(userBean.getId());
-        userUserManagerModel.setUserName(userBean.getUserName());
-        userUserManagerModel.setRealName(userBean.getRealName());
-        userUserManagerModel.setUserPhone(userBean.getUserPhone());
-        userUserManagerModel.setUserAddress(userBean.getUserAddress());
-        userUserManagerModel.setUserEmail(userBean.getUserEmail());
-        userUserManagerModel.setUserSex(userBean.getUserSex());
+        usersManagerModel.setId(userBean.getId());
+        usersManagerModel.setUserName(userBean.getUserName());
+        usersManagerModel.setRealName(userBean.getRealName());
+        usersManagerModel.setUserPhone(userBean.getUserPhone());
+        usersManagerModel.setUserAddress(userBean.getUserAddress());
+        usersManagerModel.setUserEmail(userBean.getUserEmail());
+        usersManagerModel.setUserSex(userBean.getUserSex());
 
-        userUserManagerModel.setLastPerson(user.getUserId());
-        userUserManagerModel.setLastTime(Calendar.getInstance().getTime());
+        usersManagerModel.setLastPerson(user.getUserId());
+        usersManagerModel.setLastTime(Calendar.getInstance().getTime());
 
-        return ResultGenerator.generate(ResultCode.SUCCESS, userManagerService.updateUserDetails(userUserManagerModel));
+        return ResultGenerator.generate(ResultCode.SUCCESS, userManagerService.updateUserDetails(usersManagerModel));
     }
 
     /**
@@ -73,24 +72,44 @@ public class UserManagerController {
     public Result postUser(@RequestBody UserBean userBean) {
          com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+        UserManagerModel usersManagerModel = new UserManagerModel();
 
-        UserUserManagerModel userUserManagerModel = new UserUserManagerModel();
+        usersManagerModel.setUserName(userBean.getUserName());
+        usersManagerModel.setRealName(userBean.getRealName());
+        usersManagerModel.setPassword(userBean.getPassword());
 
-        userUserManagerModel.setUserName(userBean.getUserName());
-        userUserManagerModel.setRealName(userBean.getRealName());
-        userUserManagerModel.setPassword(userBean.getPassword());
-        userUserManagerModel.setUserAddress(userBean.getUserAddress());
-        userUserManagerModel.setUserEmail(userBean.getUserEmail());
-        userUserManagerModel.setUserPhone(userBean.getUserPhone());
-        userUserManagerModel.setUserSex(userBean.getUserSex());
-        userUserManagerModel.setUserBirth(userBean.getUserBirth());
-
-        userUserManagerModel.setAddPerson(user.getUserId());
-        userUserManagerModel.setAddTime(Calendar.getInstance().getTime());
-        userUserManagerModel.setLastPerson(user.getUserId());
-        userUserManagerModel.setLastTime(Calendar.getInstance().getTime());
+        usersManagerModel.setAddPerson(user.getUserId());
+        usersManagerModel.setAddTime(Calendar.getInstance().getTime());
+        usersManagerModel.setLastPerson(user.getUserId());
+        usersManagerModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS,
-                userManagerService.addUser(userUserManagerModel));
+                userManagerService.addUser(usersManagerModel));
+    }
+
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
+    @DeleteMapping("/{userId}")
+    public Result deleteUser(@PathVariable Long userId) {
+
+        userManagerService.deleteUser(userId);
+
+        return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
+
+    /**
+     * 批量删除用户
+     * @param deleteIds
+     * @return
+     */
+    @DeleteMapping
+    public Result deleteUserList(@RequestParam("deleteIds") String deleteIds) {
+
+        userManagerService.deleteUserList(deleteIds);
+
+        return ResultGenerator.generate(ResultCode.SUCCESS);
     }
 }
