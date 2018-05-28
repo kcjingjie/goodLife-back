@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserUserManagerModel {
+public class UserManagerModel {
 
     private Long id;
 

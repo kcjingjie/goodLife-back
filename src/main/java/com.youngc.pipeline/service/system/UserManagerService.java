@@ -1,18 +1,18 @@
 package com.youngc.pipeline.service.system;
 
 import com.github.pagehelper.Page;
-import com.youngc.pipeline.model.UserUserManagerModel;
+import com.youngc.pipeline.model.UserManagerModel;
 
 public interface UserManagerService {
-    UserUserManagerModel getUserDetails(Long userId);
+    UserManagerModel getUserDetails(Long userId);
 
-    UserUserManagerModel updateUserDetails(UserUserManagerModel userUserManagerModel);
+    UserManagerModel updateUserDetails(UserManagerModel userManagerModel);
 
     boolean deleteUser(Long userId);
 
     boolean deleteUserList(String userIds);
 
-    UserUserManagerModel addUser(UserUserManagerModel userUserManagerModel);
+    UserManagerModel addUser(UserManagerModel userManagerModel);
 
     Page getList(String keyword, int pageNum, int pageSize);
 
