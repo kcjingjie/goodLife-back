@@ -20,8 +20,8 @@ public interface UserManagerMapper {
             " last_person = #{lastPerson}, last_time = now() WHERE id = #{userId}")
     int updatePassword(@Param("userId") Long userId, @Param("newPassword") String newPassword, @Param("lastPerson") Long lastPerson);
 
-    @Insert(" INSERT INTO sys_user (user_name, password, real_name, add_person, add_time, last_person, last_time)" +
-            " VALUES(#{userName}, #{password}, #{realName}, #{addPerson}, #{addTime}, #{lastPerson}, #{lastTime})")
+    @Insert(" INSERT INTO sys_user (user_name, password, real_name,unit_id,user_sex,user_birth,user_phone,user_email,user_address, add_person, add_time, last_person, last_time)" +
+            " VALUES(#{userName}, #{password}, #{realName},0,#{userSex},#{userBirth},#{userPhone},#{userEmail},#{userAddress}, #{addPerson}, #{addTime}, #{lastPerson}, #{lastTime})")
     @Options(useGeneratedKeys = true, keyColumn = "id")
     int insertNewUser(UserUserManagerModel userUserManagerModel);
 
