@@ -86,4 +86,30 @@ public class UserManagerController {
         return ResultGenerator.generate(ResultCode.SUCCESS,
                 userManagerService.addUser(usersManagerModel));
     }
+
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
+    @DeleteMapping("/{userId}")
+    public Result deleteUser(@PathVariable Long userId) {
+
+        userManagerService.deleteUser(userId);
+
+        return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
+
+    /**
+     * 批量删除用户
+     * @param deleteIds
+     * @return
+     */
+    @DeleteMapping
+    public Result deleteUserList(@RequestParam("deleteIds") String deleteIds) {
+
+        userManagerService.deleteUserList(deleteIds);
+
+        return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
 }
