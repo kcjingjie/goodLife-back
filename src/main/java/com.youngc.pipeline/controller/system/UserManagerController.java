@@ -77,7 +77,11 @@ public class UserManagerController {
         usersManagerModel.setUserName(userBean.getUserName());
         usersManagerModel.setRealName(userBean.getRealName());
         usersManagerModel.setPassword(userBean.getPassword());
-
+        usersManagerModel.setUserAddress(userBean.getUserAddress());
+        usersManagerModel.setUserBirth(userBean.getUserBirth());
+        usersManagerModel.setUserEmail(userBean.getUserEmail());
+        usersManagerModel.setUserSex(userBean.getUserSex());
+        usersManagerModel.setUserPhone(userBean.getUserPhone());
         usersManagerModel.setAddPerson(user.getUserId());
         usersManagerModel.setAddTime(Calendar.getInstance().getTime());
         usersManagerModel.setLastPerson(user.getUserId());
