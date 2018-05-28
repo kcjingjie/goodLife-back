@@ -116,4 +116,16 @@ public class UserManagerController {
 
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
+
+    /**
+     * 修改密码
+     */
+    @PostMapping("/{userId}/password")
+    public Result updatePassword(@PathVariable Long userId, @RequestParam String password) {
+        com.youngc.pipeline.bean.context.UserBean user
+                = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+
+        userManagerService.updatePassword(userId, password, user.getUserId());
+        return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
 }
