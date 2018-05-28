@@ -19,9 +19,9 @@ public class AuthController {
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     @ResponseBody
-    Result login(String username, String password) {
+    Result login(String userName, String password) {
 
-        if (username == null || username.equals("")) {
+        if (userName == null || userName.equals("")) {
 
             return ResultGenerator.generate(ResultCode.FAIL);
         }
@@ -30,7 +30,7 @@ public class AuthController {
             return ResultGenerator.generate(ResultCode.FAIL);
         }
 
-        return ResultGenerator.generate(ResultCode.SUCCESS, authService.login(username, password));
+        return ResultGenerator.generate(ResultCode.SUCCESS, authService.login(userName, password));
     }
 
 //    @PostMapping("/updatePassword")

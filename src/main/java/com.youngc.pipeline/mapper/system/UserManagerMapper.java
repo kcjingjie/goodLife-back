@@ -12,8 +12,8 @@ public interface UserManagerMapper {
             " FROM sys_user WHERE id = #{userId}")
     UserUserManagerModel getUserInfo(@Param("userId") Long userId);
 
-    @Update(" UPDATE sys_user SET user_name = #{username}, real_name = #{realname}," +
-            " last_person = #{lastPerson}, last_time = #{lastTime} WHERE id = #{id}")
+    @Update(" UPDATE sys_user SET user_name = #{userName}, real_name = #{realName},user_phone=#{userPhone},user_email=#{userEmail},user_address=#{userAddress}," +
+            " user_sex=#{userSex},last_person = #{lastPerson}, last_time = #{lastTime} WHERE id = #{id}")
     int updateUserInfo(UserUserManagerModel userUserManagerModel);
 
     @Update(" UPDATE sys_user SET password = #{newPassword}," +
@@ -21,7 +21,7 @@ public interface UserManagerMapper {
     int updatePassword(@Param("userId") Long userId, @Param("newPassword") String newPassword, @Param("lastPerson") Long lastPerson);
 
     @Insert(" INSERT INTO sys_user (user_name, password, real_name, add_person, add_time, last_person, last_time)" +
-            " VALUES(#{username}, #{password}, #{realname}, #{addPerson}, #{addTime}, #{lastPerson}, #{lastTime})")
+            " VALUES(#{userName}, #{password}, #{realName}, #{addPerson}, #{addTime}, #{lastPerson}, #{lastTime})")
     @Options(useGeneratedKeys = true, keyColumn = "id")
     int insertNewUser(UserUserManagerModel userUserManagerModel);
 
