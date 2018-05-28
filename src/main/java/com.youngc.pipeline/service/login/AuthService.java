@@ -8,11 +8,11 @@ import java.util.Map;
 public interface AuthService {
     /**
      * 登录
-     * @param username
+     * @param userName
      * @param password
      * @return
      */
-    Map login(String username, String password);
+    Map login(String userName, String password);
 
     /**
      * 更新密码

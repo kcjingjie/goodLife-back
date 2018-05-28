@@ -16,7 +16,6 @@ public class WebConfig extends WebMvcConfigurationSupport {
     protected void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedHeaders("*, X-Auth-Token")
-                .allowedHeaders("Access-Control-Allow-Origin", "*")
                 .allowedMethods("*")
                 .allowedOrigins("*");
 

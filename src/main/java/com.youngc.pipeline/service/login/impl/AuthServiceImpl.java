@@ -29,9 +29,9 @@ public class AuthServiceImpl implements AuthService {
 
     private Long zero = 0L;
 
-    public Map login(String username, String rawPassword) throws ServiceException {
+    public Map login(String userName, String rawPassword) throws ServiceException {
 
-        UserUserManagerModel user = authUserMapper.getUserByUsername(username);
+        UserUserManagerModel user = authUserMapper.getUserByUsername(userName);
 
         // login successfully
         if (BCryptUtil.checkpw(rawPassword, user.getPassword())) {
@@ -48,8 +48,8 @@ public class AuthServiceImpl implements AuthService {
             }
             Map<String, Object> result = new HashMap<String, Object>();
             result.put("token", token);
-            result.put("username", username);
-            result.put("realname", user.getRealName());
+            result.put("userName", userName);
+            result.put("realName", user.getRealName());
             return result;
         }
 
