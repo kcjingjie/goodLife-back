@@ -90,12 +90,11 @@ public class DictionaryQueryController {
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DictionaryQueryModel dictionaryQueryModel = new DictionaryQueryModel();
 
+        dictionaryQueryModel.setId(dictionaryQueryBean.getId());
         dictionaryQueryModel.setDictValue(dictionaryQueryBean.getDictValue());
         dictionaryQueryModel.setDictName(dictionaryQueryBean.getDictName());
         dictionaryQueryModel.setRemark(dictionaryQueryBean.getRemark());
         dictionaryQueryModel.setStatus(dictionaryQueryBean.getStatus());
-        dictionaryQueryModel.setAddPerson(user.getUserId());
-        dictionaryQueryModel.setAddTime(Calendar.getInstance().getTime());
         dictionaryQueryModel.setLastPerson(user.getUserId());
         dictionaryQueryModel.setLastTime(Calendar.getInstance().getTime());
 
