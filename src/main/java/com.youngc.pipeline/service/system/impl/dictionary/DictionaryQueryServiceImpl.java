@@ -23,4 +23,18 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
         dictionaryQueryMapper.insertNewDict(dictionaryQueryModel);
         return dictionaryQueryModel;
     }
+
+    public DictionaryQueryModel getDictInfo(Long id) {
+        return dictionaryQueryMapper.getDictInfo(id);
+    }
+
+    public DictionaryQueryModel updateDictInfo(DictionaryQueryModel dictionaryQueryModel) {
+        dictionaryQueryMapper.updateDictInfo(dictionaryQueryModel);
+        return dictionaryQueryModel;
+    }
+
+    public boolean deleteDictList(String idList) {
+        dictionaryQueryMapper.deleteDictList(idList);
+        return true;
+    }
 }
