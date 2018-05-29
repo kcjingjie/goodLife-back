@@ -17,7 +17,7 @@ public interface DictionaryQueryMapper {
     List<DictionaryQueryModel> getList(String keyword);
 
     @Insert(" INSERT INTO sys_dictionary (dict_value, dict_name, status,remark,add_person, add_time, last_person, last_time)" +
-            " VALUES(#{dictValue}, #{dictName}, 0,#{remark}, #{addPerson}, #{addTime}, #{lastPerson}, #{lastTime})")
+            " VALUES(#{dictValue}, #{dictName}, #{status},#{remark}, #{addPerson}, #{addTime}, #{lastPerson}, #{lastTime})")
     @Options(useGeneratedKeys = true, keyColumn = "id")
     int insertNewDict(DictionaryQueryModel dictionaryQueryModel);
 }
