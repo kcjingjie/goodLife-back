@@ -1,4 +1,4 @@
-package com.youngc.pipeline.service.system.dictionary;
+package com.youngc.pipeline.service.system;
 
 import com.github.pagehelper.Page;
 import com.youngc.pipeline.model.DictionaryQueryModel;

@@ -1,18 +1,15 @@
-package com.youngc.pipeline.controller.system.dictionary;
+package com.youngc.pipeline.controller.system;
 
 import com.youngc.pipeline.bean.param.DictionaryQueryBean;
-import com.youngc.pipeline.bean.param.UserBean;
 import com.youngc.pipeline.model.DictionaryQueryModel;
-import com.youngc.pipeline.model.UserManagerModel;
 import com.youngc.pipeline.result.Result;
 import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.result.ResultGenerator;
-import com.youngc.pipeline.service.system.dictionary.DictionaryQueryService;
+import com.youngc.pipeline.service.system.DictionaryQueryService;
 import com.youngc.pipeline.utils.RequestContextHolderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.PublicKey;
 import java.util.Calendar;
 
 @RestController

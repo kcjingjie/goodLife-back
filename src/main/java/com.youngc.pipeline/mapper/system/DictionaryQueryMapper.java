@@ -1,4 +1,4 @@
-package com.youngc.pipeline.mapper.system.dictionary;
+package com.youngc.pipeline.mapper.system;
 
 import com.youngc.pipeline.model.DictionaryQueryModel;
 import com.youngc.pipeline.model.UserManagerModel;

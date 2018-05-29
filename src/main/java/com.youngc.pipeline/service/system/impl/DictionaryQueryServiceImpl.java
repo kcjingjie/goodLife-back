@@ -1,10 +1,10 @@
-package com.youngc.pipeline.service.system.impl.dictionary;
+package com.youngc.pipeline.service.system.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.youngc.pipeline.mapper.system.dictionary.DictionaryQueryMapper;
+import com.youngc.pipeline.mapper.system.DictionaryQueryMapper;
 import com.youngc.pipeline.model.DictionaryQueryModel;
-import com.youngc.pipeline.service.system.dictionary.DictionaryQueryService;
+import com.youngc.pipeline.service.system.DictionaryQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
