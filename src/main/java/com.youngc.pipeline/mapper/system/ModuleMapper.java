@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Component
 public interface ModuleMapper {
-    @Select(" SELECT group_id, group_name, parent_id" +
-            " FROM device_group ")
+    @Select(" SELECT module_id, module_name, pid" +
+            " FROM sys_module ")
     List<Map> getTree();
 }
