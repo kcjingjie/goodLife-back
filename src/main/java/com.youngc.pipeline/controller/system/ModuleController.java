@@ -6,10 +6,7 @@ import com.youngc.pipeline.result.ResultGenerator;
 import com.youngc.pipeline.service.system.ModuleService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author liweiqiang
@@ -25,5 +22,12 @@ public class ModuleController {
     public Result getTree(@RequestParam String keyword) {
 
         return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getTree(keyword));
+    }
+
+    @ApiOperation("获取模块信息")
+    @GetMapping("/{moduleId}")
+    public Result getGroupInfo(@PathVariable Long moduleId) {
+
+        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getModuleDetails(moduleId));
     }
 }

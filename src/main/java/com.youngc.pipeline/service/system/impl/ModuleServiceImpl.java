@@ -75,4 +75,11 @@ public class ModuleServiceImpl implements ModuleService {
         }
         return children;
     }
+
+    /**
+     * 查询模块信息
+     */
+    public ModuleModel getModuleDetails(Long moduleId){
+        return moduleMapper.getModuleInfo(moduleId);
+    }
 }

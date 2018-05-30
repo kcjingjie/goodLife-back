@@ -14,11 +14,11 @@ public interface ModuleService {
      */
     List<TreeNode> getTree(String  keyword);
 
-//    /**
-//     * 查询模块信息
-//     */
-//    ModuleModel getModuleDetails(Long userId);
-//
+    /**
+     * 查询模块信息
+     */
+    ModuleModel getModuleDetails(Long userId);
+
 //    /**
 //     * 更新模块信息
 //     */
