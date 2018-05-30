@@ -43,8 +43,8 @@ public interface DictionaryQueryMapper {
     /**
      * 数据字典内容sys_dict_data操作
      */
-    @Select(" SELECT * FROM sys_dict_data where dict_value=#{dictValue}; " )
-    List<DictionaryValueModel> getDictValueList(@Param("dictValue") String value);
+    @Select(" SELECT * FROM sys_dict_data where dict_value=#{dictValue}" )
+    List<DictionaryValueModel> getDictValueList(@Param("dictValue") String dictValue);
 
     @Select(" SELECT * " +
             " FROM sys_dict_data WHERE id = #{id}")
