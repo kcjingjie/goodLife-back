@@ -30,8 +30,6 @@ public class ModuleModel {
 
     private Long status;
 
-    private Long level;
-
     private Long priority;
 
     private String icon;

@@ -14,8 +14,6 @@ public class ModuleBean {
 
     private Long moduleId;
 
-    private Long userId;
-
     private Long pid;
 
     private String moduleName;
@@ -30,17 +28,7 @@ public class ModuleBean {
 
     private Long status;
 
-    private Long level;
-
     private Long priority;
 
     private String icon;
-
-    private Long addPerson;
-
-    private Date addTime;
-
-    private Long lastPerson;
-
-    private Date lastTime;
 }

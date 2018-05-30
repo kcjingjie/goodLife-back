@@ -49,7 +49,7 @@ public class UserManagerController {
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         UserManagerModel usersManagerModel = new UserManagerModel();
 
-        usersManagerModel.setId(userBean.getId());
+        usersManagerModel.setUserId(userBean.getUserId());
         usersManagerModel.setUserName(userBean.getUserName());
         usersManagerModel.setRealName(userBean.getRealName());
         usersManagerModel.setUserPhone(userBean.getUserPhone());

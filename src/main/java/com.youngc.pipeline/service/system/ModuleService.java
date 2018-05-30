@@ -19,18 +19,18 @@ public interface ModuleService {
      */
     ModuleModel getModuleDetails(Long userId);
 
-//    /**
-//     * 更新模块信息
-//     */
-//    ModuleModel updateModuleDetails(ModuleModel moduleModel);
-//
+    /**
+     * 更新模块信息
+     */
+    ModuleModel updateModuleDetails(ModuleModel moduleModel);
+
 //    /**
 //     * 删除模块
 //     */
 //    boolean deleteModule(Long userId);
 //
-//    /**
-//     * 添加模块
-//     */
-//    ModuleModel addModule(ModuleModel moduleModel);
+    /**
+     * 添加模块
+     */
+    ModuleModel addModule(ModuleModel moduleModel);
 }

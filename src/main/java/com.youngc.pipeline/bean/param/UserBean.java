@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 public class UserBean {
 
-    private Long id;
+    private Long userId;
 
     private String userName;
 
@@ -30,11 +30,4 @@ public class UserBean {
 
     private Long status;
 
-    private Long addPerson;
-
-    private Date addTime;
-
-    private Long lastPerson;
-
-    private Date lastTime;
 }

@@ -1,12 +1,18 @@
 package com.youngc.pipeline.controller.system;
 
+import com.youngc.pipeline.bean.param.ModuleBean;
+import com.youngc.pipeline.bean.context.UserBean;
+import com.youngc.pipeline.model.ModuleModel;
 import com.youngc.pipeline.result.Result;
 import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.result.ResultGenerator;
 import com.youngc.pipeline.service.system.ModuleService;
+import com.youngc.pipeline.utils.RequestContextHolderUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Calendar;
 
 /**
  * @author liweiqiang
@@ -29,5 +35,51 @@ public class ModuleController {
     public Result getGroupInfo(@PathVariable Long moduleId) {
 
         return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getModuleDetails(moduleId));
+    }
+
+    @ApiOperation("修改模块信息")
+    @PutMapping
+    public Result getGroupInfo(@RequestBody ModuleBean moduleBean) {
+        UserBean user = (UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+
+        ModuleModel moduleModel = new ModuleModel();
+        moduleModel.setModuleName(moduleBean.getModuleName());
+        moduleModel.setIcon(moduleBean.getIcon());
+        moduleModel.setControlId(moduleBean.getControlId());
+        moduleModel.setType(moduleBean.getType());
+        moduleModel.setStatus(moduleBean.getStatus());
+        moduleModel.setModulePath(moduleBean.getModulePath());
+        moduleModel.setPid(moduleBean.getPid());
+        moduleModel.setPriority(moduleBean.getPriority());
+        moduleModel.setModuleDesc(moduleBean.getModuleDesc());
+        moduleModel.setModuleId(moduleBean.getModuleId());
+
+        moduleModel.setLastPerson(user.getUserId());
+        moduleModel.setLastTime(Calendar.getInstance().getTime());
+
+        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.updateModuleDetails(moduleModel));
+    }
+
+    @ApiOperation("添加模块信息")
+    @PostMapping
+    public Result postGroupInfo(@RequestBody ModuleBean moduleBean) {
+        UserBean user = (UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+
+        ModuleModel moduleModel = new ModuleModel();
+        moduleModel.setModuleName(moduleBean.getModuleName());
+        moduleModel.setIcon(moduleBean.getIcon());
+        moduleModel.setControlId(moduleBean.getControlId());
+        moduleModel.setType(moduleBean.getType());
+        moduleModel.setStatus(moduleBean.getStatus());
+        moduleModel.setModulePath(moduleBean.getModulePath());
+        moduleModel.setPid(moduleBean.getPid());
+        moduleModel.setPriority(moduleBean.getPriority());
+        moduleModel.setModuleDesc(moduleBean.getModuleDesc());
+        moduleModel.setModuleId(moduleBean.getModuleId());
+
+        moduleModel.setLastPerson(user.getUserId());
+        moduleModel.setLastTime(Calendar.getInstance().getTime());
+
+        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.addModule(moduleModel));
     }
 }

@@ -37,14 +37,14 @@ public class AuthServiceImpl implements AuthService {
         if (BCryptUtil.checkpw(rawPassword, user.getPassword())) {
 
             // 重新登录 或者 首次登录 都会生成新的 token
-            String token = EncryptUtil.encodeMD5(user.getId() + Calendar.getInstance().getTime().toString());
+            String token = EncryptUtil.encodeMD5(user.getUserId() + Calendar.getInstance().getTime().toString());
 
             // user already logged in
-            if (!zero.equals(authTokenMapper.isTokenExistsById(user.getId()))) {
-                authTokenMapper.updateToken(user.getId(), token);
+            if (!zero.equals(authTokenMapper.isTokenExistsById(user.getUserId()))) {
+                authTokenMapper.updateToken(user.getUserId(), token);
             } else {
                 // 用户首次登陆
-                authTokenMapper.insertNewToken(user.getId(), token);
+                authTokenMapper.insertNewToken(user.getUserId(), token);
             }
             Map<String, Object> result = new HashMap<String, Object>();
             result.put("token", token);

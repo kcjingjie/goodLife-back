@@ -96,7 +96,7 @@ public class AuthFilter implements Filter {
 
         UserBean userBean = new UserBean();
 
-        userBean.setUserId(userManagerModel.getId());
+        userBean.setUserId(userManagerModel.getUserId());
         userBean.setUserName(userManagerModel.getUserName());
         //userBean.setToken(token);
         // 数据库中没有相关字段

@@ -79,7 +79,23 @@ public class ModuleServiceImpl implements ModuleService {
     /**
      * 查询模块信息
      */
-    public ModuleModel getModuleDetails(Long moduleId){
+    public ModuleModel getModuleDetails(Long moduleId) {
         return moduleMapper.getModuleInfo(moduleId);
+    }
+
+    /**
+     * 更新模块信息
+     */
+    public ModuleModel updateModuleDetails(ModuleModel moduleModel) {
+        moduleMapper.update(moduleModel);
+        return moduleModel;
+    }
+
+    /**
+     * 添加模块信息
+     */
+    public ModuleModel addModule(ModuleModel moduleModel) {
+        moduleMapper.update(moduleModel);
+        return moduleModel;
     }
 }
