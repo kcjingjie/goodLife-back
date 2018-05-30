@@ -12,7 +12,7 @@ import java.util.Map;
  */
 @Component
 public interface ModuleMapper {
-    @Select(" SELECT module_id, module_name, pid" +
+    @Select(" SELECT module_id, module_name, pid,icon" +
             " FROM sys_module ")
     List<Map> getTree();
 

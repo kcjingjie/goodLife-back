@@ -30,6 +30,13 @@ public class ModuleController {
         return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getTree(keyword));
     }
 
+    @ApiOperation("获取菜单树")
+    @GetMapping("/moduleTree")
+    public Result getModuleTree(@RequestParam String keyword) {
+
+        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getModuleTree(keyword));
+    }
+
     @ApiOperation("获取模块信息")
     @GetMapping("/{moduleId}")
     public Result getGroupInfo(@PathVariable Long moduleId) {

@@ -1,5 +1,6 @@
 package com.youngc.pipeline.service.system;
 
+import com.youngc.pipeline.bean.context.ModuleTreeNode;
 import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.model.ModuleModel;
 
@@ -13,6 +14,11 @@ public interface ModuleService {
      * 查询模块树
      */
     List<TreeNode> getTree(String  keyword);
+
+    /**
+     * 查询菜单树
+     */
+    List<ModuleTreeNode> getModuleTree(String  keyword);
 
     /**
      * 查询模块信息

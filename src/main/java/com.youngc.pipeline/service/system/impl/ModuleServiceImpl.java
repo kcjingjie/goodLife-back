@@ -1,5 +1,6 @@
 package com.youngc.pipeline.service.system.impl;
 
+import com.youngc.pipeline.bean.context.ModuleTreeNode;
 import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.mapper.system.ModuleMapper;
 import com.youngc.pipeline.model.ModuleModel;
@@ -70,6 +71,65 @@ public class ModuleServiceImpl implements ModuleService {
                 node.setId(((Integer) (group.get("module_id"))).toString());
                 node.setName((String) (group.get("module_name")));
                 node.setChildren(getChilds(groups, (Integer) (group.get("module_id"))));
+                children.add(node);
+            }
+        }
+        return children;
+    }
+
+    /**
+     * 查询菜单树
+     */
+    public List<ModuleTreeNode> getModuleTree(String  keyword){
+        List<Map> modules;
+
+        List<Map> okModule = new ArrayList<Map>();
+
+        List<Map> noModule = new ArrayList<Map>();
+
+        List<ModuleTreeNode> tree = new ArrayList<ModuleTreeNode>();
+
+        modules = moduleMapper.getTree();
+
+        for (Map map : modules) {
+            if (((String) (map.get("module_name"))).contains(keyword)) {
+                okModule.add(map);
+            } else {
+                noModule.add(map);
+            }
+        }
+        for (int i = 0; i < okModule.size(); i++) {
+            if (((Integer) (okModule.get(i).get("pid"))) != 0) {
+                for (Map map1 : noModule) {
+                    if (okModule.get(i).get("pid").equals(map1.get("module_id"))) {
+                        if (!okModule.contains(map1)) {
+                            okModule.add(map1);
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < okModule.size(); i++) {
+            if (((Integer) (okModule.get(i).get("pid"))) == 0) {
+                ModuleTreeNode root = new ModuleTreeNode();
+                root.setIcon(okModule.get(i).get("icon").toString());
+                root.setName((String) (okModule.get(i).get("module_name")));
+                root.setChildren(getModuleChilds(okModule, (Integer)(okModule.get(i).get("pid"))));
+                tree.add(root);
+            }
+        }
+        return tree;
+    }
+
+    List<ModuleTreeNode> getModuleChilds(List<Map> modules, Integer parentId) {
+        List<ModuleTreeNode> children = new ArrayList<ModuleTreeNode>();
+        for (Map module : modules) {
+            if ((module.get("pid")).equals(parentId)) {
+                ModuleTreeNode node = new ModuleTreeNode();
+                node.setIcon(((module.get("icon"))).toString());
+                node.setName((String) (module.get("module_name")));
+                node.setChildren(getModuleChilds(modules,(Integer)(module.get("pid"))));
                 children.add(node);
             }
         }
