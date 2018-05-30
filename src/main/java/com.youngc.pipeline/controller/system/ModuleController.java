@@ -84,4 +84,11 @@ public class ModuleController {
 
         return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.addModule(moduleModel));
     }
+
+    @ApiOperation("删除模块信息")
+    @DeleteMapping
+    public Result deleteModule(@RequestParam Long moduleId) {
+        moduleService.deleteModule(moduleId);
+        return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
 }

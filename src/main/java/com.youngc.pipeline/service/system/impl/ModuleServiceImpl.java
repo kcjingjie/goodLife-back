@@ -98,4 +98,12 @@ public class ModuleServiceImpl implements ModuleService {
         moduleMapper.addModule(moduleModel);
         return moduleModel;
     }
+
+    /**
+     * 删除模块
+     */
+    public void deleteModule(Long moduleId){
+        moduleMapper.deleteModule(moduleId);
+    }
+
 }

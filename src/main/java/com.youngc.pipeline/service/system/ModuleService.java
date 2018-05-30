@@ -24,11 +24,11 @@ public interface ModuleService {
      */
     ModuleModel updateModuleDetails(ModuleModel moduleModel);
 
-//    /**
-//     * 删除模块
-//     */
-//    boolean deleteModule(Long userId);
-//
+    /**
+     * 删除模块
+     */
+    void deleteModule(Long userId);
+
     /**
      * 添加模块
      */

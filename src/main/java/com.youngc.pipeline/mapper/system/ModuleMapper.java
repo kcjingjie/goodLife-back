@@ -28,8 +28,11 @@ public interface ModuleMapper {
 
     @Insert(" insert into sys_module(pid,module_name,control_id,module_path,module_desc,type,status,priority,icon," +
             " add_person,add_time,last_person,last_time)" +
-            " values(#{pid},#{moduleName},#{controlId},#{modulePath},#{moduleDesc},#{type},#{status},#{priority},#{icon},#{AddPerson},"+
-            " #{addTime},#{lastPerson},#{lastTime};")
+            " values(#{pid},#{moduleName},#{controlId},#{modulePath},#{moduleDesc},#{type},#{status},#{priority},#{icon},#{addPerson},"+
+            " #{addTime},#{lastPerson},#{lastTime});")
     @Options(useGeneratedKeys = true, keyProperty = "moduleId", keyColumn = "module_id")
     int addModule(ModuleModel moduleModel);
+
+    @Delete(" DELETE  FROM  sys_module WHERE module_id = #{moduleId}")
+    int deleteModule(@Param("moduleId") Long moduleId);
 }
