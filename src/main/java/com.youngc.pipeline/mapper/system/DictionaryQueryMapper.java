@@ -29,4 +29,8 @@ public interface DictionaryQueryMapper {
     @Update(" UPDATE sys_dictionary SET dict_value = #{dictValue}, dict_name = #{dictName},status=#{status},remark=#{remark}," +
             " last_person = #{lastPerson}, last_time = #{lastTime} WHERE id = #{id}")
     int updateDictInfo(DictionaryQueryModel dictionaryQueryModel);
+
+    @Select(" SELECT * " +
+            " FROM sys_dictionary WHERE dict_value = #{value}")
+    DictionaryQueryModel getDictInfoByValue(@Param("value") String value);
 }

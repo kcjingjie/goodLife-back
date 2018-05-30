@@ -15,4 +15,6 @@ public interface DictionaryQueryService {
     DictionaryQueryModel updateDictInfo(DictionaryQueryModel dictionaryQueryModel);
 
     boolean deleteDictList(String idList);
+
+    DictionaryQueryModel getDictInfoByValue(String value);
 }

@@ -101,4 +101,11 @@ public class DictionaryQueryController {
         return ResultGenerator.generate(ResultCode.SUCCESS, dictionaryQueryService.updateDictInfo(dictionaryQueryModel));
     }
 
+    /**
+     * 根据value查询数据字典中的数据是否存在
+     */
+    @GetMapping(value="/getByValue")
+    public Result getInfoByValue(@RequestParam("value") String value) {
+        return ResultGenerator.generate(ResultCode.SUCCESS, dictionaryQueryService.getDictInfoByValue(value));
+    }
 }
