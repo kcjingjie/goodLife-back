@@ -66,6 +66,7 @@ public class ModuleController {
         UserBean user = (UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
 
         ModuleModel moduleModel = new ModuleModel();
+
         moduleModel.setModuleName(moduleBean.getModuleName());
         moduleModel.setIcon(moduleBean.getIcon());
         moduleModel.setControlId(moduleBean.getControlId());
@@ -75,8 +76,9 @@ public class ModuleController {
         moduleModel.setPid(moduleBean.getPid());
         moduleModel.setPriority(moduleBean.getPriority());
         moduleModel.setModuleDesc(moduleBean.getModuleDesc());
-        moduleModel.setModuleId(moduleBean.getModuleId());
 
+        moduleModel.setAddPerson(user.getUserId());
+        moduleModel.setAddTime(Calendar.getInstance().getTime());
         moduleModel.setLastPerson(user.getUserId());
         moduleModel.setLastTime(Calendar.getInstance().getTime());
 

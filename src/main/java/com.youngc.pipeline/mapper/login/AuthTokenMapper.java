@@ -17,8 +17,8 @@ public interface AuthTokenMapper {
     @Select(" SELECT COUNT(user_id) FROM sys_token WHERE user_id = #{userId}")
     Integer isTokenExistsById(@Param("userId") Long userId);
 
-    @Insert(" INSERT INTO sys_token (user_id, token) VALUES (#{id}, #{token})")
-    int insertNewToken(@Param("id") Long userId, @Param("token") String token);
+    @Insert(" INSERT INTO sys_token (user_id, token) VALUES (#{userId}, #{token})")
+    int insertNewToken(@Param("userId") Long userId, @Param("token") String token);
 
     @Update(" UPDATE sys_token SET token = #{newToken}" +
             " WHERE user_id = #{userId}")

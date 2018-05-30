@@ -95,7 +95,7 @@ public class ModuleServiceImpl implements ModuleService {
      * 添加模块信息
      */
     public ModuleModel addModule(ModuleModel moduleModel) {
-        moduleMapper.update(moduleModel);
+        moduleMapper.addModule(moduleModel);
         return moduleModel;
     }
 }
