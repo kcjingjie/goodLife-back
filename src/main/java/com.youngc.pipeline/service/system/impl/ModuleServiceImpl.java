@@ -80,42 +80,26 @@ public class ModuleServiceImpl implements ModuleService {
     /**
      * 查询菜单树
      */
-    public List<ModuleTreeNode> getModuleTree(String  keyword){
+    public List<ModuleTreeNode> getModuleTree(String keyword) {
         List<Map> modules;
 
         List<Map> okModule = new ArrayList<Map>();
-
-        List<Map> noModule = new ArrayList<Map>();
 
         List<ModuleTreeNode> tree = new ArrayList<ModuleTreeNode>();
 
         modules = moduleMapper.getTree();
 
         for (Map map : modules) {
-            if (((String) (map.get("module_name"))).contains(keyword)) {
-                okModule.add(map);
-            } else {
-                noModule.add(map);
-            }
+            okModule.add(map);
         }
-        for (int i = 0; i < okModule.size(); i++) {
-            if (((Integer) (okModule.get(i).get("pid"))) != 0) {
-                for (Map map1 : noModule) {
-                    if (okModule.get(i).get("pid").equals(map1.get("module_id"))) {
-                        if (!okModule.contains(map1)) {
-                            okModule.add(map1);
-                        }
-                    }
-                }
-            }
-        }
+
 
         for (int i = 0; i < okModule.size(); i++) {
             if (((Integer) (okModule.get(i).get("pid"))) == 0) {
                 ModuleTreeNode root = new ModuleTreeNode();
                 root.setIcon(okModule.get(i).get("icon").toString());
                 root.setName((String) (okModule.get(i).get("module_name")));
-                root.setChildren(getModuleChilds(okModule, (Integer)(okModule.get(i).get("pid"))));
+                root.setChildren(getModuleChilds(okModule, (Integer) (okModule.get(i).get("module_id"))));
                 tree.add(root);
             }
         }
@@ -129,7 +113,7 @@ public class ModuleServiceImpl implements ModuleService {
                 ModuleTreeNode node = new ModuleTreeNode();
                 node.setIcon(((module.get("icon"))).toString());
                 node.setName((String) (module.get("module_name")));
-                node.setChildren(getModuleChilds(modules,(Integer)(module.get("pid"))));
+                node.setChildren(getModuleChilds(modules, (Integer) (module.get("module_id"))));
                 children.add(node);
             }
         }
@@ -162,7 +146,7 @@ public class ModuleServiceImpl implements ModuleService {
     /**
      * 删除模块
      */
-    public void deleteModule(Long moduleId){
+    public void deleteModule(Long moduleId) {
         moduleMapper.deleteModule(moduleId);
     }
 
