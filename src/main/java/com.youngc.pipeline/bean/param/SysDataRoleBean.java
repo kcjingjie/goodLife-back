@@ -7,6 +7,8 @@ import java.util.Date;
 @Data
 public class SysDataRoleBean {
 
+    private Long id;
+
     private Long droleId;
 
     private String droleName;

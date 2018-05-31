@@ -9,6 +9,8 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SysDataRoleModel {
 
+    private Long id;
+
     private Long droleId;
 
     private String droleName;
