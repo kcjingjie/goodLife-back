@@ -35,6 +35,7 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
     }
 
     public boolean deleteDictList(String idList) {
+        dictionaryQueryMapper.deleteDictDataList(idList);
         dictionaryQueryMapper.deleteDictList(idList);
         return true;
     }

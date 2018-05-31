@@ -25,8 +25,13 @@ public interface DictionaryQueryMapper {
     @Options(useGeneratedKeys = true, keyColumn = "id")
     int insertNewDict(DictionaryQueryModel dictionaryQueryModel);
 
-    @Delete(" DELETE FROM sys_dictionary WHERE id IN (${idList})")
+    @Delete(" DELETE FROM sys_dictionary WHERE id IN (${idList});")
     int deleteDictList(@Param("idList") String  idList);
+
+    @Delete(" DELETE FROM sys_dict_data  WHERE " +
+            " INSTR(CONCAT(',',(SELECT GROUP_CONCAT(dict_value separator ',') FROM sys_dictionary WHERE id IN (${idList})),',')," +
+            " CONCAT(',',dict_value,','));")
+    int deleteDictDataList(@Param("idList") String  idList);
 
     @Select(" SELECT * " +
             " FROM sys_dictionary WHERE id = #{id}")
