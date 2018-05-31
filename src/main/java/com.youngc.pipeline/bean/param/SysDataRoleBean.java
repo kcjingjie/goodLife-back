@@ -1,0 +1,29 @@
+package com.youngc.pipeline.bean.param;
+
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
+public class SysDataRoleBean {
+
+    private Long droleId;
+
+    private String droleName;
+
+    private String droleDesc;
+
+    private int status;
+
+    private int priority;
+
+    private Long addPerson;
+
+    private Date addTime;
+
+    private Long lastPerson;
+
+    private Date lastTime;
+
+
+}
