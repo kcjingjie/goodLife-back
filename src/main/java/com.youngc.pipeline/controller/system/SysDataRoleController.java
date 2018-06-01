@@ -41,7 +41,7 @@ public class SysDataRoleController {
      * @return
      */
     @GetMapping(value = "/getInfo/{id}")
-    public Result getUserDetails(@PathVariable Long id) {
+    public Result getDataRoleInfo(@PathVariable Long id) {
         return ResultGenerator.generate(ResultCode.SUCCESS, sysDataRoleService.getDataRoleInfo(id));
     }
 
@@ -51,7 +51,7 @@ public class SysDataRoleController {
      * @return
      */
     @PostMapping(value = "/post")
-    public Result postUser(@RequestBody SysDataRoleBean sysDataRoleBean) {
+    public Result postInfo(@RequestBody SysDataRoleBean sysDataRoleBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         SysDataRoleModel sysDataRoleModel = new SysDataRoleModel();
@@ -74,7 +74,7 @@ public class SysDataRoleController {
      * @return
      */
     @PutMapping(value = "/put")
-    public Result putDictInfo(@RequestBody SysDataRoleBean sysDataRoleBean) {
+    public Result putDataRoleInfo(@RequestBody SysDataRoleBean sysDataRoleBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         SysDataRoleModel sysDataRoleModel = new SysDataRoleModel();
@@ -95,7 +95,7 @@ public class SysDataRoleController {
      * @return
      */
     @DeleteMapping(value = "/del")
-    public Result deleteDictValueList(@RequestParam("idList") String idList) {
+    public Result deleteList(@RequestParam("idList") String idList) {
         sysDataRoleService.deleteDataRoleList(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
