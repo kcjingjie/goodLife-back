@@ -9,6 +9,7 @@ import com.youngc.pipeline.model.DictionaryValueModel;
 import com.youngc.pipeline.service.system.DictionaryQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +41,7 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
         return dictionaryQueryModel;
     }
 
+    @Transactional
     public boolean deleteDictList(String idList) {
         dictionaryQueryMapper.deleteDictDataList(idList);
         dictionaryQueryMapper.deleteDictList(idList);
