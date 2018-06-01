@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public interface SysRoleMapper {
 
-    @Select(" SELECT * FROM sys_role " +
+    @Select(" SELECT role_id,role_name,role_desc,status FROM sys_role " +
             " WHERE role_name LIKE CONCAT('%', #{keyword}, '%')")
     List<SysRoleModel> getRoleList(String keyword);
 
@@ -22,7 +22,7 @@ public interface SysRoleMapper {
     @Delete(" DELETE FROM sys_role WHERE role_id IN (${idList});")
     int deleteRole(@Param("idList") String  idList);
 
-    @Select(" SELECT * " +
+    @Select(" SELECT role_id,role_name,role_desc,status " +
             " FROM sys_role WHERE role_id = #{id}")
     SysRoleModel getRoleInfo(@Param("id") Long id);
 

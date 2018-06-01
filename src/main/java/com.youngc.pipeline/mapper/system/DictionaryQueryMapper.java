@@ -16,7 +16,7 @@ public interface DictionaryQueryMapper {
      * @param keyword
      * @return
      */
-    @Select(" SELECT * FROM sys_dictionary" +
+    @Select(" SELECT id,dict_value,dict_name,status,remark FROM sys_dictionary" +
             " WHERE ((dict_name LIKE CONCAT('%', #{keyword}, '%')) OR (dict_value LIKE CONCAT('%', #{keyword}, '%')))")
     List<DictionaryQueryModel> getList(String keyword);
 
@@ -33,7 +33,7 @@ public interface DictionaryQueryMapper {
             " CONCAT(',',dict_value,','));")
     int deleteDictDataList(@Param("idList") String  idList);
 
-    @Select(" SELECT * " +
+    @Select(" SELECT id,dict_value,dict_name,status,remark " +
             " FROM sys_dictionary WHERE id = #{id}")
     DictionaryQueryModel getDictInfo(@Param("id") Long id);
 
@@ -41,17 +41,17 @@ public interface DictionaryQueryMapper {
             " last_person = #{lastPerson}, last_time = #{lastTime} WHERE id = #{id}")
     int updateDictInfo(DictionaryQueryModel dictionaryQueryModel);
 
-    @Select(" SELECT * " +
+    @Select(" SELECT id,dict_value " +
             " FROM sys_dictionary WHERE dict_value = #{value}")
     DictionaryQueryModel getDictInfoByValue(@Param("value") String value);
 
     /**
      * 数据字典内容sys_dict_data操作
      */
-    @Select(" SELECT * FROM sys_dict_data where dict_value=#{dictValue}" )
+    @Select(" SELECT id,data_name,data_value,dict_value,remark FROM sys_dict_data where dict_value=#{dictValue}" )
     List<DictionaryValueModel> getDictValueList(@Param("dictValue") String dictValue);
 
-    @Select(" SELECT * " +
+    @Select(" SELECT id,data_name,data_value,dict_value,remark " +
             " FROM sys_dict_data WHERE id = #{id}")
     DictionaryValueModel getDictValueInfo(@Param("id") Long id);
 
@@ -67,7 +67,7 @@ public interface DictionaryQueryMapper {
     @Delete(" DELETE FROM sys_dict_data WHERE id IN (${idList})")
     int deleteDictValueList(@Param("idList") String  idList);
 
-    @Select(" SELECT * " +
+    @Select(" SELECT id,data_value,dict_value" +
             " FROM sys_dict_data WHERE  dict_value = #{dictValue} and data_value=#{dataValue}")
     DictionaryValueModel getDictValueByValue(@Param("dictValue") String dictValue,@Param("dataValue") int dataValue);
 }

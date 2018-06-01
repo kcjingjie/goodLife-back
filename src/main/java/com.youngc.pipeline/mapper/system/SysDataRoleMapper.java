@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public interface SysDataRoleMapper {
 
-    @Select(" SELECT * FROM sys_data_role " +
+    @Select(" SELECT drole_id,drole_name,drole_desc,status FROM sys_data_role " +
             " WHERE drole_name LIKE CONCAT('%', #{keyword}, '%')")
     List<SysDataRoleModel> getDataRoleList(String keyword);
 
@@ -22,7 +22,7 @@ public interface SysDataRoleMapper {
     @Delete(" DELETE FROM sys_data_role WHERE drole_id IN (${idList});")
     int deleteDataRole(@Param("idList") String  idList);
 
-    @Select(" SELECT * " +
+    @Select(" SELECT drole_id,drole_name,drole_desc,status " +
             " FROM sys_data_role WHERE drole_id = #{id}")
     SysDataRoleModel getDataRoleInfo(@Param("id") Long id);
 
