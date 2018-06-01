@@ -15,9 +15,9 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
     @Autowired
     private DictionaryQueryMapper dictionaryQueryMapper;
 
-    public Page getList(String dictName, int pageNum, int pageSize) {
+    public Page getList(String keyWord, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return (Page)dictionaryQueryMapper.getList(dictName);
+        return (Page)dictionaryQueryMapper.getList(keyWord);
     }
 
     public DictionaryQueryModel addDict(DictionaryQueryModel dictionaryQueryModel) {
@@ -45,9 +45,9 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
     }
 
     ///
-    public Page getDictValueList(String dictValue,int pageNum, int pageSize) {
+    public Page getDictValueList(String keyWord,int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return (Page)dictionaryQueryMapper.getDictValueList(dictValue);
+        return (Page)dictionaryQueryMapper.getDictValueList(keyWord);
     }
 
     public DictionaryValueModel addDictValue(DictionaryValueModel dictionaryValueModel) {

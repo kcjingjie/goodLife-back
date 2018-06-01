@@ -20,6 +20,13 @@ public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
 
+    /**
+     * 通过数据角色的名字模糊查询数据角色表中的数据
+     * @param keyWord
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = "/getList")
     public Result getRoleList(@RequestParam String keyWord, @RequestParam int pageNum, @RequestParam int pageSize){
         return ResultGenerator.generate(sysRoleService.getRoleList(keyWord, pageNum, pageSize));
