@@ -1,5 +1,6 @@
 package com.youngc.pipeline.mapper.system;
 
+import com.youngc.pipeline.model.DictModel;
 import com.youngc.pipeline.model.DictionaryQueryModel;
 import com.youngc.pipeline.model.DictionaryValueModel;
 import com.youngc.pipeline.model.UserManagerModel;
@@ -68,6 +69,19 @@ public interface DictionaryQueryMapper {
     int deleteDictValueList(@Param("idList") String  idList);
 
     @Select(" SELECT * " +
-            " FROM sys_dict_data WHERE  dict_value = #{dictValue} and data_value=#{dataValue}")
+            " FROM sys_dict_data WHERE  dict_value = #{dictValue} AND data_value=#{dataValue}")
     DictionaryValueModel getDictValueByValue(@Param("dictValue") String dictValue,@Param("dataValue") int dataValue);
+
+//    @Select(" SELECT sdd.data_name name,sdd.data_value value FROM sys_dict_data sdd" +
+//            " INNER JOIN sys_dictionary sd ON sd.dict_value = sdd.dict_value" +
+//            " WHERE sd.status = 1 AND sdd.dict_value = #{dictValue};")
+//    List<DictModel> getDictData(@Param("dictValue") String key);
+
+    @Select(" SELECT sdd.dict_value dictValue,sdd.data_name name,sdd.data_value value FROM sys_dict_data sdd" +
+            " INNER JOIN sys_dictionary sd ON sd.dict_value = sdd.dict_value" +
+            " WHERE sd.status = 1;")
+    List<DictModel> getDictData();
+
+    @Select(" SELECT dict_value FROM sys_dictionary WHERE status=1;")
+    List<DictModel> getDict();
 }

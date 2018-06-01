@@ -204,5 +204,22 @@ public class DictionaryQueryController {
         return ResultGenerator.generate(ResultCode.SUCCESS, dictionaryQueryService.getDictValueByValue(dictValue,dataValue));
     }
 
+//    /**
+//     * 获取数据字典内容
+//     * @return
+//     */
+//    @GetMapping
+//    public Result getDict(@RequestParam("key") String key){
+//
+//        return ResultGenerator.generate(ResultCode.SUCCESS,dictionaryQueryService.getDict(key));
+//    }
+    /**
+     * 获取数据字典内容
+     * @return
+     */
+    @GetMapping
+    public Result getDict(){
 
+        return ResultGenerator.generate(ResultCode.SUCCESS,dictionaryQueryService.getDict());
+    }
 }

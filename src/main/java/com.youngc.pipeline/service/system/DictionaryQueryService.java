@@ -5,6 +5,9 @@ import com.youngc.pipeline.model.DictionaryQueryModel;
 import com.youngc.pipeline.model.DictionaryValueModel;
 import com.youngc.pipeline.model.UserManagerModel;
 
+import java.util.List;
+import java.util.Map;
+
 public interface DictionaryQueryService {
 
     //数据字典操作sys_dictionary
@@ -32,5 +35,16 @@ public interface DictionaryQueryService {
     boolean deleteDictValueList(String idList);
 
     DictionaryValueModel getDictValueByValue(String dictValue,int dataValue);
+
+//    /**
+//     * 查询字典信息
+//     */
+//    Map getDict(String  key);
+
+    /**
+     * 查询字典信息
+     */
+    Map getDict();
+
 
 }

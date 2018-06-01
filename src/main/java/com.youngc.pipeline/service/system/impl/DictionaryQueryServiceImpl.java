@@ -3,11 +3,17 @@ package com.youngc.pipeline.service.system.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.youngc.pipeline.mapper.system.DictionaryQueryMapper;
+import com.youngc.pipeline.model.DictModel;
 import com.youngc.pipeline.model.DictionaryQueryModel;
 import com.youngc.pipeline.model.DictionaryValueModel;
 import com.youngc.pipeline.service.system.DictionaryQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class DictionaryQueryServiceImpl implements DictionaryQueryService {
@@ -17,7 +23,7 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
 
     public Page getList(String dictName, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return (Page)dictionaryQueryMapper.getList(dictName);
+        return (Page) dictionaryQueryMapper.getList(dictName);
     }
 
     public DictionaryQueryModel addDict(DictionaryQueryModel dictionaryQueryModel) {
@@ -41,13 +47,13 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
     }
 
     public DictionaryQueryModel getDictInfoByValue(String value) {
-       return dictionaryQueryMapper.getDictInfoByValue(value);
+        return dictionaryQueryMapper.getDictInfoByValue(value);
     }
 
     ///
-    public Page getDictValueList(String dictValue,int pageNum, int pageSize) {
+    public Page getDictValueList(String dictValue, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return (Page)dictionaryQueryMapper.getDictValueList(dictValue);
+        return (Page) dictionaryQueryMapper.getDictValueList(dictValue);
     }
 
     public DictionaryValueModel addDictValue(DictionaryValueModel dictionaryValueModel) {
@@ -70,6 +76,43 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
     }
 
     public DictionaryValueModel getDictValueByValue(String dictValue, int dataValue) {
-        return dictionaryQueryMapper.getDictValueByValue(dictValue,dataValue);
+        return dictionaryQueryMapper.getDictValueByValue(dictValue, dataValue);
+    }
+//
+//    /**
+//     * 查询字典信息
+//     */
+//    public Map getDict(String  key){
+//
+//        List<DictModel> dictData = new ArrayList<DictModel>();
+//
+//        dictData = dictionaryQueryMapper.getDictData(key);
+//        Map dict = new HashMap();
+//        dict.put(key, dictData);
+//        return dict;
+//    }
+
+    /**
+     * 查询字典信息
+     */
+    public Map getDict() {
+
+        List<DictModel> dictData = new ArrayList<DictModel>();
+        List<DictModel> dData = new ArrayList<DictModel>();
+
+        dictData = dictionaryQueryMapper.getDictData();
+        dData = dictionaryQueryMapper.getDict();
+
+        Map dict = new HashMap();
+        for (int j = 0; j < dData.size(); j++) {
+            List<DictModel> resultData = new ArrayList<DictModel>();
+            for (int i = 0; i < dictData.size(); i++) {
+                if (dData.get(j).getDictValue().equals(dictData.get(i).getDictValue())) {
+                    resultData.add(dictData.get(i));
+                }
+            }
+            dict.put(dData.get(j).getDictValue(), resultData);
+        }
+        return dict;
     }
 }
