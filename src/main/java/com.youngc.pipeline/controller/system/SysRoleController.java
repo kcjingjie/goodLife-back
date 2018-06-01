@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 
-@Controller
+@RestController
 @RequestMapping("/role")
 public class SysRoleController {
 

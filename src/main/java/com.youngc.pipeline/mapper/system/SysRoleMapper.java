@@ -27,6 +27,6 @@ public interface SysRoleMapper {
     SysRoleModel getRoleInfo(@Param("id") Long id);
 
     @Update(" UPDATE sys_role SET role_name = #{roleName}, role_desc = #{roleDesc},status=#{status}," +
-            " last_person = #{lastPerson}, last_time = #{lastTime} WHERE drole_id = #{droleId}")
+            " last_person = #{lastPerson}, last_time = #{lastTime} WHERE role_id = #{roleId}")
     int updateRoleInfo(SysRoleModel sysRoleModel);
 }
