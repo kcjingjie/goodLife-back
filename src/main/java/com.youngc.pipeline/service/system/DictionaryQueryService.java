@@ -11,7 +11,7 @@ import java.util.Map;
 public interface DictionaryQueryService {
 
     //数据字典操作sys_dictionary
-    Page getList(String dictName, int pageNum, int pageSize);
+    Page getList(String keyWord, int pageNum, int pageSize);
 
     DictionaryQueryModel addDict(DictionaryQueryModel dictionaryQueryModel);
 
@@ -24,7 +24,7 @@ public interface DictionaryQueryService {
     DictionaryQueryModel getDictInfoByValue(String value);
 
     //数据字典内容操作sys_dict_data
-    Page getDictValueList(String dictValue,int pageNum, int pageSize);
+    Page getDictValueList(String keyWord,int pageNum, int pageSize);
 
     DictionaryValueModel addDictValue(DictionaryValueModel dictionaryValueModel);
 

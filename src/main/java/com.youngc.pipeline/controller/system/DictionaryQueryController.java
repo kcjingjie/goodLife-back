@@ -22,15 +22,15 @@ public class DictionaryQueryController {
     private DictionaryQueryService dictionaryQueryService;
 
     /**
-     * 获取数据字典的数据
+     * 通过字典名称获取数据字典的数据
      * @param dictName
      * @param pageNum
      * @param pageSize
      * @return
      */
     @GetMapping(value = "/get")
-    public Result getDictionaryList(@RequestParam String dictName,@RequestParam int pageNum, @RequestParam int pageSize){
-        return ResultGenerator.generate(dictionaryQueryService.getList(dictName,pageNum,pageSize));
+    public Result getDictionaryList(@RequestParam String keyWord,@RequestParam int pageNum, @RequestParam int pageSize){
+        return ResultGenerator.generate(dictionaryQueryService.getList(keyWord,pageNum,pageSize));
     }
 
     /**
@@ -130,7 +130,7 @@ public class DictionaryQueryController {
      * @return
      */
     @PostMapping(value = "/postDictValue")
-    public  Result PostDict(@RequestBody DictionaryValueBean dictionaryValueBean){
+    public  Result PostDictValue(@RequestBody DictionaryValueBean dictionaryValueBean){
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DictionaryValueModel dictionaryValueModel = new DictionaryValueModel();
@@ -178,7 +178,7 @@ public class DictionaryQueryController {
      * @return
      */
     @PutMapping(value = "/putDictValue")
-    public Result putDictInfo(@RequestBody DictionaryValueBean dictionaryValueBean) {
+    public Result putDictValueInfo(@RequestBody DictionaryValueBean dictionaryValueBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DictionaryValueModel dictionaryValueModel = new DictionaryValueModel();
