@@ -12,27 +12,51 @@ import java.util.Map;
  */
 @Component
 public interface ModuleMapper {
+    /**
+     * 查询模块数据
+     * @return
+     */
     @Select(" SELECT module_id, module_name, pid,icon" +
             " FROM sys_module ")
     List<Map> getTree();
 
+    /**
+     * 查询模块信息
+     * @param moduleId
+     * @return
+     */
     @Select(" select module_id,pid,module_name,control_id,module_path,module_desc,type,status,priority,icon" +
             " FROM sys_module where module_id = #{moduleId};")
     ModuleModel getModuleInfo(@Param("moduleId") Long moduleId);
 
+    /**
+     * 更新模块信息
+     * @param moduleModel
+     * @return
+     */
     @Update(" UPDATE sys_module SET pid = #{pid}, module_name = #{moduleName}, control_id = #{controlId}, module_path = #{modulePath}," +
             " module_desc = #{moduleDesc}, type = #{type}, status = #{status}, priority = #{priority}, icon = #{icon}, "+
-            " last_person = #{lastPerson}, last_time = #{lastTime} "+
+            " last_person = #{lastPerson}, last_time = now() "+
             " WHERE module_id = #{moduleId};")
     int update(ModuleModel moduleModel);
 
+    /**
+     * 添加模块信息
+     * @param moduleModel
+     * @return
+     */
     @Insert(" insert into sys_module(pid,module_name,control_id,module_path,module_desc,type,status,priority,icon," +
             " add_person,add_time,last_person,last_time)" +
             " values(#{pid},#{moduleName},#{controlId},#{modulePath},#{moduleDesc},#{type},#{status},#{priority},#{icon},#{addPerson},"+
-            " #{addTime},#{lastPerson},#{lastTime});")
+            " now(),#{lastPerson},now());")
     @Options(useGeneratedKeys = true, keyProperty = "moduleId", keyColumn = "module_id")
     int addModule(ModuleModel moduleModel);
 
+    /**
+     * 删除模块信息
+     * @param moduleId
+     * @return
+     */
     @Delete(" DELETE  FROM  sys_module WHERE module_id = #{moduleId}")
     int deleteModule(@Param("moduleId") Long moduleId);
 }

@@ -15,25 +15,52 @@ public class SysDataRoleServiceImpl implements SysDataRoleService {
     @Autowired
     private SysDataRoleMapper sysDataRoleMapper;
 
+    /**
+     * 获取数据角色信息
+     * @param dataName
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     public Page getDataRoleList(String dataName, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return (Page)sysDataRoleMapper.getDataRoleList(dataName);
     }
 
+    /**
+     * 添加数据角色信息
+     * @param sysDataRoleModel
+     * @return
+     */
     public SysDataRoleModel addDataRole(SysDataRoleModel sysDataRoleModel) {
         sysDataRoleMapper.insertDataRole(sysDataRoleModel);
         return sysDataRoleModel;
     }
 
+    /**
+     * 获取数据角色信息
+     * @param id
+     * @return
+     */
     public SysDataRoleModel getDataRoleInfo(Long id) {
         return sysDataRoleMapper.getDataRoleInfo(id);
     }
 
+    /**
+     * 更新数据角色信息
+     * @param sysDataRoleModel
+     * @return
+     */
     public SysDataRoleModel updateDataRoleInfo(SysDataRoleModel sysDataRoleModel) {
         sysDataRoleMapper.updateDataRoleInfo(sysDataRoleModel);
         return sysDataRoleModel;
     }
 
+    /**
+     * 删除数据角色
+     * @param idList
+     * @return
+     */
     public boolean deleteDataRoleList(String idList) {
         sysDataRoleMapper.deleteDataRole(idList);
         return true;

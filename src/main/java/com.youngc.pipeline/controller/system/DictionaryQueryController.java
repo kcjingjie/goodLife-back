@@ -23,7 +23,6 @@ public class DictionaryQueryController {
 
     /**
      * 通过字典名称获取数据字典的数据
-     * @param dictName
      * @param pageNum
      * @param pageSize
      * @return
@@ -48,10 +47,9 @@ public class DictionaryQueryController {
         dictionaryQueryModel.setDictName(dictionaryQueryBean.getDictName());
         dictionaryQueryModel.setRemark(dictionaryQueryBean.getRemark());
         dictionaryQueryModel.setStatus(dictionaryQueryBean.getStatus());
+
         dictionaryQueryModel.setAddPerson(user.getUserId());
-        dictionaryQueryModel.setAddTime(Calendar.getInstance().getTime());
         dictionaryQueryModel.setLastPerson(user.getUserId());
-        dictionaryQueryModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS,
                 dictionaryQueryService.addDict(dictionaryQueryModel));
@@ -97,8 +95,8 @@ public class DictionaryQueryController {
         dictionaryQueryModel.setDictName(dictionaryQueryBean.getDictName());
         dictionaryQueryModel.setRemark(dictionaryQueryBean.getRemark());
         dictionaryQueryModel.setStatus(dictionaryQueryBean.getStatus());
+
         dictionaryQueryModel.setLastPerson(user.getUserId());
-        dictionaryQueryModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS, dictionaryQueryService.updateDictInfo(dictionaryQueryModel));
     }
@@ -139,10 +137,9 @@ public class DictionaryQueryController {
         dictionaryValueModel.setDataName(dictionaryValueBean.getDataName());
         dictionaryValueModel.setRemark(dictionaryValueBean.getRemark());
         dictionaryValueModel.setDataValue(dictionaryValueBean.getDataValue());
+
         dictionaryValueModel.setAddPerson(user.getUserId());
-        dictionaryValueModel.setAddTime(Calendar.getInstance().getTime());
         dictionaryValueModel.setLastPerson(user.getUserId());
-        dictionaryValueModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS,
                 dictionaryQueryService.addDictValue(dictionaryValueModel));
@@ -187,8 +184,8 @@ public class DictionaryQueryController {
         dictionaryValueModel.setDataName(dictionaryValueBean.getDataName());
         dictionaryValueModel.setRemark(dictionaryValueBean.getRemark());
         dictionaryValueModel.setDataValue(dictionaryValueBean.getDataValue());
+
         dictionaryValueModel.setLastPerson(user.getUserId());
-        dictionaryValueModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS, dictionaryQueryService.updateDictValueInfo(dictionaryValueModel));
     }

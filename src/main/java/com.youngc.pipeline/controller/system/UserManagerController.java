@@ -10,7 +10,6 @@ import com.youngc.pipeline.utils.RequestContextHolderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
 
 /**
  * @author liweiqiang
@@ -58,7 +57,6 @@ public class UserManagerController {
         usersManagerModel.setUserSex(userBean.getUserSex());
 
         usersManagerModel.setLastPerson(user.getUserId());
-        usersManagerModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS, userManagerService.updateUserDetails(usersManagerModel));
     }
@@ -82,10 +80,9 @@ public class UserManagerController {
         usersManagerModel.setUserEmail(userBean.getUserEmail());
         usersManagerModel.setUserSex(userBean.getUserSex());
         usersManagerModel.setUserPhone(userBean.getUserPhone());
+
         usersManagerModel.setAddPerson(user.getUserId());
-        usersManagerModel.setAddTime(Calendar.getInstance().getTime());
         usersManagerModel.setLastPerson(user.getUserId());
-        usersManagerModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS,
                 userManagerService.addUser(usersManagerModel));

@@ -83,23 +83,18 @@ public class ModuleServiceImpl implements ModuleService {
     public List<ModuleTreeNode> getModuleTree(String keyword) {
         List<Map> modules;
 
-        List<Map> okModule = new ArrayList<Map>();
 
         List<ModuleTreeNode> tree = new ArrayList<ModuleTreeNode>();
 
         modules = moduleMapper.getTree();
 
-        for (Map map : modules) {
-            okModule.add(map);
-        }
 
-
-        for (int i = 0; i < okModule.size(); i++) {
-            if (((Integer) (okModule.get(i).get("pid"))) == 0) {
+        for (int i = 0; i < modules.size(); i++) {
+            if (((Integer) (modules.get(i).get("pid"))) == 0) {
                 ModuleTreeNode root = new ModuleTreeNode();
-                root.setIcon(okModule.get(i).get("icon").toString());
-                root.setName((String) (okModule.get(i).get("module_name")));
-                root.setChildren(getModuleChilds(okModule, (Integer) (okModule.get(i).get("module_id"))));
+                root.setIcon(modules.get(i).get("icon").toString());
+                root.setName((String) (modules.get(i).get("module_name")));
+                root.setChildren(getModuleChilds(modules, (Integer) (modules.get(i).get("module_id"))));
                 tree.add(root);
             }
         }

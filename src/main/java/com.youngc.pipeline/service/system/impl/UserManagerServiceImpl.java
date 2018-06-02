@@ -18,16 +18,33 @@ public class UserManagerServiceImpl implements UserManagerService {
     @Autowired
     private UserManagerMapper userManagerMapper;
 
+    /**
+     * 批量获取用户信息
+     * @param keyword
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     public Page getList(String keyword, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return (Page) userManagerMapper.getList(keyword);
     }
 
+    /**
+     * 获取用户信息
+     * @param userId
+     * @return
+     */
     public UserManagerModel getUserDetails(Long userId) {
 
         return userManagerMapper.getUserInfo(userId);
     }
 
+    /**
+     * 修改用户
+     * @param userManagerModel
+     * @return
+     */
     public UserManagerModel updateUserDetails(UserManagerModel userManagerModel) {
 
         userManagerMapper.updateUserInfo(userManagerModel);
@@ -35,11 +52,22 @@ public class UserManagerServiceImpl implements UserManagerService {
         return userManagerModel;
     }
 
+    /**
+     * 更新密码
+     * @param userId
+     * @param password
+     * @param lastPerson
+     */
     public void updatePassword(Long userId, String password, Long lastPerson) {
         String hashPwd = BCryptUtil.hashpw(password, BCryptUtil.gensalt(12));
         userManagerMapper.updatePassword(userId, hashPwd, lastPerson);
     }
 
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
     public boolean deleteUser(Long userId) {
 
         userManagerMapper.deleteUser(userId);
@@ -47,6 +75,11 @@ public class UserManagerServiceImpl implements UserManagerService {
         return true;
     }
 
+    /**
+     * 批量删除用户
+     * @param userIds
+     * @return
+     */
     public boolean deleteUserList(String userIds) {
 
         userManagerMapper.deleteUserList(userIds);
@@ -54,6 +87,11 @@ public class UserManagerServiceImpl implements UserManagerService {
         return true;
     }
 
+    /**
+     * 添加用户
+     * @param userManagerModel
+     * @return
+     */
     public UserManagerModel addUser(UserManagerModel userManagerModel) {
 
         userManagerModel.setPassword(BCryptUtil.hashpw(userManagerModel

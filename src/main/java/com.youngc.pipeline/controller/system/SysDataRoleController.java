@@ -59,10 +59,9 @@ public class SysDataRoleController {
         sysDataRoleModel.setDroleName(sysDataRoleBean.getDroleName());
         sysDataRoleModel.setStatus(sysDataRoleBean.getStatus());
         sysDataRoleModel.setDroleDesc(sysDataRoleBean.getDroleDesc());
+
         sysDataRoleModel.setAddPerson(user.getUserId());
-        sysDataRoleModel.setAddTime(Calendar.getInstance().getTime());
         sysDataRoleModel.setLastPerson(user.getUserId());
-        sysDataRoleModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS,
                 sysDataRoleService.addDataRole(sysDataRoleModel));
@@ -83,8 +82,8 @@ public class SysDataRoleController {
         sysDataRoleModel.setDroleName(sysDataRoleBean.getDroleName());
         sysDataRoleModel.setStatus(sysDataRoleBean.getStatus());
         sysDataRoleModel.setDroleDesc(sysDataRoleBean.getDroleDesc());
+
         sysDataRoleModel.setLastPerson(user.getUserId());
-        sysDataRoleModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS, sysDataRoleService.updateDataRoleInfo(sysDataRoleModel));
     }

@@ -44,7 +44,7 @@ public class SysRoleController {
 
     /**
      * 添加数据角色
-     * @param sysDataRoleBean
+     * @param
      * @return
      */
     @PostMapping(value = "/post")
@@ -56,10 +56,9 @@ public class SysRoleController {
         sysRoleModel.setRoleName(sysRoleBean.getRoleName());
         sysRoleModel.setStatus(sysRoleBean.getStatus());
         sysRoleModel.setRoleDesc(sysRoleBean.getRoleDesc());
+
         sysRoleModel.setAddPerson(user.getUserId());
-        sysRoleModel.setAddTime(Calendar.getInstance().getTime());
         sysRoleModel.setLastPerson(user.getUserId());
-        sysRoleModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS,
                 sysRoleService.addRole(sysRoleModel));
@@ -67,7 +66,7 @@ public class SysRoleController {
 
     /**
      * 修改数据角色
-     * @param sysDataRoleBean
+     * @param
      * @return
      */
     @PutMapping(value = "/put")
@@ -80,8 +79,8 @@ public class SysRoleController {
         sysRoleModel.setRoleName(sysRoleBean.getRoleName());
         sysRoleModel.setStatus(sysRoleBean.getStatus());
         sysRoleModel.setRoleDesc(sysRoleBean.getRoleDesc());
+
         sysRoleModel.setLastPerson(user.getUserId());
-        sysRoleModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS, sysRoleService.updateRoleInfo(sysRoleModel));
     }

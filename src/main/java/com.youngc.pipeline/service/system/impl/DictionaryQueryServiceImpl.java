@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class DictionaryQueryServiceImpl implements DictionaryQueryService {
@@ -22,25 +19,52 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
     @Autowired
     private DictionaryQueryMapper dictionaryQueryMapper;
 
+    /**
+     * 分页获取字典信息
+     * @param keyWord
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     public Page getList(String keyWord, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return (Page)dictionaryQueryMapper.getList(keyWord);
     }
 
+    /**
+     * 添加字典信息
+     * @param dictionaryQueryModel
+     * @return
+     */
     public DictionaryQueryModel addDict(DictionaryQueryModel dictionaryQueryModel) {
         dictionaryQueryMapper.insertNewDict(dictionaryQueryModel);
         return dictionaryQueryModel;
     }
 
+    /**
+     * 查询字典信息
+     * @param id
+     * @return
+     */
     public DictionaryQueryModel getDictInfo(Long id) {
         return dictionaryQueryMapper.getDictInfo(id);
     }
 
+    /**
+     * 更新字典信息
+     * @param dictionaryQueryModel
+     * @return
+     */
     public DictionaryQueryModel updateDictInfo(DictionaryQueryModel dictionaryQueryModel) {
         dictionaryQueryMapper.updateDictInfo(dictionaryQueryModel);
         return dictionaryQueryModel;
     }
 
+    /**
+     * 删除字典信息
+     * @param idList
+     * @return
+     */
     @Transactional
     public boolean deleteDictList(String idList) {
         dictionaryQueryMapper.deleteDictDataList(idList);
@@ -48,35 +72,72 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
         return true;
     }
 
+    /**
+     * 查询字典信息
+     * @param value
+     * @return
+     */
     public DictionaryQueryModel getDictInfoByValue(String value) {
         return dictionaryQueryMapper.getDictInfoByValue(value);
     }
 
-    ///
+    /**
+     * 分页获取字典数据
+     * @param keyWord
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     public Page getDictValueList(String keyWord,int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return (Page)dictionaryQueryMapper.getDictValueList(keyWord);
     }
 
+    /**
+     * 添加字典数据
+     * @param dictionaryValueModel
+     * @return
+     */
     public DictionaryValueModel addDictValue(DictionaryValueModel dictionaryValueModel) {
         dictionaryQueryMapper.insertDictValue(dictionaryValueModel);
         return dictionaryValueModel;
     }
 
+    /**
+     * 查询字典数据
+     * @param id
+     * @return
+     */
     public DictionaryValueModel getDictValue(Long id) {
         return dictionaryQueryMapper.getDictValueInfo(id);
     }
 
+    /**
+     * 更新字典数据
+     * @param dictionaryValueModel
+     * @return
+     */
     public DictionaryValueModel updateDictValueInfo(DictionaryValueModel dictionaryValueModel) {
         dictionaryQueryMapper.updateDictValueInfo(dictionaryValueModel);
         return dictionaryValueModel;
     }
 
+    /**
+     * 删除字典数据
+     * @param idList
+     * @return
+     */
     public boolean deleteDictValueList(String idList) {
         dictionaryQueryMapper.deleteDictValueList(idList);
         return true;
     }
 
+    /**
+     * 查询
+     * @param dictValue
+     * @param dataValue
+     * @return
+     */
     public DictionaryValueModel getDictValueByValue(String dictValue, int dataValue) {
         return dictionaryQueryMapper.getDictValueByValue(dictValue,dataValue);
     }
@@ -98,21 +159,23 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
      * 查询字典信息
      */
     public Map getDict() {
-
-        List<DictModel> dictData = new ArrayList<DictModel>();
-        List<DictModel> dData = new ArrayList<DictModel>();
-
-        dictData = dictionaryQueryMapper.getDictData();
-        dData = dictionaryQueryMapper.getDict();
+        List<DictModel> dData = dictionaryQueryMapper.getDict();
+        List<DictModel> dictData = dictionaryQueryMapper.getDictData();
 
         Map dict = new HashMap();
         for (int j = 0; j < dData.size(); j++) {
             List<DictModel> resultData = new ArrayList<DictModel>();
-            for (int i = 0; i < dictData.size(); i++) {
-                if (dData.get(j).getDictValue().equals(dictData.get(i).getDictValue())) {
-                    resultData.add(dictData.get(i));
+
+            Iterator<DictModel> dictModel = dictData.iterator();
+
+            while(dictModel.hasNext()){
+                DictModel dictValue = dictModel.next();
+                if(dictValue.getDictValue().equals(dData.get(j).getDictValue())){
+                    resultData.add(dictValue);
+                    dictModel.remove();
                 }
             }
+
             dict.put(dData.get(j).getDictValue(), resultData);
         }
         return dict;

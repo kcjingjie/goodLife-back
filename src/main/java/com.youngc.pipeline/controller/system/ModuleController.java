@@ -62,7 +62,6 @@ public class ModuleController {
         moduleModel.setModuleId(moduleBean.getModuleId());
 
         moduleModel.setLastPerson(user.getUserId());
-        moduleModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.updateModuleDetails(moduleModel));
     }
@@ -85,9 +84,7 @@ public class ModuleController {
         moduleModel.setModuleDesc(moduleBean.getModuleDesc());
 
         moduleModel.setAddPerson(user.getUserId());
-        moduleModel.setAddTime(Calendar.getInstance().getTime());
         moduleModel.setLastPerson(user.getUserId());
-        moduleModel.setLastTime(Calendar.getInstance().getTime());
 
         return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.addModule(moduleModel));
     }

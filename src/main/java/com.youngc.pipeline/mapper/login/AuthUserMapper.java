@@ -19,8 +19,8 @@ public interface AuthUserMapper {
             " WHERE user_name = #{username}")
     String getHashedPasswd(@Param("userId") Long userId);
 
-    @Update(" UPDATE sys_user SET password = #{hashedNewPasswd}" +
-            " WHERE user_name = #{username}")
+    @Update(" UPDATE sys_user SET password = #{hashedNewPasswd},last_person = #{userId},last_time = now()" +
+            " WHERE user_id = #{userId}")
     int updateUserPassword(@Param("userId") Long userId,
                            @Param("hashedNewPasswd") String hashedNewPasswd);
 }
