@@ -19,6 +19,14 @@ public class SysRoleBean {
 
     private int priority;
 
+    private Long moduleId;
+
+    private String moduleName;
+
+    private Long pid;
+
+    private int checked;
+
     private Long addPerson;
 
     private Date addTime;

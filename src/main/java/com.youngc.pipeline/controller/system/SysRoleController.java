@@ -7,6 +7,7 @@ import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.result.ResultGenerator;
 import com.youngc.pipeline.service.system.SysRoleService;
 import com.youngc.pipeline.utils.RequestContextHolderUtil;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -95,4 +96,10 @@ public class SysRoleController {
         sysRoleService.deleteRoleList(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
+
+    @GetMapping(value = "/getTree/{roleId}")
+    public Result getRoleTree(@PathVariable Long roleId){
+        return ResultGenerator.generate(ResultCode.SUCCESS,sysRoleService.getRoleTree(roleId));
+    }
+
 }

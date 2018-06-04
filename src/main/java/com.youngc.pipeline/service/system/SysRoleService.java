@@ -4,6 +4,9 @@ import com.github.pagehelper.Page;
 import com.youngc.pipeline.model.SysDataRoleModel;
 import com.youngc.pipeline.model.SysRoleModel;
 
+import java.util.List;
+import java.util.Map;
+
 public interface SysRoleService {
     Page getRoleList(String dataName, int pageNum, int pageSize);
 
@@ -14,4 +17,6 @@ public interface SysRoleService {
     SysRoleModel updateRoleInfo(SysRoleModel sysRoleModel);
 
     boolean deleteRoleList(String idList);
+
+    List<Map> getRoleTree(Long roleId);
 }
