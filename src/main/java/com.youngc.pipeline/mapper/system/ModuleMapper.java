@@ -25,7 +25,9 @@ public interface ModuleMapper {
      * @param moduleId
      * @return
      */
-    @Select(" select module_id,pid,module_name,control_id,module_path,module_desc,type,status,priority,icon" +
+    @Select(" SELECT module_id,module_name,pid,(SELECT module_name FROM sys_module " +
+            " WHERE module_id=(SELECT pid FROM sys_module where module_id = #{moduleId}))pModule_name,"+
+            " control_id,module_path,module_desc,type,status,priority,icon" +
             " FROM sys_module where module_id = #{moduleId};")
     ModuleModel getModuleInfo(@Param("moduleId") Long moduleId);
 
@@ -59,4 +61,7 @@ public interface ModuleMapper {
      */
     @Delete(" DELETE  FROM  sys_module WHERE module_id = #{moduleId}")
     int deleteModule(@Param("moduleId") Long moduleId);
+
+    @Delete(" DELETE  FROM  sys_module WHERE pid = #{moduleId}")
+    int deleteModuleInfo(@Param("moduleId") Long moduleId);
 }

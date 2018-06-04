@@ -79,7 +79,7 @@ public class ModuleController {
         moduleModel.setType(moduleBean.getType());
         moduleModel.setStatus(moduleBean.getStatus());
         moduleModel.setModulePath(moduleBean.getModulePath());
-        moduleModel.setPid(moduleBean.getPid());
+        moduleModel.setPid(moduleBean.getModuleId());
         moduleModel.setPriority(moduleBean.getPriority());
         moduleModel.setModuleDesc(moduleBean.getModuleDesc());
 

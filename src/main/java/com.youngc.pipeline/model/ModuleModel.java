@@ -20,6 +20,8 @@ public class ModuleModel {
 
     private String moduleName;
 
+    private String pModuleName;
+
     private String controlId;
 
     private String modulePath;

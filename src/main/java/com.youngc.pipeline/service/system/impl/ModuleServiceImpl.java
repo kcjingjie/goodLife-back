@@ -142,6 +142,7 @@ public class ModuleServiceImpl implements ModuleService {
      * 删除模块
      */
     public void deleteModule(Long moduleId) {
+        moduleMapper.deleteModuleInfo(moduleId);
         moduleMapper.deleteModule(moduleId);
     }
 
