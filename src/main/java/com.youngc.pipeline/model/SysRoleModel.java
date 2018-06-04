@@ -16,6 +16,14 @@ public class SysRoleModel {
 
     private String roleDesc;
 
+    private Long moduleId;
+
+    private String moduleName;
+
+    private Long pid;
+
+    private int checked;
+
     private int status;
 
     private int priority;

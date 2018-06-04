@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public interface SysRoleMapper {
@@ -38,7 +39,7 @@ public interface SysRoleMapper {
     int deleteRole(@Param("idList") String  idList);
 
     /**
-     * 获取橘色信息
+     * 获取角色信息
      * @param id
      * @return
      */
@@ -54,4 +55,11 @@ public interface SysRoleMapper {
     @Update(" UPDATE sys_role SET role_name = #{roleName}, role_desc = #{roleDesc},status=#{status}," +
             " last_person = #{lastPerson}, last_time = now() WHERE role_id = #{roleId}")
     int updateRoleInfo(SysRoleModel sysRoleModel);
+
+    /**
+     * 查询权限树
+     */
+    @Select("SELECT m.module_id,m.module_name,m.pid,(case when r.id is null then 0 else 1 end) checked from  sys_module m " +
+            "LEFT JOIN (select module_id,id,role_id from sys_role_module where role_id = #{roleId} ) r ON m.module_id=r.module_id ")
+    List<Map> getRoleTree(@Param("roleId") Long roleId);
 }

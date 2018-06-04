@@ -2,11 +2,18 @@ package com.youngc.pipeline.service.system.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.youngc.pipeline.bean.context.ModuleTreeNode;
+import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.mapper.system.SysRoleMapper;
 import com.youngc.pipeline.model.SysRoleModel;
 import com.youngc.pipeline.service.system.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
@@ -62,5 +69,50 @@ public class SysRoleServiceImpl implements SysRoleService {
     public boolean deleteRoleList(String idList) {
         sysRoleMapper.deleteRole(idList);
         return true;
+    }
+
+    /**
+     * 通过权限id获取该权限对应的权限树
+     * @param roleId
+     * @return
+     */
+    public List<TreeNode> getRoleTree(Long roleId) {
+        List<Map> groups = sysRoleMapper.getRoleTree(roleId);
+
+        List<TreeNode> tree = new ArrayList<TreeNode>();
+
+        for(int i=0;i<groups.size();i++){
+            if((Integer)groups.get(i).get("pid")==0){
+                TreeNode node = new TreeNode();
+                node.setId(groups.get(i).get("module_id").toString());
+                node.setName(groups.get(i).get("module_name").toString());
+                node.setChecked(groups.get(i).get("checked").toString());
+                node.setChildren(getModuleChilds(groups,(Integer)groups.get(i).get("module_id")));
+                tree.add(node);
+            }
+        }
+
+        return tree;
+    }
+
+    /**
+     * 获取子节点children
+     * @param modules
+     * @param parentId
+     * @return
+     */
+    List<TreeNode> getModuleChilds(List<Map> modules, Integer parentId) {
+        List<TreeNode> children = new ArrayList<TreeNode>();
+        for (Map module : modules) {
+            if ((module.get("pid")).equals(parentId)) {
+                TreeNode node = new TreeNode();
+                node.setId(module.get("module_id").toString());
+                node.setName((String) (module.get("module_name")));
+                node.setChecked(module.get("checked").toString());
+                node.setChildren(getModuleChilds(modules, (Integer) (module.get("module_id"))));
+                children.add(node);
+            }
+        }
+        return children;
     }
 }

@@ -13,4 +13,6 @@ public class TreeNode {
 
     private List<TreeNode> children;
 
+    private String checked;
+
 }
