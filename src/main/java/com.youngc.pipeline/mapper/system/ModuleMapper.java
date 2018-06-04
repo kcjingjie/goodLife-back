@@ -17,7 +17,7 @@ public interface ModuleMapper {
      * @return
      */
     @Select(" SELECT module_id, module_name, pid,icon" +
-            " FROM sys_module ")
+            " FROM sys_module WHERE type=1;")
     List<Map> getTree();
 
     /**
