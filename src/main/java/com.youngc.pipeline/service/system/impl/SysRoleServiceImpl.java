@@ -76,7 +76,7 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @param roleId
      * @return
      */
-    public List<Map> getRoleTree(Long roleId) {
+    public List<TreeNode> getRoleTree(Long roleId) {
         List<Map> groups = sysRoleMapper.getRoleTree(roleId);
 
         List<TreeNode> tree = new ArrayList<TreeNode>();
@@ -86,12 +86,13 @@ public class SysRoleServiceImpl implements SysRoleService {
                 TreeNode node = new TreeNode();
                 node.setId(groups.get(i).get("module_id").toString());
                 node.setName(groups.get(i).get("module_name").toString());
+                node.setChecked(groups.get(i).get("checked").toString());
                 node.setChildren(getModuleChilds(groups,(Integer)groups.get(i).get("module_id")));
                 tree.add(node);
             }
         }
 
-        return null;
+        return tree;
     }
 
     /**
@@ -105,7 +106,9 @@ public class SysRoleServiceImpl implements SysRoleService {
         for (Map module : modules) {
             if ((module.get("pid")).equals(parentId)) {
                 TreeNode node = new TreeNode();
+                node.setId(module.get("module_id").toString());
                 node.setName((String) (module.get("module_name")));
+                node.setChecked(module.get("checked").toString());
                 node.setChildren(getModuleChilds(modules, (Integer) (module.get("module_id"))));
                 children.add(node);
             }
