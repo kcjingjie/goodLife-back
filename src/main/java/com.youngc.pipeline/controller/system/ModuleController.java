@@ -46,7 +46,7 @@ public class ModuleController {
 
     @ApiOperation("修改模块信息")
     @PutMapping
-    public Result getGroupInfo(@RequestBody ModuleBean moduleBean) {
+    public Result getOrgInfo(@RequestBody ModuleBean moduleBean) {
         UserBean user = (UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
 
         ModuleModel moduleModel = new ModuleModel();

@@ -22,55 +22,32 @@ public class ModuleServiceImpl implements ModuleService {
      */
     public List<TreeNode> getTree(String keyword) {
 
-        List<Map> groups;
-
-        List<Map> okGroups = new ArrayList<Map>();
-
-        List<Map> noGroups = new ArrayList<Map>();
+        List<Map> module;
 
         List<TreeNode> tree = new ArrayList<TreeNode>();
 
-        groups = moduleMapper.getTree();
+        module = moduleMapper.getTree();
 
-        for (Map map : groups) {
-            if (((String) (map.get("module_name"))).contains(keyword)) {
-                okGroups.add(map);
-            } else {
-                noGroups.add(map);
-            }
-        }
-        for (int i = 0; i < okGroups.size(); i++) {
-            if (((Integer) (okGroups.get(i).get("pid"))) != 0) {
-                for (Map map1 : noGroups) {
-                    if (okGroups.get(i).get("pid").equals(map1.get("module_id"))) {
-                        if (!okGroups.contains(map1)) {
-                            okGroups.add(map1);
-                        }
-                    }
-                }
-            }
-        }
-
-        for (int i = 0; i < okGroups.size(); i++) {
-            if (((Integer) (okGroups.get(i).get("pid"))) == 0) {
+        for (int i = 0; i < module.size(); i++) {
+            if (((Integer) (module.get(i).get("pid"))) == 0) {
                 TreeNode root = new TreeNode();
-                root.setId(((Integer) (okGroups.get(i).get("module_id"))).toString());
-                root.setName((String) (okGroups.get(i).get("module_name")));
-                root.setChildren(getChilds(okGroups, ((Integer) (okGroups.get(i).get("module_id")))));
+                root.setId(((Integer) (module.get(i).get("module_id"))).toString());
+                root.setName((String) (module.get(i).get("module_name")));
+                root.setChildren(getChilds(module, ((Integer) (module.get(i).get("module_id")))));
                 tree.add(root);
             }
         }
         return tree;
     }
 
-    List<TreeNode> getChilds(List<Map> groups, Integer parentId) {
+    List<TreeNode> getChilds(List<Map> module, Integer parentId) {
         List<TreeNode> children = new ArrayList<TreeNode>();
-        for (Map group : groups) {
-            if ((group.get("pid")).equals(parentId)) {
+        for (Map mod : module) {
+            if ((mod.get("pid")).equals(parentId)) {
                 TreeNode node = new TreeNode();
-                node.setId(((Integer) (group.get("module_id"))).toString());
-                node.setName((String) (group.get("module_name")));
-                node.setChildren(getChilds(groups, (Integer) (group.get("module_id"))));
+                node.setId(((Integer) (mod.get("module_id"))).toString());
+                node.setName((String) (mod.get("module_name")));
+                node.setChildren(getChilds(module, (Integer) (mod.get("module_id"))));
                 children.add(node);
             }
         }
