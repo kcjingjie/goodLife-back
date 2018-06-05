@@ -24,14 +24,20 @@ public class OrgController {
     @GetMapping("/tree")
     public Result getTree(@RequestParam String keyword) {
 
-        return ResultGenerator.generate(ResultCode.SUCCESS,orgService.getTree(keyword));
+        return ResultGenerator.generate(ResultCode.SUCCESS, orgService.getTree(keyword));
     }
 
     @ApiOperation("获取组织信息")
     @GetMapping("/{orgId}")
     public Result getOrgInfo(@PathVariable Long orgId) {
 
-        return ResultGenerator.generate(ResultCode.SUCCESS,orgService.getOrg(orgId));
+        return ResultGenerator.generate(ResultCode.SUCCESS, orgService.getOrg(orgId));
+    }
+
+    @ApiOperation("获取组织编号")
+    @GetMapping("/getOrgCode")
+    public Result getOrgCode(@RequestParam String orgCode) {
+        return ResultGenerator.generate(ResultCode.SUCCESS, orgService.getOrgCode(orgCode));
     }
 
     @ApiOperation("修改组织信息")
@@ -50,7 +56,7 @@ public class OrgController {
 
         orgModel.setLastPerson(user.getUserId());
 
-        return ResultGenerator.generate(ResultCode.SUCCESS,orgService.updateOrg(orgModel));
+        return ResultGenerator.generate(ResultCode.SUCCESS, orgService.updateOrg(orgModel));
     }
 
     @ApiOperation("添加组织信息")
@@ -69,7 +75,7 @@ public class OrgController {
         orgModel.setAddPerson(user.getUserId());
         orgModel.setLastPerson(user.getUserId());
 
-        return ResultGenerator.generate(ResultCode.SUCCESS,orgService.addOrg(orgModel));
+        return ResultGenerator.generate(ResultCode.SUCCESS, orgService.addOrg(orgModel));
     }
 
     @ApiOperation("删除组织信息")

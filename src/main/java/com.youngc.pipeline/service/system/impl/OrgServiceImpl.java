@@ -62,6 +62,13 @@ public class OrgServiceImpl implements OrgService {
     }
 
     /**
+     * 查询组织编号
+     */
+    public OrgModel getOrgCode(String orgCode) {
+        return orgMapper.getOrgCode(orgCode);
+    }
+
+    /**
      * 更新组织信息
      */
     public OrgModel updateOrg(OrgModel orgModel) {

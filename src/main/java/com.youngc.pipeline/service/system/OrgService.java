@@ -20,6 +20,11 @@ public interface OrgService {
     OrgModel getOrg(Long userId);
 
     /**
+     * 查询组织编号
+     */
+    OrgModel getOrgCode(String orgCode);
+
+    /**
      * 更新组织信息
      */
     OrgModel updateOrg(OrgModel orgModel);

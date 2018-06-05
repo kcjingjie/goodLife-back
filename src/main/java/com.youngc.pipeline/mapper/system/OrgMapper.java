@@ -32,6 +32,14 @@ public interface OrgMapper {
     OrgModel getOrgInfo(@Param("orgId") Long orgId);
 
     /**
+     * 查询组织编号
+     * @param
+     * @return
+     */
+    @Select(" SELECT org_code FROM sys_organize where org_code = #{orgCode};")
+    OrgModel getOrgCode(@Param("orgCode") String orgCode);
+
+    /**
      * 更新组织信息
      * @return
      */
