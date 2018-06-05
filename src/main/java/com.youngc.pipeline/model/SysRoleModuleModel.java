@@ -5,28 +5,25 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * @author liweiqiang
- */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OrgModel {
+public class SysRoleModuleModel {
 
-    private Long orgId;
+    private Long id;
 
-    private Long userId;
+    private Long roleId;
 
-    private Long pid;
+    private Long moduleId;
 
-    private String orgName;
+    private int checked;
 
-    private String pOrgName;
-
-    private String orgCode;
-
-    private String orgDesc;
+    private int status;
 
     private Long addPerson;
 
+    private Date addTime;
+
     private Long lastPerson;
+
+    private Date lastTime;
 }

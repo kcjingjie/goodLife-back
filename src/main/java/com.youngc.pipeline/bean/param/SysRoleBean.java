@@ -27,11 +27,4 @@ public class SysRoleBean {
 
     private int checked;
 
-    private Long addPerson;
-
-    private Date addTime;
-
-    private Long lastPerson;
-
-    private Date lastTime;
 }

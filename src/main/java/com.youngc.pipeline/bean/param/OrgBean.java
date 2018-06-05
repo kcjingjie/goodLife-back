@@ -14,14 +14,12 @@ public class OrgBean {
 
     private Long pid;
 
+    private String addOrgCode;
+
     private String orgCode;
 
     private String orgName;
 
-    private String orgType;
-
     private String orgDesc;
-
-    private Long status;
 
 }
