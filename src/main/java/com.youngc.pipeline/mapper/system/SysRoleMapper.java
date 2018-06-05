@@ -1,12 +1,12 @@
 package com.youngc.pipeline.mapper.system;
 
-import com.youngc.pipeline.model.SysDataRoleModel;
 import com.youngc.pipeline.model.SysRoleModel;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+
 
 @Component
 public interface SysRoleMapper {
