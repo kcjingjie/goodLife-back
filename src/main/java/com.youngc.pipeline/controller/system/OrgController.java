@@ -68,7 +68,7 @@ public class OrgController {
         OrgModel orgModel = new OrgModel();
 
         orgModel.setOrgName(orgBean.getOrgName());
-        orgModel.setOrgCode(orgBean.getOrgCode());
+        orgModel.setOrgCode(orgBean.getAddOrgCode());
         orgModel.setPid(orgBean.getOrgId());
         orgModel.setOrgDesc(orgBean.getOrgDesc());
 

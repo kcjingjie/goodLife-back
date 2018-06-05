@@ -46,8 +46,8 @@ public class ModuleController {
 
     @ApiOperation("获取模块标识")
     @GetMapping("/getControlId")
-    public Result getControlId(@RequestParam String controlId) {
-        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getControlId(controlId));
+    public Result getControlId(@RequestParam String controlId,Long moduleId) {
+        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getControlId(controlId,moduleId));
     }
 
     @ApiOperation("修改模块信息")
@@ -81,7 +81,7 @@ public class ModuleController {
 
         moduleModel.setModuleName(moduleBean.getModuleName());
         moduleModel.setIcon(moduleBean.getIcon());
-        moduleModel.setControlId(moduleBean.getControlId());
+        moduleModel.setControlId(moduleBean.getAddControlId());
         moduleModel.setType(moduleBean.getType());
         moduleModel.setStatus(moduleBean.getStatus());
         moduleModel.setModulePath(moduleBean.getModulePath());

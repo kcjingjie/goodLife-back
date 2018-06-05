@@ -20,6 +20,8 @@ public class ModuleBean {
 
     private String controlId;
 
+    private String addControlId;
+
     private String modulePath;
 
     private String moduleDesc;

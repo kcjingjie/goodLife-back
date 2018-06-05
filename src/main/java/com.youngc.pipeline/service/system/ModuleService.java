@@ -28,7 +28,7 @@ public interface ModuleService {
     /**
      * 查询模块标识
      */
-    ModuleModel getControlId(String controlId);
+    ModuleModel getControlId(String controlId,Long moduleId);
 
     /**
      * 更新模块信息

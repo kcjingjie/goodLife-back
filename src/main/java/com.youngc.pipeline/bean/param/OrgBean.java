@@ -14,6 +14,8 @@ public class OrgBean {
 
     private Long pid;
 
+    private String addOrgCode;
+
     private String orgCode;
 
     private String orgName;

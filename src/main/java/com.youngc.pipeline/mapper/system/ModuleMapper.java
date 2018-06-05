@@ -40,6 +40,14 @@ public interface ModuleMapper {
     ModuleModel getControlId(@Param("controlId") String controlId);
 
     /**
+     * 查询模块标识
+     * @param controlId
+     * @return
+     */
+    @Select(" SELECT control_id FROM sys_module where control_id = #{controlId} AND module_id != #{moduleId};")
+    ModuleModel getUpdateControlId(@Param("moduleId") Long moduleId,@Param("controlId") String controlId);
+
+    /**
      * 更新模块信息
      * @param moduleModel
      * @return
