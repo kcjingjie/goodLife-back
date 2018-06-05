@@ -19,13 +19,4 @@ public class SysDataRoleBean {
 
     private int priority;
 
-    private Long addPerson;
-
-    private Date addTime;
-
-    private Long lastPerson;
-
-    private Date lastTime;
-
-
 }
