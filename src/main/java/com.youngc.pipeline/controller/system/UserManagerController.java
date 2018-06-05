@@ -76,7 +76,6 @@ public class UserManagerController {
         usersManagerModel.setRealName(userBean.getRealName());
         usersManagerModel.setPassword(userBean.getPassword());
         usersManagerModel.setUserAddress(userBean.getUserAddress());
-        usersManagerModel.setUserBirth(userBean.getUserBirth());
         usersManagerModel.setUserEmail(userBean.getUserEmail());
         usersManagerModel.setUserSex(userBean.getUserSex());
         usersManagerModel.setUserPhone(userBean.getUserPhone());

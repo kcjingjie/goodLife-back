@@ -10,27 +10,27 @@ import java.util.List;
  */
 public interface OrgService {
     /**
-     * 查询模块树
+     * 查询组织树
      */
     List<TreeNode> getTree(String keyword);
 
     /**
-     * 查询模块信息
+     * 查询组织信息
      */
     OrgModel getOrg(Long userId);
 
     /**
-     * 更新模块信息
+     * 更新组织信息
      */
     OrgModel updateOrg(OrgModel orgModel);
 
     /**
-     * 删除模块
+     * 删除组织
      */
     void deleteOrg(Long userId);
 
     /**
-     * 添加模块
+     * 添加组织
      */
     OrgModel addOrg(OrgModel orgModel);
 }

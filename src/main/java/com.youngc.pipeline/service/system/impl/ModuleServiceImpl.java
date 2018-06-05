@@ -100,6 +100,13 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     /**
+     * 查询模块标识
+     */
+    public ModuleModel getControlId(String controlId) {
+        return moduleMapper.getControlId(controlId);
+    }
+
+    /**
      * 更新模块信息
      */
     public ModuleModel updateModuleDetails(ModuleModel moduleModel) {

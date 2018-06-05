@@ -44,6 +44,12 @@ public class ModuleController {
         return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getModuleDetails(moduleId));
     }
 
+    @ApiOperation("获取模块标识")
+    @GetMapping("/getControlId")
+    public Result getControlId(@RequestParam String controlId) {
+        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getControlId(controlId));
+    }
+
     @ApiOperation("修改模块信息")
     @PutMapping
     public Result getOrgInfo(@RequestBody ModuleBean moduleBean) {

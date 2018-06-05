@@ -18,10 +18,6 @@ public class OrgBean {
 
     private String orgName;
 
-    private String orgType;
-
     private String orgDesc;
-
-    private Long status;
 
 }
