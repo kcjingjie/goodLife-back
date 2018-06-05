@@ -13,7 +13,7 @@ public interface UserManagerMapper {
      * @param userId
      * @return
      */
-    @Select(" SELECT user_id, user_name, real_name, user_sex, user_birth, user_phone, user_email, user_address, status" +
+    @Select(" SELECT user_id, user_name, real_name, user_sex, user_phone, user_email, user_address, status" +
             " FROM sys_user WHERE user_id = #{userId}")
     UserManagerModel getUserInfo(@Param("userId") Long userId);
 
@@ -42,8 +42,8 @@ public interface UserManagerMapper {
      * @param userManagerModel
      * @return
      */
-    @Insert(" INSERT INTO sys_user (user_name, password, real_name,unit_id,user_sex,user_birth,user_phone,user_email,user_address, add_person, add_time, last_person, last_time)" +
-            " VALUES(#{userName}, #{password}, #{realName},0,#{userSex},#{userBirth},#{userPhone},#{userEmail},#{userAddress}, #{addPerson}, now(), #{lastPerson}, now())")
+    @Insert(" INSERT INTO sys_user (user_name, password, real_name,unit_id,user_sex,user_phone,user_email,user_address, add_person, add_time, last_person, last_time)" +
+            " VALUES(#{userName}, #{password}, #{realName},0,#{userSex},#{userPhone},#{userEmail},#{userAddress}, #{addPerson}, now(), #{lastPerson}, now())")
     @Options(useGeneratedKeys = true, keyColumn = "user_id")
     int insertNewUser(UserManagerModel userManagerModel);
 
@@ -60,7 +60,7 @@ public interface UserManagerMapper {
      * @param keyword
      * @return
      */
-    @Select(" SELECT user_id, user_name, real_name, user_sex, user_birth, user_phone, user_email, user_address, status FROM sys_user" +
+    @Select(" SELECT user_id, user_name, real_name, user_sex, user_phone, user_email, user_address, status FROM sys_user" +
             " WHERE ((user_name LIKE CONCAT('%', #{keyword}, '%')) OR (real_name LIKE CONCAT('%', #{keyword}, '%')))")
     List<UserManagerModel> getList(String keyword);
 

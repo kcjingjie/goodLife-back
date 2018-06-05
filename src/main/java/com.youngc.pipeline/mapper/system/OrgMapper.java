@@ -14,7 +14,7 @@ import java.util.Map;
 @Component
 public interface OrgMapper {
     /**
-     * 查询模块数据
+     * 查询组织数据
      * @return
      */
     @Select(" SELECT org_id, org_name, pid" +
@@ -22,43 +22,48 @@ public interface OrgMapper {
     List<Map> getTree();
 
     /**
-     * 查询模块信息
+     * 查询组织信息
      * @param
      * @return
      */
-    @Select(" SELECT org_id,org_name,pid,org_code,org_type,org_desc,status,(SELECT org_name FROM sys_organize" +
+    @Select(" SELECT org_id,org_name,pid,org_code,org_desc,(SELECT org_name FROM sys_organize" +
             " WHERE org_id=(SELECT pid FROM sys_organize where org_id = #{orgId}))pOrgName" +
             " FROM sys_organize where org_id = #{orgId};")
     OrgModel getOrgInfo(@Param("orgId") Long orgId);
 
     /**
-     * 更新模块信息
+     * 查询组织编号
+     * @param
      * @return
      */
-    @Update(" UPDATE sys_module SET pid = #{pid}, module_name = #{moduleName}, control_id = #{controlId}, module_path = #{modulePath}," +
-            " module_desc = #{moduleDesc}, type = #{type}, status = #{status}, priority = #{priority}, icon = #{icon}, "+
-            " last_person = #{lastPerson}, last_time = now() "+
-            " WHERE module_id = #{moduleId};")
-    int update(OrgModel orgModel);
+    @Select(" SELECT org_code FROM sys_organize where org_code = #{orgCode};")
+    OrgModel getOrgCode(@Param("orgCode") String orgCode);
 
     /**
-     * 添加模块信息
+     * 更新组织信息
      * @return
      */
-    @Insert(" insert into sys_module(pid,module_name,control_id,module_path,module_desc,type,status,priority,icon," +
-            " add_person,add_time,last_person,last_time)" +
-            " values(#{pid},#{moduleName},#{controlId},#{modulePath},#{moduleDesc},#{type},#{status},#{priority},#{icon},#{addPerson},"+
-            " now(),#{lastPerson},now());")
+    @Update(" UPDATE sys_organize SET pid = #{pid}, org_name = #{orgName}, org_code = #{orgCode}, org_desc = #{orgDesc}," +
+            " last_person = #{lastPerson}, last_time = now() "+
+            " WHERE org_id = #{orgId};")
+    int updateOrg(OrgModel orgModel);
+
+    /**
+     * 添加组织信息
+     * @return
+     */
+    @Insert(" insert into sys_organize(org_code,pid,org_name,org_desc,add_person,add_time,last_person,last_time)" +
+            " values(#{orgCode},#{pid},#{orgName},#{orgDesc},#{addPerson},now(),#{lastPerson},now());")
     @Options(useGeneratedKeys = true, keyProperty = "orgId", keyColumn = "org_id")
     int addOrg(OrgModel orgModel);
 
     /**
-     * 删除模块信息
+     * 删除组织信息
      * @return
      */
-    @Delete(" DELETE  FROM  sys_module WHERE module_id = #{moduleId}")
+    @Delete(" DELETE  FROM  sys_organize WHERE org_id = #{orgId}")
     int deleteOrg(@Param("orgId") Long orgId);
 
-    @Delete(" DELETE  FROM  sys_module WHERE pid = #{moduleId}")
+    @Delete(" DELETE  FROM  sys_organize WHERE pid = #{orgId}")
     int deleteOrgInfo(@Param("orgId") Long orgId);
 }

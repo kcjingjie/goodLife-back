@@ -20,7 +20,7 @@ public class OrgServiceImpl implements OrgService {
     private OrgMapper orgMapper;
 
     /**
-     * 查询模块树
+     * 查询组织树
      */
     public List<TreeNode> getTree(String keyword) {
 
@@ -55,22 +55,29 @@ public class OrgServiceImpl implements OrgService {
     }
 
     /**
-     * 查询模块信息
+     * 查询组织信息
      */
     public OrgModel getOrg(Long orgId) {
         return orgMapper.getOrgInfo(orgId);
     }
 
     /**
-     * 更新模块信息
+     * 查询组织编号
+     */
+    public OrgModel getOrgCode(String orgCode) {
+        return orgMapper.getOrgCode(orgCode);
+    }
+
+    /**
+     * 更新组织信息
      */
     public OrgModel updateOrg(OrgModel orgModel) {
-        orgMapper.update(orgModel);
+        orgMapper.updateOrg(orgModel);
         return orgModel;
     }
 
     /**
-     * 添加模块信息
+     * 添加组织信息
      */
     public OrgModel addOrg(OrgModel orgModel) {
         orgMapper.addOrg(orgModel);
@@ -78,7 +85,7 @@ public class OrgServiceImpl implements OrgService {
     }
 
     /**
-     * 删除模块
+     * 删除组织
      */
     public void deleteOrg(Long orgId) {
         orgMapper.deleteOrgInfo(orgId);

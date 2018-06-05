@@ -24,9 +24,9 @@ public class OrgModel {
 
     private String orgCode;
 
-    private String orgType;
-
     private String orgDesc;
 
-    private Long status;
+    private Long addPerson;
+
+    private Long lastPerson;
 }
