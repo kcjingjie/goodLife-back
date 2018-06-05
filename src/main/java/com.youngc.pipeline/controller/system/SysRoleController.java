@@ -102,4 +102,12 @@ public class SysRoleController {
         return ResultGenerator.generate(ResultCode.SUCCESS,sysRoleService.getRoleTree(roleId));
     }
 
+    @PutMapping(value = "/putRoleModule/{roleId}/{moduleIds}")
+    public Result setRoleModule(@PathVariable Long roleId,@PathVariable String moduleIds){
+        com.youngc.pipeline.bean.context.UserBean user
+                = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+        sysRoleService.updateRoleModule(roleId,moduleIds,user.getUserId());
+        return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
+
 }

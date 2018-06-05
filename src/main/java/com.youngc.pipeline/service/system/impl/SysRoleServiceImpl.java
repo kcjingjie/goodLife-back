@@ -6,9 +6,12 @@ import com.youngc.pipeline.bean.context.ModuleTreeNode;
 import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.mapper.system.SysRoleMapper;
 import com.youngc.pipeline.model.SysRoleModel;
+import com.youngc.pipeline.model.SysRoleModuleModel;
 import com.youngc.pipeline.service.system.SysRoleService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +97,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 
         return tree;
     }
-
     /**
      * 获取子节点children
      * @param modules
@@ -115,4 +117,16 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         return children;
     }
+
+    @Transactional
+    public boolean updateRoleModule(Long roleId, String moudleIds, Long personId) {
+        sysRoleMapper.deleteRoleMoudle(roleId);
+        String[] moduleId =moudleIds.split(",");
+        for(int i=0;i<moduleId.length;i++){
+            int module = Integer.valueOf(moduleId[i]).intValue();
+            sysRoleMapper.insertRoleModule(roleId,module,personId);
+        }
+        return true;
+    }
+
 }

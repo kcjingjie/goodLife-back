@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.model.SysDataRoleModel;
 import com.youngc.pipeline.model.SysRoleModel;
+import com.youngc.pipeline.model.SysRoleModuleModel;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,6 @@ public interface SysRoleService {
     boolean deleteRoleList(String idList);
 
     List<TreeNode> getRoleTree(Long roleId);
+
+    boolean updateRoleModule(Long roleId,String moudleIds,Long personId);
 }
