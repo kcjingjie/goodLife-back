@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public interface SysDataRoleMapper {
@@ -55,5 +56,11 @@ public interface SysDataRoleMapper {
             " last_person = #{lastPerson}, last_time = now() WHERE drole_id = #{droleId}")
     int updateDataRoleInfo(SysDataRoleModel sysDataRoleModel);
 
-
+    /**
+     * 查询单位数据
+     * @return
+     */
+    @Select(" SELECT unit_id,org_id,unit_name" +
+            " FROM sys_unit;")
+    List<Map> getOrgUnitTree();
 }

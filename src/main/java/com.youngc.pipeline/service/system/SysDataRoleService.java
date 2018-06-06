@@ -1,9 +1,12 @@
 package com.youngc.pipeline.service.system;
 
 import com.github.pagehelper.Page;
+import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.mapper.system.SysDataRoleMapper;
 import com.youngc.pipeline.model.DictionaryQueryModel;
 import com.youngc.pipeline.model.SysDataRoleModel;
+
+import java.util.List;
 
 public interface SysDataRoleService {
 
@@ -16,4 +19,6 @@ public interface SysDataRoleService {
     SysDataRoleModel updateDataRoleInfo(SysDataRoleModel sysDataRoleModel);
 
     boolean deleteDataRoleList(String idList);
+
+    List<TreeNode> getOrgUnitTree();
 }

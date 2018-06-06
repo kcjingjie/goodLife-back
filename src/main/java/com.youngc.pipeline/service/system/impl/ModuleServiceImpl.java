@@ -102,11 +102,11 @@ public class ModuleServiceImpl implements ModuleService {
     /**
      * 查询模块标识
      */
-    public ModuleModel getControlId(String controlId,Long moduleId) {
-        if(moduleId==null){
+    public ModuleModel getControlId(String controlId, Long moduleId) {
+        if (moduleId == null) {
             return moduleMapper.getControlId(controlId);
-        }else{
-            return moduleMapper.getUpdateControlId(moduleId,controlId);
+        } else {
+            return moduleMapper.getUpdateControlId(moduleId, controlId);
         }
     }
 
@@ -130,8 +130,8 @@ public class ModuleServiceImpl implements ModuleService {
      * 删除模块
      */
     public void deleteModule(Long moduleId) {
-        moduleMapper.deleteModuleInfo(moduleId);
-        moduleMapper.deleteModule(moduleId);
+        String moduleIdStr = moduleMapper.deleteModule(moduleId);
+        moduleMapper.deleteModuleInfo(moduleIdStr);
     }
 
 }

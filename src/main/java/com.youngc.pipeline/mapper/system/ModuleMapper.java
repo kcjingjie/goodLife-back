@@ -75,9 +75,10 @@ public interface ModuleMapper {
      * @param moduleId
      * @return
      */
-    @Delete(" DELETE  FROM  sys_module WHERE module_id = #{moduleId}")
-    int deleteModule(@Param("moduleId") Long moduleId);
+    @Select("SELECT GROUP_CONCAT(module_id separator ',') module_id FROM sys_module " +
+            "WHERE FIND_IN_SET(module_id,getModuleChild(#{moduleId}));")
+    String deleteModule(@Param("moduleId") Long moduleId);
 
-    @Delete(" DELETE  FROM  sys_module WHERE pid = #{moduleId}")
-    int deleteModuleInfo(@Param("moduleId") Long moduleId);
+    @Delete(" DELETE  FROM  sys_module WHERE module_id IN (${moduleIdStr})")
+    int deleteModuleInfo(@Param("moduleIdStr") String moduleIdStr);
 }

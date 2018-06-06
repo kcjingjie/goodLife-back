@@ -11,6 +11,7 @@ import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.result.ResultGenerator;
 import com.youngc.pipeline.service.system.SysDataRoleService;
 import com.youngc.pipeline.utils.RequestContextHolderUtil;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -97,6 +98,13 @@ public class SysDataRoleController {
     public Result deleteList(@RequestParam("idList") String idList) {
         sysDataRoleService.deleteDataRoleList(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
+
+    @ApiOperation("获取组织单位树")
+    @GetMapping("/orgUnitTree")
+    public Result getOrgUnitTree() {
+
+        return ResultGenerator.generate(ResultCode.SUCCESS, sysDataRoleService.getOrgUnitTree());
     }
 
 }

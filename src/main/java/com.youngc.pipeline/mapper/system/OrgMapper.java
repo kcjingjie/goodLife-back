@@ -61,9 +61,10 @@ public interface OrgMapper {
      * 删除组织信息
      * @return
      */
-    @Delete(" DELETE  FROM  sys_organize WHERE org_id = #{orgId}")
-    int deleteOrg(@Param("orgId") Long orgId);
+    @Select("SELECT GROUP_CONCAT(org_id separator ',') org_id FROM sys_organize " +
+            "WHERE FIND_IN_SET(org_id,getChildList(#{orgId}));")
+    String getOrgId(Long orgId);
 
-    @Delete(" DELETE  FROM  sys_organize WHERE pid = #{orgId}")
-    int deleteOrgInfo(@Param("orgId") Long orgId);
+    @Delete(" DELETE  FROM  sys_organize WHERE org_id IN (${orgIdStr})")
+    int deleteOrgInfo(@Param("orgIdStr") String orgIdStr);
 }

@@ -88,8 +88,9 @@ public class OrgServiceImpl implements OrgService {
      * 删除组织
      */
     public void deleteOrg(Long orgId) {
-        orgMapper.deleteOrgInfo(orgId);
-        orgMapper.deleteOrg(orgId);
+        String orgIdStr = orgMapper.getOrgId(orgId);
+        System.out.println(orgIdStr);
+        orgMapper.deleteOrgInfo(orgIdStr);
     }
 
 }
