@@ -97,11 +97,22 @@ public class SysRoleController {
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
 
+    /**
+     *根据roleID获取权限树
+     * @param roleId
+     * @return
+     */
     @GetMapping(value = "/getTree/{roleId}")
     public Result getRoleTree(@PathVariable Long roleId){
         return ResultGenerator.generate(ResultCode.SUCCESS,sysRoleService.getRoleTree(roleId));
     }
 
+    /**
+     * 修改权限树
+     * @param roleId
+     * @param moduleIds
+     * @return
+     */
     @PutMapping(value = "/putRoleModule/{roleId}/{moduleIds}")
     public Result setRoleModule(@PathVariable Long roleId,@PathVariable String moduleIds){
         com.youngc.pipeline.bean.context.UserBean user
