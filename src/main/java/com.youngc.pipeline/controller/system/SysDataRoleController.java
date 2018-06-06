@@ -107,4 +107,10 @@ public class SysDataRoleController {
         return ResultGenerator.generate(ResultCode.SUCCESS, sysDataRoleService.getOrgUnitTree());
     }
 
+    @ApiOperation("获取数据角色关联单位信息")
+    @GetMapping("/DataUnit")
+    public Result getDataUnit(Long droleId) {
+        return ResultGenerator.generate(ResultCode.SUCCESS, sysDataRoleService.getDataUnit(droleId));
+    }
+
 }
