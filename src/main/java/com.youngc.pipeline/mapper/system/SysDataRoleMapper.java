@@ -25,7 +25,7 @@ public interface SysDataRoleMapper {
      * @return
      */
     @Insert(" INSERT INTO sys_data_role (drole_name, drole_desc, status,add_person, add_time, last_person, last_time)" +
-            " VALUES(#{droleName}, #{droleDesc}, #{status}, #{addPerson}, now(), #{lastPerson},now()")
+            " VALUES(#{droleName}, #{droleDesc}, #{status}, #{addPerson}, now(), #{lastPerson},now())")
     @Options(useGeneratedKeys = true, keyColumn = "drole_id")
     int insertDataRole(SysDataRoleModel sysDataRoleModel);
 
