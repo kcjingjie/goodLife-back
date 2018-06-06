@@ -69,8 +69,10 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @param idList
      * @return
      */
+    @Transactional
     public boolean deleteRoleList(String idList) {
         sysRoleMapper.deleteRole(idList);
+        sysRoleMapper.deleteRoleMou(idList);
         return true;
     }
 

@@ -40,6 +40,13 @@ public interface SysRoleMapper {
     int deleteRole(@Param("idList") String  idList);
 
     /**
+     * 删除角色之后，删除关联表sys_role_module数据
+     * @param idList
+     * @return
+     */
+    @Delete(" DELETE FROM sys_role_module WHERE role_id IN (${idList});")
+    int deleteRoleMou(@Param("idList") String  idList);
+    /**
      * 获取角色信息
      * @param id
      * @return
@@ -72,7 +79,7 @@ public interface SysRoleMapper {
 
     @Insert("INSERT INTO sys_role_module (role_id, module_id, add_person, add_time, last_person, last_time)"  +
             " VALUES(#{roleId}, #{moduleId}, #{personId}, now(), #{personId}, now())")
-    @Options(useGeneratedKeys = true, keyColumn = "id")
-    int insertRoleModule(@Param("roleId")Long roleId,@Param("roleId")int moudleId,@Param("personId")Long personId);
+//    @Options(useGeneratedKeys = true, keyColumn = "id")
+    int insertRoleModule(@Param("roleId")Long roleId,@Param("moduleId")int moduleId,@Param("personId")Long personId);
 
 }
