@@ -72,7 +72,7 @@ public interface SysRoleMapper {
 
     @Insert("INSERT INTO sys_role_module (role_id, module_id, add_person, add_time, last_person, last_time)"  +
             " VALUES(#{roleId}, #{moduleId}, #{personId}, now(), #{personId}, now())")
-    @Options(useGeneratedKeys = true, keyColumn = "id")
-    int insertRoleModule(@Param("roleId")Long roleId,@Param("roleId")int moudleId,@Param("personId")Long personId);
+//    @Options(useGeneratedKeys = true, keyColumn = "id")
+    int insertRoleModule(@Param("roleId")Long roleId,@Param("moduleId")int moduleId,@Param("personId")Long personId);
 
 }
