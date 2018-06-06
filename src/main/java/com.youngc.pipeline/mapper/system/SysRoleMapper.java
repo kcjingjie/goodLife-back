@@ -40,6 +40,13 @@ public interface SysRoleMapper {
     int deleteRole(@Param("idList") String  idList);
 
     /**
+     * 删除角色之后，删除关联表sys_role_module数据
+     * @param idList
+     * @return
+     */
+    @Delete(" DELETE FROM sys_role_module WHERE role_id IN (${idList});")
+    int deleteRoleMou(@Param("idList") String  idList);
+    /**
      * 获取角色信息
      * @param id
      * @return
