@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
@@ -25,18 +22,20 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     /**
      * 分页获取角色信息
+     *
      * @param dataName
      * @param pageNum
      * @param pageSize
      * @return
      */
     public Page getRoleList(String dataName, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         return (Page) sysRoleMapper.getRoleList(dataName);
     }
 
     /**
      * 添加角色
+     *
      * @param sysRoleModel
      * @return
      */
@@ -47,6 +46,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     /**
      * 获取角色信息
+     *
      * @param id
      * @return
      */
@@ -56,6 +56,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     /**
      * 更新角色信息
+     *
      * @param sysRoleModel
      * @return
      */
@@ -66,6 +67,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     /**
      * 删除角色
+     *
      * @param idList
      * @return
      */
@@ -78,6 +80,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     /**
      * 通过权限id获取该权限对应的权限树
+     *
      * @param roleId
      * @return
      */
@@ -86,21 +89,23 @@ public class SysRoleServiceImpl implements SysRoleService {
 
         List<TreeNode> tree = new ArrayList<TreeNode>();
 
-        for(int i=0;i<groups.size();i++){
-            if((Integer)groups.get(i).get("pid")==0){
+        for (int i = 0; i < groups.size(); i++) {
+            if ((Integer) groups.get(i).get("pid") == 0) {
                 TreeNode node = new TreeNode();
                 node.setId(groups.get(i).get("module_id").toString());
                 node.setName(groups.get(i).get("module_name").toString());
                 node.setChecked(groups.get(i).get("checked").toString());
-                node.setChildren(getModuleChilds(groups,(Integer)groups.get(i).get("module_id")));
+                node.setChildren(getModuleChilds(groups, (Integer) groups.get(i).get("module_id")));
                 tree.add(node);
             }
         }
 
         return tree;
     }
+
     /**
      * 获取子节点children
+     *
      * @param modules
      * @param parentId
      * @return
@@ -121,13 +126,11 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Transactional
-    public boolean updateRoleModule(Long roleId, String moudleIds, Long personId) {
+    public boolean updateRoleModule(Long roleId, String moudleIds, Long userId) {
         sysRoleMapper.deleteRoleMoudle(roleId);
-        String[] moduleId =moudleIds.split(",");
-        for(int i=0;i<moduleId.length;i++){
-            int module = Integer.valueOf(moduleId[i]).intValue();
-            sysRoleMapper.insertRoleModule(roleId,module,personId);
-        }
+        String[] moduleId = moudleIds.split(",");
+        List<String> moduleIds = Arrays.asList(moduleId);
+        sysRoleMapper.insertRoleModule(moduleIds,roleId,userId);
         return true;
     }
 

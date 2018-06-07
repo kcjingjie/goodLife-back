@@ -22,5 +22,5 @@ public interface SysRoleService {
 
     List<TreeNode> getRoleTree(Long roleId);
 
-    boolean updateRoleModule(Long roleId,String moudleIds,Long personId);
+    boolean updateRoleModule(Long roleId,String moudleIds,Long userId);
 }

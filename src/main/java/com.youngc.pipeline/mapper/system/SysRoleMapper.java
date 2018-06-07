@@ -2,6 +2,7 @@ package com.youngc.pipeline.mapper.system;
 
 import com.youngc.pipeline.model.SysRoleModel;
 import com.youngc.pipeline.model.SysRoleModuleModel;
+import com.youngc.pipeline.sqlProvider.system.SystemSqlProvider;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -77,9 +78,10 @@ public interface SysRoleMapper {
     @Delete("DELETE FROM sys_role_module WHERE role_id=#{roleId}")
     int deleteRoleMoudle(@Param("roleId") Long  roleId);
 
-    @Insert("INSERT INTO sys_role_module (role_id, module_id, add_person, add_time, last_person, last_time)"  +
-            " VALUES(#{roleId}, #{moduleId}, #{personId}, now(), #{personId}, now())")
-//    @Options(useGeneratedKeys = true, keyColumn = "id")
-    int insertRoleModule(@Param("roleId")Long roleId,@Param("moduleId")int moduleId,@Param("personId")Long personId);
+    @InsertProvider(type = SystemSqlProvider.class, method = "insertRoleModule")
+    int insertRoleModule(List<String> moduleIds,  Long roleId,  Long userId);
+//    @Insert("INSERT INTO sys_role_module (role_id, module_id, add_person, add_time, last_person, last_time)"  +
+//            " VALUES(#{roleId}, #{moduleId}, #{personId}, now(), #{personId}, now())")
+//    int insertRoleModule(@Param("roleId")Long roleId,@Param("moduleId")int moduleId,@Param("personId")Long personId);
 
 }
