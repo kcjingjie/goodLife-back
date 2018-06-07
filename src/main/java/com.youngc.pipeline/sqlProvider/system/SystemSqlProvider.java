@@ -18,10 +18,10 @@ public class SystemSqlProvider {
 
         StringBuilder builder = new StringBuilder("insert into sys_data_role_unit (drole_id,unit_id,status,add_person,add_time,last_person,last_time) values ");
 
+        MessageFormat messageFormat = new MessageFormat("({0}, {1}, 1, {2}, now(), {3}, now())");
+
         for (int i = 0; i < DataUnitId.size(); i++) {
-            System.out.println(DataUnitId.get(i));
-            MessageFormat messageFormat = new MessageFormat("(" + droleId + "," + DataUnitId.get(i) + ", 1," + userId + ",now()," + userId + ",now())");
-            builder.append(messageFormat.format(new Object[]{i + ""}));
+            builder.append(messageFormat.format(new Object[]{droleId, DataUnitId.get(i), userId, userId}));
             if (i < DataUnitId.size() - 1) {
                 builder.append(",");
             }
