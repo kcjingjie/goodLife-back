@@ -3,11 +3,14 @@ package com.youngc.pipeline.service.system.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.youngc.pipeline.mapper.system.UserManagerMapper;
+import com.youngc.pipeline.model.UnitModel;
 import com.youngc.pipeline.model.UserManagerModel;
 import com.youngc.pipeline.service.system.UserManagerService;
 import com.youngc.pipeline.utils.BCryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author liweiqiang
@@ -100,4 +103,12 @@ public class UserManagerServiceImpl implements UserManagerService {
         userManagerMapper.insertNewUser(userManagerModel);
         return userManagerModel;
     }
+
+    /**
+     *
+     */
+    public List getUnitList() {
+        return userManagerMapper.getUnitList();
+    }
+
 }
