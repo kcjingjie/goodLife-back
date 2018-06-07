@@ -1,7 +1,10 @@
 package com.youngc.pipeline.service.system;
 
 import com.github.pagehelper.Page;
+import com.youngc.pipeline.model.UnitModel;
 import com.youngc.pipeline.model.UserManagerModel;
+
+import java.util.List;
 
 public interface UserManagerService {
     UserManagerModel getUserDetails(Long userId);
@@ -17,4 +20,6 @@ public interface UserManagerService {
     Page getList(String keyword, int pageNum, int pageSize);
 
     void updatePassword(Long userId, String password, Long lastPerson);
+
+    List getUnitList();
 }

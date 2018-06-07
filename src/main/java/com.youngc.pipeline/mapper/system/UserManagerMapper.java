@@ -1,5 +1,6 @@
 package com.youngc.pipeline.mapper.system;
 
+import com.youngc.pipeline.model.UnitModel;
 import com.youngc.pipeline.model.UserManagerModel;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
@@ -71,4 +72,10 @@ public interface UserManagerMapper {
      */
     @Delete(" DELETE FROM sys_user WHERE user_id IN (${userList})")
     int deleteUserList(@Param("userList") String userList);
+
+    /**
+     * 查询单位表的内容
+     */
+    @Select("SELECT unit_id, unit_name FROM sys_unit")
+    List<UnitModel> getUnitList();
 }

@@ -124,4 +124,12 @@ public class UserManagerController {
         userManagerService.updatePassword(userId, password, user.getUserId());
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
+
+    /**
+     * 查询单位表中的信息
+     */
+    @GetMapping(value = "/getUnitList")
+    public  Result getUnitList(){
+        return ResultGenerator.generate(ResultCode.SUCCESS,userManagerService.getUnitList());
+    }
 }
