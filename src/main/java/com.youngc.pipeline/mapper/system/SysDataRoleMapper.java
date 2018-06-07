@@ -70,6 +70,6 @@ public interface SysDataRoleMapper {
      * @return
      */
     @Select(" SELECT drole_id,unit_id,status" +
-            " FROM sys_data_role_unit;")
+            " FROM sys_data_role_unit WHERE drole_id = #{droleId};")
     List<DataUnitModel> getDataUnit(@Param("droleId") Long droleId);
 }

@@ -96,6 +96,7 @@ public class SysDataRoleServiceImpl implements SysDataRoleService {
         for (int i = 0; i < org.size(); i++) {
             if (((Integer) (org.get(i).get("pid"))) == 0) {
                 TreeNode root = new TreeNode();
+                root.setId("org_" + ((Integer) (org.get(i).get("org_id"))).toString());
                 root.setName((String) (org.get(i).get("org_name")));
                 root.setChildren(getChilds(unit, org, ((Integer) (org.get(i).get("org_id")))));
                 tree.add(root);
@@ -122,6 +123,7 @@ public class SysDataRoleServiceImpl implements SysDataRoleService {
             }
             if ((orgs.get(j).get("pid")).equals(parentId)) {
                 TreeNode node = new TreeNode();
+                node.setId("org_" + ((Integer) (orgs.get(j).get("org_id"))).toString());
                 node.setName((String) (orgs.get(j).get("org_name")));
                 node.setChildren(getChilds(units, orgs, (Integer) (orgs.get(j).get("org_id"))));
                 children.add(node);
@@ -138,6 +140,6 @@ public class SysDataRoleServiceImpl implements SysDataRoleService {
      * @return
      */
     public List<DataUnitModel> getDataUnit(Long droleId) {
-        return  sysDataRoleMapper.getDataUnit(droleId);
+        return sysDataRoleMapper.getDataUnit(droleId);
     }
 }
