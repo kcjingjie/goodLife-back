@@ -22,8 +22,6 @@ public class ModuleBean {
 
     private String addControlId;
 
-    private String modulePath;
-
     private String moduleDesc;
 
     private Long type;

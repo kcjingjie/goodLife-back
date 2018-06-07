@@ -27,7 +27,7 @@ public interface ModuleMapper {
      */
     @Select(" SELECT module_id,module_name,pid,(SELECT module_name FROM sys_module " +
             " WHERE module_id=(SELECT pid FROM sys_module where module_id = #{moduleId}))pModule_name,"+
-            " control_id,module_path,module_desc,type,status,priority,icon" +
+            " control_id,module_desc,type,status,priority,icon" +
             " FROM sys_module where module_id = #{moduleId};")
     ModuleModel getModuleInfo(@Param("moduleId") Long moduleId);
 
@@ -52,7 +52,7 @@ public interface ModuleMapper {
      * @param moduleModel
      * @return
      */
-    @Update(" UPDATE sys_module SET pid = #{pid}, module_name = #{moduleName}, control_id = #{controlId}, module_path = #{modulePath}," +
+    @Update(" UPDATE sys_module SET pid = #{pid}, module_name = #{moduleName}, control_id = #{controlId}," +
             " module_desc = #{moduleDesc}, type = #{type}, status = #{status}, priority = #{priority}, icon = #{icon}, "+
             " last_person = #{lastPerson}, last_time = now() "+
             " WHERE module_id = #{moduleId};")
@@ -63,7 +63,7 @@ public interface ModuleMapper {
      * @param moduleModel
      * @return
      */
-    @Insert(" insert into sys_module(pid,module_name,control_id,module_path,module_desc,type,status,priority,icon," +
+    @Insert(" insert into sys_module(pid,module_name,control_id,module_desc,type,status,priority,icon," +
             " add_person,add_time,last_person,last_time)" +
             " values(#{pid},#{moduleName},#{controlId},#{modulePath},#{moduleDesc},#{type},#{status},#{priority},#{icon},#{addPerson},"+
             " now(),#{lastPerson},now());")

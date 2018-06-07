@@ -61,7 +61,6 @@ public class ModuleController {
         moduleModel.setControlId(moduleBean.getControlId());
         moduleModel.setType(moduleBean.getType());
         moduleModel.setStatus(moduleBean.getStatus());
-        moduleModel.setModulePath(moduleBean.getModulePath());
         moduleModel.setPid(moduleBean.getPid());
         moduleModel.setPriority(moduleBean.getPriority());
         moduleModel.setModuleDesc(moduleBean.getModuleDesc());
@@ -84,7 +83,6 @@ public class ModuleController {
         moduleModel.setControlId(moduleBean.getAddControlId());
         moduleModel.setType(moduleBean.getType());
         moduleModel.setStatus(moduleBean.getStatus());
-        moduleModel.setModulePath(moduleBean.getModulePath());
         moduleModel.setPid(moduleBean.getModuleId());
         moduleModel.setPriority(moduleBean.getPriority());
         moduleModel.setModuleDesc(moduleBean.getModuleDesc());

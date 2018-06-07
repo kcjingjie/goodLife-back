@@ -24,8 +24,6 @@ public class ModuleModel {
 
     private String controlId;
 
-    private String modulePath;
-
     private String moduleDesc;
 
     private Long type;

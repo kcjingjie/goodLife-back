@@ -13,10 +13,7 @@ import com.youngc.pipeline.service.system.SysDataRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class SysDataRoleServiceImpl implements SysDataRoleService {
@@ -141,5 +138,15 @@ public class SysDataRoleServiceImpl implements SysDataRoleService {
      */
     public List<DataUnitModel> getDataUnit(Long droleId) {
         return sysDataRoleMapper.getDataUnit(droleId);
+    }
+
+
+    public boolean putDataUnit(String UnitIds, Long userId, Long droleId) {
+        String[] IDS = UnitIds.split(",");
+        List<String> DataUnitId = Arrays.asList(IDS);
+        sysDataRoleMapper.deleteDataUnit(droleId);
+
+        sysDataRoleMapper.putDataUnit(DataUnitId, userId, droleId);
+        return true;
     }
 }

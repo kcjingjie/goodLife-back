@@ -1,6 +1,7 @@
 package com.youngc.pipeline.controller.system;
 
 import com.youngc.pipeline.bean.param.DictionaryValueBean;
+import com.youngc.pipeline.bean.param.DtatRoleUnitBean;
 import com.youngc.pipeline.bean.param.SysDataRoleBean;
 import com.youngc.pipeline.bean.param.UserBean;
 import com.youngc.pipeline.model.DictionaryValueModel;
@@ -26,18 +27,20 @@ public class SysDataRoleController {
 
     /**
      * 通过角色名称模糊查询数据角色表中的数据
+     *
      * @param keyWord
      * @param pageNum
      * @param pageSize
      * @return
      */
     @GetMapping(value = "/getList")
-    public Result getDataRoleList(@RequestParam String keyWord,@RequestParam int pageNum, @RequestParam int pageSize){
+    public Result getDataRoleList(@RequestParam String keyWord, @RequestParam int pageNum, @RequestParam int pageSize) {
         return ResultGenerator.generate(sysDataRoleService.getDataRoleList(keyWord, pageNum, pageSize));
     }
 
     /**
      * 通过id查询数据角色表中的id
+     *
      * @param id
      * @return
      */
@@ -48,6 +51,7 @@ public class SysDataRoleController {
 
     /**
      * 添加数据角色
+     *
      * @param sysDataRoleBean
      * @return
      */
@@ -70,6 +74,7 @@ public class SysDataRoleController {
 
     /**
      * 修改数据角色
+     *
      * @param sysDataRoleBean
      * @return
      */
@@ -91,6 +96,7 @@ public class SysDataRoleController {
 
     /**
      * 删除数据角色
+     *
      * @param idList
      * @return
      */
@@ -111,6 +117,23 @@ public class SysDataRoleController {
     @GetMapping("/DataUnit")
     public Result getDataUnit(Long droleId) {
         return ResultGenerator.generate(ResultCode.SUCCESS, sysDataRoleService.getDataUnit(droleId));
+    }
+
+    /**
+     * 修改数据角色关联单位信息
+     *
+     * @return
+     */
+    @PutMapping(value = "/putDataUnit")
+    public Result putDataUnit(@RequestBody DtatRoleUnitBean dtatRoleUnitBean) {
+        com.youngc.pipeline.bean.context.UserBean user
+                = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+
+        Long userId = user.getUserId();
+        String unitIds = dtatRoleUnitBean.getUnitId();
+        Long droleId = dtatRoleUnitBean.getDroleId();
+        sysDataRoleService.putDataUnit(unitIds, userId, droleId);
+        return ResultGenerator.generate(ResultCode.SUCCESS);
     }
 
 }

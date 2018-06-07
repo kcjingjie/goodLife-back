@@ -3,6 +3,7 @@ package com.youngc.pipeline.mapper.system;
 import com.youngc.pipeline.model.DataUnitModel;
 import com.youngc.pipeline.model.DictionaryQueryModel;
 import com.youngc.pipeline.model.SysDataRoleModel;
+import com.youngc.pipeline.sqlProvider.system.SystemSqlProvider;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ public interface SysDataRoleMapper {
 
     /**
      * 获取数据角色信息
+     *
      * @param keyword
      * @return
      */
@@ -23,6 +25,7 @@ public interface SysDataRoleMapper {
 
     /**
      * 添加数据角色信息
+     *
      * @param sysDataRoleModel
      * @return
      */
@@ -33,14 +36,16 @@ public interface SysDataRoleMapper {
 
     /**
      * 删除数据角色
+     *
      * @param idList
      * @return
      */
     @Delete(" DELETE FROM sys_data_role WHERE drole_id IN (${idList});")
-    int deleteDataRole(@Param("idList") String  idList);
+    int deleteDataRole(@Param("idList") String idList);
 
     /**
      * 获取数据角色信息
+     *
      * @param id
      * @return
      */
@@ -50,6 +55,7 @@ public interface SysDataRoleMapper {
 
     /**
      * 更新数据角色信息
+     *
      * @param sysDataRoleModel
      * @return
      */
@@ -59,6 +65,7 @@ public interface SysDataRoleMapper {
 
     /**
      * 查询单位数据
+     *
      * @return
      */
     @Select(" SELECT unit_id,org_id,unit_name" +
@@ -67,9 +74,30 @@ public interface SysDataRoleMapper {
 
     /**
      * 查询数据角色关联单位信息
+     *
      * @return
      */
     @Select(" SELECT drole_id,unit_id,status" +
             " FROM sys_data_role_unit WHERE drole_id = #{droleId};")
     List<DataUnitModel> getDataUnit(@Param("droleId") Long droleId);
+
+    /**
+     * 删除数据角色关联单位信息
+     *
+     * @param droleId
+     * @return
+     */
+    @Delete(" DELETE FROM sys_data_role_unit WHERE drole_id = #{droleId};")
+    int deleteDataUnit(@Param("droleId") Long droleId);
+
+    /**
+     * 添加数据角色关联单位信息
+     *
+     * @param DataUnitId
+     * @param userId
+     * @param droleId
+     * @return
+     */
+    @InsertProvider(type = SystemSqlProvider.class, method = "putDataUnit")
+    int putDataUnit(List<String> DataUnitId,  Long userId,  Long droleId);
 }

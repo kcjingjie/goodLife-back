@@ -24,4 +24,7 @@ public interface SysDataRoleService {
     List<TreeNode> getOrgUnitTree();
 
     List<DataUnitModel> getDataUnit(Long droleId);
+
+    boolean putDataUnit(String UnitIds, Long userId, Long droleId);
+
 }
