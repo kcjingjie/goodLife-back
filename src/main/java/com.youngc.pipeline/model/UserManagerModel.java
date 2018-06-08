@@ -18,6 +18,8 @@ public class UserManagerModel {
 
     private Long unitId;
 
+    private String unitName;
+
     private String roleIds;
 
     private String droleIds;
