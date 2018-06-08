@@ -84,6 +84,10 @@ public interface UserManagerMapper {
     @Delete(" DELETE FROM sys_user_role WHERE user_id = #{userId}")
     int deleteUserRole(@Param("userId") Long userId);
 
+    //批量删除用户权限
+    @Delete(" DELETE FROM sys_user_role WHERE user_id in ( ${userIds} )")
+    int deleteUsersRole(@Param("userIds") String userIds);
+
     //给用户分配权限
     @InsertProvider(type = SystemSqlProvider.class, method = "insertUserRole")
     int insertUserRole(List<String> roleIds,  Long userId,  Long personId);
@@ -91,6 +95,10 @@ public interface UserManagerMapper {
     //删除用户下的数据角色
     @Delete(" DELETE FROM sys_user_data_role WHERE user_id = #{userId}")
     int deleteUserDataRole(@Param("userId") Long userId);
+
+    //批量删除用户下的数据角色
+    @Delete(" DELETE FROM sys_user_data_role WHERE user_id in ( ${userIds} )")
+    int deleteUsersDataRole(@Param("userIds") String userIds);
 
     //给用户添加数据角色的权限
     @InsertProvider(type = SystemSqlProvider.class, method = "insertUserDataRole")
