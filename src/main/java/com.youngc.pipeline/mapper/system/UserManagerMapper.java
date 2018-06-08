@@ -1,5 +1,7 @@
 package com.youngc.pipeline.mapper.system;
 
+import com.youngc.pipeline.model.SysDataRoleModel;
+import com.youngc.pipeline.model.SysRoleModel;
 import com.youngc.pipeline.model.UnitModel;
 import com.youngc.pipeline.model.UserManagerModel;
 import com.youngc.pipeline.sqlProvider.system.SystemSqlProvider;
@@ -45,7 +47,7 @@ public interface UserManagerMapper {
      * @return
      */
     @Insert(" INSERT INTO sys_user (user_name, password, real_name,unit_id,user_sex,user_phone,user_email,user_address, add_person, add_time, last_person, last_time)" +
-            " VALUES(#{userName}, #{password}, #{realName},0,#{userSex},#{userPhone},#{userEmail},#{userAddress}, #{addPerson}, now(), #{lastPerson}, now())")
+            " VALUES(#{userName}, #{password}, #{realName},#{unitId},#{userSex},#{userPhone},#{userEmail},#{userAddress}, #{addPerson}, now(), #{lastPerson}, now())")
     @Options(useGeneratedKeys = true,keyProperty = "userId", keyColumn = "user_id")
     Long insertNewUser(UserManagerModel userManagerModel);
 
@@ -77,8 +79,19 @@ public interface UserManagerMapper {
     /**
      * 查询单位表的内容
      */
-    @Select("SELECT unit_id, unit_name FROM sys_unit")
+    @Select("SELECT unit_id,unit_name FROM sys_unit")
     List<UnitModel> getUnitList();
+
+    /**
+     *查询权限表的内容
+     * @return
+     */
+    @Select("SELECT role_id,role_name  FROM sys_role")
+    List<SysRoleModel> getRoleList();
+
+    //查询数据角色表的内容
+    @Select("SELECT drole_id,drole_name FROM sys_data_role")
+    List<SysDataRoleModel> getDataRoleList();
 
     //删除用户权限
     @Delete(" DELETE FROM sys_user_role WHERE user_id = #{userId}")

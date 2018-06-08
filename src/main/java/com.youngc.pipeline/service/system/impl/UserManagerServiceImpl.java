@@ -115,9 +115,12 @@ public class UserManagerServiceImpl implements UserManagerService {
 
         userManagerMapper.insertNewUser(userManagerModel);
         Long userId = userManagerModel.getUserId();
-
-        putUserRole(roleIds, userId, personId);
-        putUserDataRole(droleIds, userId, personId);
+        if(!roleIds.equals("")){
+            putUserRole(roleIds, userId, personId);
+        }
+        if(!droleIds.equals("")){
+            putUserDataRole(droleIds, userId, personId);
+        }
         return userManagerModel;
     }
 
@@ -128,6 +131,29 @@ public class UserManagerServiceImpl implements UserManagerService {
         return userManagerMapper.getUnitList();
     }
 
+    /**
+     * 获取权限列表
+     * @return
+     */
+    public List getRoleList() {
+        return userManagerMapper.getRoleList();
+    }
+
+    /**
+     * 获取数据角色列表
+     * @return
+     */
+    public List getDataRoleList() {
+        return userManagerMapper.getDataRoleList();
+    }
+
+    /**
+     * 用户权限表中存数据
+     * @param roleIds
+     * @param userId
+     * @param personId
+     * @return
+     */
     public boolean putUserRole(String roleIds, Long userId, Long personId) {
         String[] IDS = roleIds.split(",");
         List<String> roleId = Arrays.asList(IDS);
@@ -137,6 +163,13 @@ public class UserManagerServiceImpl implements UserManagerService {
         return true;
     }
 
+    /**
+     * 用户数据角色表中存数据
+     * @param droleIds
+     * @param userId
+     * @param personId
+     * @return
+     */
     public boolean putUserDataRole(String droleIds, Long userId, Long personId) {
         String[] IDS = droleIds.split(",");
         List<String> droleId = Arrays.asList(IDS);

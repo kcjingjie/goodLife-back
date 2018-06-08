@@ -23,6 +23,10 @@ public interface UserManagerService {
 
     List getUnitList();
 
+    List getRoleList();
+
+    List getDataRoleList();
+
     boolean putUserRole(String roleIds, Long userId, Long personId);
 
     boolean putUserDataRole(String droleIds, Long userId, Long personId);
