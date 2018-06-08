@@ -59,4 +59,53 @@ public class SystemSqlProvider {
         }
         return builder.toString();
     }
+
+
+    /**
+     * 给用户分配权限
+     * @param para
+     * @return
+     */
+    public String insertUserRole(Map<String, Object> para) {
+
+        List<String> roleIds = (List<String>) para.get("arg0");
+        Long userId = (Long) para.get("arg1");//需要修改的用户id
+        Long personId = (Long) para.get("arg2");//操作用户的id
+
+        StringBuilder builder = new StringBuilder("INSERT INTO sys_user_role (user_id, role_id, add_person, add_time, last_person, last_time) VALUES ");
+
+        MessageFormat messageFormat = new MessageFormat("({0}, {1},{2}, now(), {3}, now())");
+
+        for (int i = 0; i < roleIds.size(); i++) {
+            builder.append(messageFormat.format(new Object[]{ roleIds.get(i),userId, personId, personId}));
+            if (i < roleIds.size() - 1) {
+                builder.append(",");
+            }
+        }
+        return builder.toString();
+    }
+
+    /**
+     * 给用户添加数据角色的权限
+     * @param para
+     * @return
+     */
+    public String insertUserDataRole(Map<String, Object> para) {
+
+        List<String> droleIds = (List<String>) para.get("arg0");
+        Long userId = (Long) para.get("arg1");//需要修改的用户id
+        Long personId = (Long) para.get("arg2");//操作用户的id
+
+        StringBuilder builder = new StringBuilder("INSERT INTO sys_user_data_role (user_id, drole_id, add_person, add_time, last_person, last_time) VALUES ");
+
+        MessageFormat messageFormat = new MessageFormat("({0}, {1},{2}, now(), {3}, now())");
+
+        for (int i = 0; i < droleIds.size(); i++) {
+            builder.append(messageFormat.format(new Object[]{ droleIds.get(i),userId, personId, personId}));
+            if (i < droleIds.size() - 1) {
+                builder.append(",");
+            }
+        }
+        return builder.toString();
+    }
 }

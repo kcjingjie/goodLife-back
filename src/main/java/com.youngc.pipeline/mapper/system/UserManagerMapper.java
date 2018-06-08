@@ -2,6 +2,7 @@ package com.youngc.pipeline.mapper.system;
 
 import com.youngc.pipeline.model.UnitModel;
 import com.youngc.pipeline.model.UserManagerModel;
+import com.youngc.pipeline.sqlProvider.system.SystemSqlProvider;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -78,4 +79,10 @@ public interface UserManagerMapper {
      */
     @Select("SELECT unit_id, unit_name FROM sys_unit")
     List<UnitModel> getUnitList();
+
+    @InsertProvider(type = SystemSqlProvider.class, method = "insertUserRole")
+    int insertUserRole(List<String> roleIds,  Long userId,  Long personId);
+
+    @InsertProvider(type = SystemSqlProvider.class, method = "insertUserDataRole")
+    int insertUserDataRole(List<String> roleIds,  Long userId,  Long personId);
 }
