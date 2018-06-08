@@ -8,6 +8,7 @@ import com.youngc.pipeline.result.ResultGenerator;
 import com.youngc.pipeline.service.system.UserManagerService;
 import com.youngc.pipeline.utils.RequestContextHolderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -67,13 +68,16 @@ public class UserManagerController {
      * @return
      */
     @PostMapping
+    @Transactional
     public Result postUser(@RequestBody UserBean userBean) {
          com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         UserManagerModel usersManagerModel = new UserManagerModel();
 
+
         usersManagerModel.setUserName(userBean.getUserName());
         usersManagerModel.setRealName(userBean.getRealName());
+        usersManagerModel.setUnitId(userBean.getUnitId());
         usersManagerModel.setPassword(userBean.getPassword());
         usersManagerModel.setUserAddress(userBean.getUserAddress());
         usersManagerModel.setUserEmail(userBean.getUserEmail());
@@ -82,9 +86,11 @@ public class UserManagerController {
 
         usersManagerModel.setAddPerson(user.getUserId());
         usersManagerModel.setLastPerson(user.getUserId());
-
+        String roleIds= userBean.getRoleIds();
+        String droleIds= userBean.getDroleIds();
+        Long personId = user.getUserId();
         return ResultGenerator.generate(ResultCode.SUCCESS,
-                userManagerService.addUser(usersManagerModel));
+                userManagerService.addUser(usersManagerModel,roleIds,droleIds,personId));
     }
 
     /**

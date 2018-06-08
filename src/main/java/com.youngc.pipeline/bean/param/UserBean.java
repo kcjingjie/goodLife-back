@@ -12,6 +12,12 @@ public class UserBean {
 
     private Long userId;
 
+    private Long unitId;
+
+    private String roleIds;
+
+    private String droleIds;
+
     private String userName;
 
     private String password;

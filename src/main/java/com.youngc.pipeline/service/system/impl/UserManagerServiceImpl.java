@@ -96,13 +96,15 @@ public class UserManagerServiceImpl implements UserManagerService {
      * @param userManagerModel
      * @return
      */
-    public UserManagerModel addUser(UserManagerModel userManagerModel) {
+    public UserManagerModel addUser(UserManagerModel userManagerModel,String roleIds,String droleIds,Long personId) {
 
         userManagerModel.setPassword(BCryptUtil.hashpw(userManagerModel
                 .getPassword(), BCryptUtil.gensalt(12)));
 
-        userManagerMapper.insertNewUser(userManagerModel);
-        return userManagerModel;
+       Long userId=userManagerMapper.insertNewUser(userManagerModel);
+       putUserRole(roleIds,userId,personId);
+       putUserDataRole(droleIds,userId,personId);
+       return userManagerModel;
     }
 
     /**
@@ -118,6 +120,14 @@ public class UserManagerServiceImpl implements UserManagerService {
         userManagerMapper.deleteUserRole(userId);
 
         userManagerMapper.insertUserRole(roleId, userId, personId);
+        return true;
+    }
+    public boolean putUserDataRole(String droleIds, Long userId, Long personId) {
+        String[] IDS = droleIds.split(",");
+        List<String> droleId = Arrays.asList(IDS);
+        userManagerMapper.deleteUserDataRole(userId);
+
+        userManagerMapper.insertUserDataRole(droleId, userId, personId);
         return true;
     }
 

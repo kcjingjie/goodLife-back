@@ -15,7 +15,7 @@ public interface UserManagerService {
 
     boolean deleteUserList(String userIds);
 
-    UserManagerModel addUser(UserManagerModel userManagerModel);
+    UserManagerModel addUser(UserManagerModel userManagerModel,String roleIds,String droleIds,Long personId);
 
     Page getList(String keyword, int pageNum, int pageSize);
 
@@ -24,4 +24,6 @@ public interface UserManagerService {
     List getUnitList();
 
     boolean putUserRole(String roleIds, Long userId, Long personId);
+
+    boolean putUserDataRole(String droleIds, Long userId, Long personId);
 }
