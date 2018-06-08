@@ -1,12 +1,8 @@
 package com.youngc.pipeline.controller.system;
 
-import com.youngc.pipeline.bean.param.DictionaryValueBean;
-import com.youngc.pipeline.bean.param.DtatRoleUnitBean;
+import com.youngc.pipeline.bean.param.DataRoleUnitBean;
 import com.youngc.pipeline.bean.param.SysDataRoleBean;
-import com.youngc.pipeline.bean.param.UserBean;
-import com.youngc.pipeline.model.DictionaryValueModel;
 import com.youngc.pipeline.model.SysDataRoleModel;
-import com.youngc.pipeline.model.UserManagerModel;
 import com.youngc.pipeline.result.Result;
 import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.result.ResultGenerator;
@@ -125,7 +121,7 @@ public class SysDataRoleController {
      * @return
      */
     @PutMapping(value = "/putDataUnit")
-    public Result putDataUnit(@RequestBody DtatRoleUnitBean dtatRoleUnitBean) {
+    public Result putDataUnit(@RequestBody DataRoleUnitBean dtatRoleUnitBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
 
