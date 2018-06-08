@@ -22,4 +22,6 @@ public interface UserManagerService {
     void updatePassword(Long userId, String password, Long lastPerson);
 
     List getUnitList();
+
+    boolean putUserRole(String roleIds, Long userId, Long personId);
 }

@@ -10,6 +10,7 @@ import com.youngc.pipeline.utils.BCryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -105,10 +106,19 @@ public class UserManagerServiceImpl implements UserManagerService {
     }
 
     /**
-     *
+     *获取单位列表
      */
     public List getUnitList() {
         return userManagerMapper.getUnitList();
+    }
+
+    public boolean putUserRole(String roleIds, Long userId, Long personId) {
+        String[] IDS = roleIds.split(",");
+        List<String> roleId = Arrays.asList(IDS);
+        userManagerMapper.deleteUserRole(userId);
+
+        userManagerMapper.insertUserRole(roleId, userId, personId);
+        return true;
     }
 
 }

@@ -80,9 +80,19 @@ public interface UserManagerMapper {
     @Select("SELECT unit_id, unit_name FROM sys_unit")
     List<UnitModel> getUnitList();
 
+    //删除用户权限
+    @Delete(" DELETE FROM sys_user_role WHERE user_id = #{userId}")
+    int deleteUserRole(@Param("userId") Long userId);
+
+    //给用户分配权限
     @InsertProvider(type = SystemSqlProvider.class, method = "insertUserRole")
     int insertUserRole(List<String> roleIds,  Long userId,  Long personId);
 
+    //删除用户下的数据角色
+    @Delete(" DELETE FROM sys_user_data_role WHERE user_id = #{userId}")
+    int deleteUserDataRole(@Param("userId") Long userId);
+
+    //给用户添加数据角色的权限
     @InsertProvider(type = SystemSqlProvider.class, method = "insertUserDataRole")
     int insertUserDataRole(List<String> roleIds,  Long userId,  Long personId);
 }
