@@ -63,6 +63,7 @@ public class SystemSqlProvider {
 
     /**
      * 给用户分配权限
+     *
      * @param para
      * @return
      */
@@ -77,7 +78,7 @@ public class SystemSqlProvider {
         MessageFormat messageFormat = new MessageFormat("({0}, {1},{2}, now(), {3}, now())");
 
         for (int i = 0; i < roleIds.size(); i++) {
-            builder.append(messageFormat.format(new Object[]{ roleIds.get(i),userId, personId, personId}));
+            builder.append(messageFormat.format(new Object[]{userId, roleIds.get(i), personId, personId}));
             if (i < roleIds.size() - 1) {
                 builder.append(",");
             }
@@ -87,6 +88,7 @@ public class SystemSqlProvider {
 
     /**
      * 给用户添加数据角色的权限
+     *
      * @param para
      * @return
      */
@@ -101,7 +103,7 @@ public class SystemSqlProvider {
         MessageFormat messageFormat = new MessageFormat("({0}, {1},{2}, now(), {3}, now())");
 
         for (int i = 0; i < droleIds.size(); i++) {
-            builder.append(messageFormat.format(new Object[]{ droleIds.get(i),userId, personId, personId}));
+            builder.append(messageFormat.format(new Object[]{userId, droleIds.get(i), personId, personId}));
             if (i < droleIds.size() - 1) {
                 builder.append(",");
             }

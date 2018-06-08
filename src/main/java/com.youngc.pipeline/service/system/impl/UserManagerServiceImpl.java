@@ -79,7 +79,10 @@ public class UserManagerServiceImpl implements UserManagerService {
      */
     public boolean deleteUser(Long userId) {
 
+        userManagerMapper.deleteUserRole(userId);
+        userManagerMapper.deleteUserDataRole(userId);
         userManagerMapper.deleteUser(userId);
+
 
         return true;
     }
@@ -111,6 +114,7 @@ public class UserManagerServiceImpl implements UserManagerService {
         userManagerMapper.insertNewUser(userManagerModel);
         Long userId = userManagerModel.getUserId();
         System.out.println(userId);
+
 
         putUserRole(roleIds, userId, personId);
         putUserDataRole(droleIds, userId, personId);
