@@ -22,6 +22,8 @@ public class UserBean {
 
     private String password;
 
+    private String confirmPassword;
+
     private String realName;
 
     private String userAddress;

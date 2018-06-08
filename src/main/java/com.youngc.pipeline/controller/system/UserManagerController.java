@@ -75,6 +75,7 @@ public class UserManagerController {
         UserManagerModel usersManagerModel = new UserManagerModel();
 
 
+        System.out.println();
         usersManagerModel.setUserName(userBean.getUserName());
         usersManagerModel.setRealName(userBean.getRealName());
         usersManagerModel.setUnitId(userBean.getUnitId());

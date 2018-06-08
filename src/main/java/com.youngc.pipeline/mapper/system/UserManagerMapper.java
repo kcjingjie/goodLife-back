@@ -46,7 +46,7 @@ public interface UserManagerMapper {
      */
     @Insert(" INSERT INTO sys_user (user_name, password, real_name,unit_id,user_sex,user_phone,user_email,user_address, add_person, add_time, last_person, last_time)" +
             " VALUES(#{userName}, #{password}, #{realName},0,#{userSex},#{userPhone},#{userEmail},#{userAddress}, #{addPerson}, now(), #{lastPerson}, now())")
-    @Options(useGeneratedKeys = true, keyColumn = "user_id",keyProperty = "userId")
+    @Options(useGeneratedKeys = true,keyProperty = "userId", keyColumn = "user_id")
     Long insertNewUser(UserManagerModel userManagerModel);
 
     /**

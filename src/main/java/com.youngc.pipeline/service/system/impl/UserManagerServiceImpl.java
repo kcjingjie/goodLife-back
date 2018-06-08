@@ -24,6 +24,7 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     /**
      * 批量获取用户信息
+     *
      * @param keyword
      * @param pageNum
      * @param pageSize
@@ -36,6 +37,7 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     /**
      * 获取用户信息
+     *
      * @param userId
      * @return
      */
@@ -46,6 +48,7 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     /**
      * 修改用户
+     *
      * @param userManagerModel
      * @return
      */
@@ -58,6 +61,7 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     /**
      * 更新密码
+     *
      * @param userId
      * @param password
      * @param lastPerson
@@ -69,6 +73,7 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     /**
      * 删除用户
+     *
      * @param userId
      * @return
      */
@@ -81,6 +86,7 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     /**
      * 批量删除用户
+     *
      * @param userIds
      * @return
      */
@@ -93,22 +99,26 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     /**
      * 添加用户
+     *
      * @param userManagerModel
      * @return
      */
-    public UserManagerModel addUser(UserManagerModel userManagerModel,String roleIds,String droleIds,Long personId) {
+    public UserManagerModel addUser(UserManagerModel userManagerModel, String roleIds, String droleIds, Long personId) {
 
         userManagerModel.setPassword(BCryptUtil.hashpw(userManagerModel
                 .getPassword(), BCryptUtil.gensalt(12)));
 
-       Long userId=userManagerMapper.insertNewUser(userManagerModel);
-       putUserRole(roleIds,userId,personId);
-       putUserDataRole(droleIds,userId,personId);
-       return userManagerModel;
+        userManagerMapper.insertNewUser(userManagerModel);
+        Long userId = userManagerModel.getUserId();
+        System.out.println(userId);
+
+        putUserRole(roleIds, userId, personId);
+        putUserDataRole(droleIds, userId, personId);
+        return userManagerModel;
     }
 
     /**
-     *获取单位列表
+     * 获取单位列表
      */
     public List getUnitList() {
         return userManagerMapper.getUnitList();
@@ -122,6 +132,7 @@ public class UserManagerServiceImpl implements UserManagerService {
         userManagerMapper.insertUserRole(roleId, userId, personId);
         return true;
     }
+
     public boolean putUserDataRole(String droleIds, Long userId, Long personId) {
         String[] IDS = droleIds.split(",");
         List<String> droleId = Arrays.asList(IDS);
