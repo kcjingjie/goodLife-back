@@ -73,9 +73,6 @@ public class UserManagerController {
          com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         UserManagerModel usersManagerModel = new UserManagerModel();
-
-
-        System.out.println();
         usersManagerModel.setUserName(userBean.getUserName());
         usersManagerModel.setRealName(userBean.getRealName());
         usersManagerModel.setUnitId(userBean.getUnitId());
@@ -138,5 +135,23 @@ public class UserManagerController {
     @GetMapping(value = "/getUnitList")
     public  Result getUnitList(){
         return ResultGenerator.generate(ResultCode.SUCCESS,userManagerService.getUnitList());
+    }
+
+    /**
+     * 查询权限表中的信息
+     * @return
+     */
+    @GetMapping(value = "/getRoleList")
+    public  Result getRoleList(){
+        return ResultGenerator.generate(ResultCode.SUCCESS,userManagerService.getRoleList());
+    }
+
+    /**
+     * 查询数据角色表中的信息
+     * @return
+     */
+    @GetMapping(value = "/getDataRoleList")
+    public  Result getDataRoleList(){
+        return ResultGenerator.generate(ResultCode.SUCCESS,userManagerService.getDataRoleList());
     }
 }

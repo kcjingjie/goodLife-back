@@ -1,5 +1,7 @@
 package com.youngc.pipeline.mapper.system;
 
+import com.youngc.pipeline.model.SysDataRoleModel;
+import com.youngc.pipeline.model.SysRoleModel;
 import com.youngc.pipeline.model.UnitModel;
 import com.youngc.pipeline.model.UserManagerModel;
 import com.youngc.pipeline.sqlProvider.system.SystemSqlProvider;
@@ -15,8 +17,11 @@ public interface UserManagerMapper {
      * @param userId
      * @return
      */
-    @Select(" SELECT user_id,unit_id, user_name, real_name, user_sex, user_phone, user_email, user_address, status" +
-            " FROM sys_user WHERE user_id = #{userId}")
+    @Select(" SELECT su.user_id,su.unit_id, su.user_name, su.real_name, su.user_sex, su.user_phone, su.user_email, su.user_address, su.status," +
+            "GROUP_CONCAT(DISTINCT sur.role_id SEPARATOR ',')roleIds,GROUP_CONCAT(DISTINCT sudr.drole_id SEPARATOR ',')droleIds "+
+            " FROM sys_user su LEFT JOIN sys_user_role sur on sur.user_id=su.user_id "+
+            " LEFT JOIN sys_user_data_role sudr on sudr.user_id=su.user_id "+
+            "WHERE su.user_id = #{userId}")
     UserManagerModel getUserInfo(@Param("userId") Long userId);
 
     /**
@@ -45,7 +50,7 @@ public interface UserManagerMapper {
      * @return
      */
     @Insert(" INSERT INTO sys_user (user_name, password, real_name,unit_id,user_sex,user_phone,user_email,user_address, add_person, add_time, last_person, last_time)" +
-            " VALUES(#{userName}, #{password}, #{realName},0,#{userSex},#{userPhone},#{userEmail},#{userAddress}, #{addPerson}, now(), #{lastPerson}, now())")
+            " VALUES(#{userName}, #{password}, #{realName},#{unitId},#{userSex},#{userPhone},#{userEmail},#{userAddress}, #{addPerson}, now(), #{lastPerson}, now())")
     @Options(useGeneratedKeys = true,keyProperty = "userId", keyColumn = "user_id")
     Long insertNewUser(UserManagerModel userManagerModel);
 
@@ -62,7 +67,7 @@ public interface UserManagerMapper {
      * @param keyword
      * @return
      */
-    @Select(" SELECT user_id, user_name, real_name, user_sex, user_phone, user_email, user_address, status FROM sys_user" +
+    @Select(" SELECT user_id, user_name, real_name, user_sex, user_phone, user_email, user_address, status,n.unit_name  FROM sys_user s LEFT JOIN sys_unit n on  s.unit_id=n.unit_id" +
             " WHERE ((user_name LIKE CONCAT('%', #{keyword}, '%')) OR (real_name LIKE CONCAT('%', #{keyword}, '%')))")
     List<UserManagerModel> getList(String keyword);
 
@@ -77,8 +82,19 @@ public interface UserManagerMapper {
     /**
      * 查询单位表的内容
      */
-    @Select("SELECT unit_id, unit_name FROM sys_unit")
+    @Select("SELECT unit_id,unit_name FROM sys_unit")
     List<UnitModel> getUnitList();
+
+    /**
+     *查询权限表的内容
+     * @return
+     */
+    @Select("SELECT role_id,role_name  FROM sys_role")
+    List<SysRoleModel> getRoleList();
+
+    //查询数据角色表的内容
+    @Select("SELECT drole_id,drole_name FROM sys_data_role")
+    List<SysDataRoleModel> getDataRoleList();
 
     //删除用户权限
     @Delete(" DELETE FROM sys_user_role WHERE user_id = #{userId}")
