@@ -76,6 +76,7 @@ public class SysDataRoleServiceImpl implements SysDataRoleService {
      * @return
      */
     public boolean deleteDataRoleList(String idList) {
+        sysDataRoleMapper.deleteDataUnits(idList);
         sysDataRoleMapper.deleteDataRole(idList);
         return true;
     }
@@ -141,6 +142,13 @@ public class SysDataRoleServiceImpl implements SysDataRoleService {
     }
 
 
+    /**
+     * 修改关联单位
+     * @param UnitIds
+     * @param userId
+     * @param droleId
+     * @return
+     */
     public boolean putDataUnit(String UnitIds, Long userId, Long droleId) {
         String[] IDS = UnitIds.split(",");
         List<String> DataUnitId = Arrays.asList(IDS);
