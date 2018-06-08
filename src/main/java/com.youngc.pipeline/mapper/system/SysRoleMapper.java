@@ -80,8 +80,5 @@ public interface SysRoleMapper {
 
     @InsertProvider(type = SystemSqlProvider.class, method = "insertRoleModule")
     int insertRoleModule(List<String> moduleIds,  Long roleId,  Long userId);
-//    @Insert("INSERT INTO sys_role_module (role_id, module_id, add_person, add_time, last_person, last_time)"  +
-//            " VALUES(#{roleId}, #{moduleId}, #{personId}, now(), #{personId}, now())")
-//    int insertRoleModule(@Param("roleId")Long roleId,@Param("moduleId")int moduleId,@Param("personId")Long personId);
 
 }

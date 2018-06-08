@@ -33,15 +33,6 @@ public class AuthController {
         return ResultGenerator.generate(ResultCode.SUCCESS, authService.login(userName, password));
     }
 
-//    @PostMapping("/updatePassword")
-//    @ResponseBody
-//    Result updatePassword(String token, String oldPassword, String newPassword) {
-//
-//        if (authService.updatePassword(token, oldPassword, newPassword)) {
-//            return ResultGenerator.generate(ResultCode.SUCCESS);
-//        }
-//        return ResultGenerator.generate(ResultCode.FAIL);
-//    }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     @ResponseBody

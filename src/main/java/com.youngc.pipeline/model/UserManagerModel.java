@@ -24,8 +24,6 @@ public class UserManagerModel {
 
     private String userAddress;
 
-    private String userBirth;
-
     private String userEmail;
 
     private Long userSex;
@@ -36,9 +34,5 @@ public class UserManagerModel {
 
     private Long addPerson;
 
-    private Date addTime;
-
     private Long lastPerson;
-
-    private Date lastTime;
 }
