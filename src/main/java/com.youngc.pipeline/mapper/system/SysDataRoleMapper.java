@@ -91,6 +91,15 @@ public interface SysDataRoleMapper {
     int deleteDataUnit(@Param("droleId") Long droleId);
 
     /**
+     * 批量删除数据角色关联单位信息
+     *
+     * @param droleIds
+     * @return
+     */
+    @Delete(" DELETE FROM sys_data_role_unit WHERE drole_id in (${droleIds});")
+    int deleteDataUnits(@Param("droleIds") String droleIds);
+
+    /**
      * 添加数据角色关联单位信息
      *
      * @param DataUnitId
