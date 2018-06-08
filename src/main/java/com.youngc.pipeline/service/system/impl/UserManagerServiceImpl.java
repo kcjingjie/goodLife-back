@@ -52,10 +52,15 @@ public class UserManagerServiceImpl implements UserManagerService {
      * @param userManagerModel
      * @return
      */
-    public UserManagerModel updateUserDetails(UserManagerModel userManagerModel) {
+    public UserManagerModel updateUserDetails(UserManagerModel userManagerModel,Long userId,String roleIds,String droleIds,Long personId) {
 
         userManagerMapper.updateUserInfo(userManagerModel);
-
+        if(!roleIds.equals("")){
+            putUserRole(roleIds, userId, personId);
+        }
+        if(!droleIds.equals("")){
+            putUserDataRole(droleIds, userId, personId);
+        }
         return userManagerModel;
     }
 

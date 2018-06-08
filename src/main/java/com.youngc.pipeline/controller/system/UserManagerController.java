@@ -56,10 +56,14 @@ public class UserManagerController {
         usersManagerModel.setUserAddress(userBean.getUserAddress());
         usersManagerModel.setUserEmail(userBean.getUserEmail());
         usersManagerModel.setUserSex(userBean.getUserSex());
-
+        usersManagerModel.setUnitId(userBean.getUnitId());
         usersManagerModel.setLastPerson(user.getUserId());
 
-        return ResultGenerator.generate(ResultCode.SUCCESS, userManagerService.updateUserDetails(usersManagerModel));
+        String roleIds= userBean.getRoleIds();
+        String droleIds= userBean.getDroleIds();
+        Long personId = user.getUserId();
+        Long userId = userBean.getUserId();
+        return ResultGenerator.generate(ResultCode.SUCCESS, userManagerService.updateUserDetails(usersManagerModel,userId,roleIds,droleIds,personId));
     }
 
     /**

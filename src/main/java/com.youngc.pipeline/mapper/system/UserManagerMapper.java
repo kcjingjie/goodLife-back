@@ -18,10 +18,10 @@ public interface UserManagerMapper {
      * @return
      */
     @Select(" SELECT su.user_id,su.unit_id, su.user_name, su.real_name, su.user_sex, su.user_phone, su.user_email, su.user_address, su.status," +
-            "GROUP_CONCAT(DISTINCT sur.role_id SEPARATOR ',')roleIds,GROUP_CONCAT(DISTINCT sudr.drole_id SEPARATOR ',')droleIds "+
+            " GROUP_CONCAT(DISTINCT sur.role_id SEPARATOR ',')role_ids,GROUP_CONCAT(DISTINCT sudr.drole_id SEPARATOR ',')drole_ids "+
             " FROM sys_user su LEFT JOIN sys_user_role sur on sur.user_id=su.user_id "+
             " LEFT JOIN sys_user_data_role sudr on sudr.user_id=su.user_id "+
-            "WHERE su.user_id = #{userId}")
+            " WHERE su.user_id = #{userId}")
     UserManagerModel getUserInfo(@Param("userId") Long userId);
 
     /**
@@ -29,7 +29,7 @@ public interface UserManagerMapper {
      * @param userManagerModel
      * @return
      */
-    @Update(" UPDATE sys_user SET user_name = #{userName}, real_name = #{realName},user_phone=#{userPhone},user_email=#{userEmail},user_address=#{userAddress}," +
+    @Update(" UPDATE sys_user SET user_name = #{userName},unit_id=#{unitId}, real_name = #{realName},user_phone=#{userPhone},user_email=#{userEmail},user_address=#{userAddress}," +
             " user_sex=#{userSex},last_person = #{lastPerson}, last_time = now() WHERE user_id = #{userId}")
     int updateUserInfo(UserManagerModel userManagerModel);
 

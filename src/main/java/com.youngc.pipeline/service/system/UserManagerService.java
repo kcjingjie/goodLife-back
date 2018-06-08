@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserManagerService {
     UserManagerModel getUserDetails(Long userId);
 
-    UserManagerModel updateUserDetails(UserManagerModel userManagerModel);
+    UserManagerModel updateUserDetails(UserManagerModel userManagerModel,Long userId,String roleIds,String droleIds,Long personId);
 
     boolean deleteUser(Long userId);
 
