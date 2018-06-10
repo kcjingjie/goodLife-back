@@ -13,7 +13,7 @@ public class UnitBean {
 
     private String unitName;
 
-    private String unitNameAll;
+//    private String unitNameAll;
 
     private String phoneOne;
 
