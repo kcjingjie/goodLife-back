@@ -13,8 +13,6 @@ public class UnitModel {
 
     private String unitName;
 
-//    private String unitNameAll;
-
     private String phoneOne;
 
     private String phoneTwo;

@@ -68,7 +68,7 @@ public interface UserManagerMapper {
      * @return
      */
     @Select(" SELECT user_id, user_name, real_name, user_sex, user_phone, user_email, user_address, status,n.unit_name  FROM sys_user s LEFT JOIN sys_unit n on  s.unit_id=n.unit_id" +
-            " WHERE ((user_name LIKE CONCAT('%', #{keyword}, '%')) OR (real_name LIKE CONCAT('%', #{keyword}, '%')))")
+            " WHERE ((user_name LIKE CONCAT('%', #{keyword}, '%')) OR (real_name LIKE CONCAT('%', #{keyword}, '%'))) ORDER BY s.add_time")
     List<UserManagerModel> getList(String keyword);
 
     /**

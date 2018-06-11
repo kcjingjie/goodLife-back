@@ -56,7 +56,6 @@ public class UnitContorller {
                 unitModel.setPhoneOne(unitBean.getPhoneOne());
                 unitModel.setPhoneTwo(unitBean.getPhoneTwo());
                 unitModel.setRemark(unitBean.getRemark());
-//                unitModel.setUnitNameAll(unitBean.getUnitNameAll());
                 unitModel.setUnitName(unitBean.getUnitName());
                 unitModel.setUnitCode(unitBean.getUnitCode());
 
@@ -82,7 +81,6 @@ public class UnitContorller {
                 unitModel.setPhoneOne(unitBean.getPhoneOne());
                 unitModel.setPhoneTwo(unitBean.getPhoneTwo());
                 unitModel.setRemark(unitBean.getRemark());
-//                unitModel.setUnitNameAll(unitBean.getUnitNameAll());
                 unitModel.setUnitName(unitBean.getUnitName());
                 unitModel.setUnitCode(unitBean.getUnitCode());
                 unitModel.setAddPerson(user.getUserId());
