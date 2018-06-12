@@ -31,7 +31,7 @@ public class UnitServiceImpl implements UnitService{
      * @param unitId
      * @return
      */
-    public UnitModel getUserDetails(Long unitId){
+    public UnitModel getUnitDetails(Long unitId){
         return unitMapper.getUnitInfo(unitId);
     }
 
@@ -63,5 +63,15 @@ public class UnitServiceImpl implements UnitService{
     public boolean deleteUnitList(String unitIds){
         unitMapper.deleteUnitList(unitIds);
         return true;
+    }
+
+    /**
+     * 检验编码是否重复
+     *
+     * @param code
+     * @return
+     */
+    public UnitModel getUnitByCode(String code){
+        return unitMapper.getUnitByCode(code);
     }
 }

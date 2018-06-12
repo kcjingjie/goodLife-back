@@ -62,4 +62,13 @@ public interface UnitMapper {
      */
     @Delete("DELETE FROM sys_unit WHERE unit_id IN (${unitIds})")
     int deleteUnitList(@Param("unitIds") String unitIds);
+
+    /**
+     * 检验编码是否重复
+     *
+     * @param code
+     * @return
+     */
+    @Select("SELECT unit_id FROM sys_unit WHERE unit_code=#{code}")
+    UnitModel getUnitByCode(String code);
 }
