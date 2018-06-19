@@ -65,7 +65,7 @@ public interface ModuleMapper {
      */
     @Insert(" insert into sys_module(pid,module_name,control_id,module_desc,type,status,priority,icon," +
             " add_person,add_time,last_person,last_time)" +
-            " values(#{pid},#{moduleName},#{controlId},#{modulePath},#{moduleDesc},#{type},#{status},#{priority},#{icon},#{addPerson},"+
+            " values(#{pid},#{moduleName},#{controlId},#{moduleDesc},#{type},#{status},#{priority},#{icon},#{addPerson},"+
             " now(),#{lastPerson},now());")
     @Options(useGeneratedKeys = true, keyProperty = "moduleId", keyColumn = "module_id")
     int addModule(ModuleModel moduleModel);
