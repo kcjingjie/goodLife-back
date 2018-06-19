@@ -1,4 +1,4 @@
-package com.youngc.pipeline.service.system;
+package com.youngc.pipeline.service.pipeline;
 
 import com.github.pagehelper.Page;
 import com.youngc.pipeline.model.TypeManageModel;

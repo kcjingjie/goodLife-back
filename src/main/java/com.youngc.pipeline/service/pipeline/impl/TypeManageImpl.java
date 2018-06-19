@@ -1,10 +1,9 @@
-package com.youngc.pipeline.service.system.impl;
+package com.youngc.pipeline.service.pipeline.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.youngc.pipeline.mapper.system.TypeManageMapper;
-import com.youngc.pipeline.model.TypeManageModel;
-import com.youngc.pipeline.service.system.TypeManageService;
+import com.youngc.pipeline.mapper.pipeline.TypeManageMapper;
+import com.youngc.pipeline.service.pipeline.TypeManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
-package com.youngc.pipeline.controller.system;
+package com.youngc.pipeline.controller.pipeline;
 
 import com.youngc.pipeline.result.Result;
 import com.youngc.pipeline.result.ResultGenerator;
-import com.youngc.pipeline.service.system.TypeManageService;
+import com.youngc.pipeline.service.pipeline.TypeManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

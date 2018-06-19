@@ -1,4 +1,4 @@
-package com.youngc.pipeline.mapper.system;
+package com.youngc.pipeline.mapper.pipeline;
 
 import com.youngc.pipeline.model.TypeManageModel;
 import org.apache.ibatis.annotations.Select;
