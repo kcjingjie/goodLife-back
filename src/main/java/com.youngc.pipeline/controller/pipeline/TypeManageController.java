@@ -27,4 +27,6 @@ public class TypeManageController {
     public Result getDictionaryList(@RequestParam String keyWord, @RequestParam int pageNum, @RequestParam int pageSize){
         return ResultGenerator.generate(typeManageService.getList(keyWord,pageNum,pageSize));
     }
+
+
 }
