@@ -33,7 +33,18 @@ public class UnitContorller {
 
         @GetMapping("/{userId}")
         public Result getUnitDetails(@PathVariable Long userId) {
-                return ResultGenerator.generate(ResultCode.SUCCESS, unitService.getUserDetails(userId));
+                return ResultGenerator.generate(ResultCode.SUCCESS, unitService.getUnitDetails(userId));
+        }
+
+        /**
+         * 检验编码是否重复
+         *
+         * @param code
+         * @return
+         */
+        @GetMapping("/code")
+        public Result getUnitByCode(@RequestParam String code){
+                return ResultGenerator.generate(ResultCode.SUCCESS,unitService.getUnitByCode(code));
         }
 
         /**
