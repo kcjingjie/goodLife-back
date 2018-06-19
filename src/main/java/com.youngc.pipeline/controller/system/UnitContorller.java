@@ -43,7 +43,7 @@ public class UnitContorller {
          * @return
          */
         @GetMapping("/code")
-        public Result getUnitByCode(@RequestParam String code){
+        public Result getUnitByCode(@RequestParam String code) {
                 return ResultGenerator.generate(ResultCode.SUCCESS,unitService.getUnitByCode(code));
         }
 

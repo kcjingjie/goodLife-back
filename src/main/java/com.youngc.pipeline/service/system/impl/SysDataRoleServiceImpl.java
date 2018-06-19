@@ -82,7 +82,7 @@ public class SysDataRoleServiceImpl implements SysDataRoleService {
     }
 
     /**
-     * 查询组织树
+     * 查询组织单位树
      */
     public List<TreeNode> getOrgUnitTree() {
 
