@@ -20,11 +20,11 @@ public class TypeManageBean {
 
     private Long status;
 
-    private String addPerson;
+    private Long addPerson;
 
     private Date addDate;
 
-    private String lastPerson;
+    private Long lastPerson;
 
     private Date lastTime;
 }
