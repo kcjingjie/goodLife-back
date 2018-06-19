@@ -1,9 +1,6 @@
 package com.youngc.pipeline.mapper.pipeline;
 
-import com.youngc.pipeline.model.DictionaryQueryModel;
 import com.youngc.pipeline.model.PipeInfoModel;
-import com.youngc.pipeline.model.TypeManageModel;
-import com.youngc.pipeline.model.UserManagerModel;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +13,7 @@ public interface InfoManagerMapper {
     @Select("SELECT device_id,unit_id,model_id,device_alias,device_name,device_code,device_desc,status,address FROM dev_info"+
             " WHERE ((device_name LIKE CONCAT('%', #{keyWord}, '%'))OR(device_alias LIKE CONCAT('%', #{keyWord}, '%')))"+
             " AND unit_id = #{pid}")
-    List<PipeInfoModel> getList(@Param("keyWord")String keyWord,@Param("pid") Long pid);
+    List<PipeInfoModel> getList(@Param("keyWord")String keyWord, @Param("pid") Long pid);
 
     //添加设备信息
     @Insert(" INSERT INTO dev_info (unit_id, model_id, device_alias,device_name,device_code,device_desc,status,address,add_person, add_time, last_person, last_time)" +
@@ -35,6 +32,9 @@ public interface InfoManagerMapper {
 
     //更新设备信息
     @Update(" UPDATE dev_info SET model_id = #{modelId}, device_alias = #{deviceAlias},device_name=#{deviceName},device_desc=#{deviceDesc}," +
-            " status=#{status}, last_person = #{lastPerson}, last_time = now() WHERE device_id = #{id}")
+            " status=#{status},address=#{address}, last_person = #{lastPerson}, last_time = now() WHERE device_id = #{id}")
     int updateInfo(PipeInfoModel pipeInfoModel);
+
+    @Select("SELECT device_id FROM dev_info WHERE device_code=#{code}")
+    PipeInfoModel getInfoByCode(@Param("code") String code);
 }

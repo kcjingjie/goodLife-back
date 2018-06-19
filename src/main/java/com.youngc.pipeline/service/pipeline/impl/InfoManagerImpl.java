@@ -6,6 +6,8 @@ import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.mapper.pipeline.InfoManagerMapper;
 import com.youngc.pipeline.mapper.system.OrgMapper;
 import com.youngc.pipeline.mapper.system.SysDataRoleMapper;
+import com.youngc.pipeline.model.PipeInfoModel;
+import com.youngc.pipeline.model.UnitModel;
 import com.youngc.pipeline.service.pipeline.InfoManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,5 +79,31 @@ public class InfoManagerImpl implements InfoManagerService{
     public Page getList(String keyWord,Long pid, int pageNum, int pageSize){
         PageHelper.startPage(pageNum, pageSize);
         return (Page)infoManagerMapper.getList(keyWord,pid);
+    }
+    //根据id查询设备信息
+    public PipeInfoModel getInfo(Long id) {
+        return infoManagerMapper.getInfo(id);
+    }
+
+    //修改设备信息
+    public PipeInfoModel updateInfo(PipeInfoModel pipeInfoModel) {
+        infoManagerMapper.updateInfo(pipeInfoModel);
+        return pipeInfoModel;
+    }
+
+    //添加设备信息
+    public PipeInfoModel insert(PipeInfoModel pipeInfoModel) {
+        infoManagerMapper.insert(pipeInfoModel);
+        return pipeInfoModel;
+    }
+
+    //删除时设备
+    public boolean delete(String ids) {
+        infoManagerMapper.delete(ids);
+        return true;
+    }
+
+    public PipeInfoModel getInfoByCode(String code) {
+        return infoManagerMapper.getInfoByCode(code);
     }
 }
