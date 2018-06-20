@@ -27,15 +27,12 @@ public class FileServiceImpl implements FileService {
         } else {
             String[] orgIdArr = orgId.split("_");
             Long org = Long.parseLong(orgIdArr[1]);
-            System.out.println("org" + org);
             String unitIds = fileMapper.getUnitIdByOrgId(org);
-            System.out.println("unitIds" + unitIds);
             if (unitIds != null) {
                 deviceIds = fileMapper.getDevIdByUnitId(unitIds);
             }
         }
         if (deviceIds != null) {
-            System.out.println("deviceIds" + deviceIds);
             return fileMapper.getFileInfoByDevId(deviceIds);
         } else {
             return null;
