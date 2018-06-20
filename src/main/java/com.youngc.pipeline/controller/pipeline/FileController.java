@@ -86,7 +86,6 @@ public class FileController {
         String fileName = file.getOriginalFilename();
         // 获取文件的后缀名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        System.out.println(suffixName);
         // 文件上传后的路径
         String filePath = "E://test//";
         // 解决中文问题，liunx下中文路径，图片显示问题
