@@ -20,4 +20,11 @@ public class TypeManageModel {
 
     private Long status;
 
+    private Long addPerson;
+
+    private Date addDate;
+
+    private Long lastPerson;
+
+    private Date lastTime;
 }
