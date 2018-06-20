@@ -7,30 +7,25 @@ import java.util.Date;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PipeInfoModel {
+public class DevInspectionModel {
+
     private Long id;
 
-    private Long deviceId;
+    private Long devId;
 
-    private Long unitId;
-
-    private Long modelId;
-
-    private String modelName;
-
-    private String deviceAlias;
+    private String planName;
 
     private String deviceName;
 
-    private String deviceCode;
+    private String exeTime;
 
-    private String customCode;
+    private Long exeCycle;
 
-    private String deviceDesc;
+    private String exeUser;
 
-    private int status;
+    private String exeDesc;
 
-    private String address;
+    private String remark;
 
     private Long addPerson;
 
@@ -39,5 +34,4 @@ public class PipeInfoModel {
     private Long lastPerson;
 
     private Date lastTime;
-
 }

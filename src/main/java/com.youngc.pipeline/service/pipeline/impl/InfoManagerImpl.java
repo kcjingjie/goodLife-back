@@ -7,6 +7,7 @@ import com.youngc.pipeline.mapper.pipeline.InfoManagerMapper;
 import com.youngc.pipeline.mapper.system.OrgMapper;
 import com.youngc.pipeline.mapper.system.SysDataRoleMapper;
 import com.youngc.pipeline.model.PipeInfoModel;
+import com.youngc.pipeline.model.TypeManageModel;
 import com.youngc.pipeline.model.UnitModel;
 import com.youngc.pipeline.service.pipeline.InfoManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,4 +107,10 @@ public class InfoManagerImpl implements InfoManagerService{
     public PipeInfoModel getInfoByCode(String code) {
         return infoManagerMapper.getInfoByCode(code);
     }
+
+    public List getDevModel() {
+        return infoManagerMapper.getDevModel();
+    }
+
+
 }

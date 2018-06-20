@@ -27,13 +27,13 @@ public class InfoManagerController {
 
     //模糊检索单位下的设备信息
     @GetMapping(value = "/getList")
-    public Result getDictionaryList(@RequestParam String keyWord,@RequestParam Long pid, @RequestParam int pageNum, @RequestParam int pageSize){
+    public Result getList(@RequestParam String keyWord,@RequestParam Long pid, @RequestParam int pageNum, @RequestParam int pageSize){
         return ResultGenerator.generate(infoManagerService.getList(keyWord,pid,pageNum,pageSize));
     }
 
     //添加设备信息
     @PostMapping
-    public Result postUser(@RequestBody PipeInfoBean pipeInfoBean) {
+    public Result post(@RequestBody PipeInfoBean pipeInfoBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         PipeInfoModel pipeInfoModel = new PipeInfoModel();
@@ -55,17 +55,18 @@ public class InfoManagerController {
 
     //根据设备id查询设备信息
     @GetMapping("/{deviceId}")
-    public Result getUnitDetails(@PathVariable Long deviceId) {
+    public Result getDetails(@PathVariable Long deviceId) {
         return ResultGenerator.generate(ResultCode.SUCCESS, infoManagerService.getInfo(deviceId));
     }
 
     //修改设备信息
     @PutMapping
-    public Result putUser(@RequestBody PipeInfoBean pipeInfoBean) {
+    public Result put(@RequestBody PipeInfoBean pipeInfoBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         PipeInfoModel pipeInfoModel = new PipeInfoModel();
 
+        pipeInfoModel.setDeviceId(pipeInfoBean.getDeviceId());
         pipeInfoModel.setModelId(pipeInfoBean.getModelId());
         pipeInfoModel.setDeviceAlias(pipeInfoBean.getDeviceAlias());
         pipeInfoModel.setDeviceName(pipeInfoBean.getDeviceName());
@@ -77,9 +78,21 @@ public class InfoManagerController {
         return ResultGenerator.generate(ResultCode.SUCCESS, infoManagerService.updateInfo(pipeInfoModel));
     }
 
+    //删除设备信息
+    @DeleteMapping(value = "/del")
+    public Result delete(@RequestParam("idList") String idList) {
+        infoManagerService.delete(idList);
+        return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
     //根据设备编号查询是否有重复
     @GetMapping("/code")
-    public Result getUnitByCode(@RequestParam String code) {
+    public Result getInfoByCode(@RequestParam String code) {
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getInfoByCode(code));
+    }
+
+    //查询设备模型信息
+    @GetMapping("/getModel")
+    public Result getModel(){
+        return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getDevModel());
     }
 }
