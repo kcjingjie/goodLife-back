@@ -1,6 +1,7 @@
 package com.youngc.pipeline.service.pipeline;
 
 
+import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.model.FileModel;
 
 import java.util.List;
@@ -9,9 +10,14 @@ import java.util.List;
  * @author liweiqiang
  */
 public interface FileService {
-    /**
-     * 查询模块信息
-     */
-    List<FileModel> getFileInfo(String orgId, String unitId);
 
+    List<TreeNode> getOrgUnitTree();
+
+    List<FileModel> getFileInfo(String orgId, String unitId, String devId);
+
+    boolean addfolder(FileModel fileModel);
+
+    boolean deleteFileInfo(String fileId,  String type);
+
+    List<FileModel> getFolderFileInfo(Long fileId);
 }

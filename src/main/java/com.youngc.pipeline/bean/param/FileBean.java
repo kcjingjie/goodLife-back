@@ -1,31 +1,23 @@
-package com.youngc.pipeline.model;
+package com.youngc.pipeline.bean.param;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-
-import java.util.Date;
 
 /**
  * @author liweiqiang
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FileModel {
-
-    private Long fileId;
+public class FileBean {
 
     private String fileName;
 
-    private Long devId;
+    private String folderId;
 
-    private Long folderId;
+    private String devId;
 
     private String type;
 
     private String filePath;
-
-    private Long userId;
-
-    private String lastTime;
 
 }
