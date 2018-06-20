@@ -3,8 +3,6 @@ package com.youngc.pipeline.service.pipeline;
 import com.github.pagehelper.Page;
 import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.model.PipeInfoModel;
-import com.youngc.pipeline.model.TypeManageModel;
-import com.youngc.pipeline.model.UnitModel;
 
 import java.util.List;
 
