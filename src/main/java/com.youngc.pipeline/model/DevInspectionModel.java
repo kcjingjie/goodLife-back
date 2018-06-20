@@ -13,11 +13,15 @@ public class DevInspectionModel {
 
     private Long devId;
 
+    private String planName;
+
+    private String deviceName;
+
     private Date exeTime;
 
     private Long exeCycle;
 
-    private Long userId;
+    private Long exeUser;
 
     private String exeDesc;
 
