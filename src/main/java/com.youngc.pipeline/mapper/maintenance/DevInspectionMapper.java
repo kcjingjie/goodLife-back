@@ -41,6 +41,6 @@ public interface DevInspectionMapper {
 
     //查询所有设备
     @Select("SELECT device_id,device_name FROM dev_info ")
-    List<DevInspectionModel> getDevList();
+    List<PipeInfoModel> getDevList();
 
 }

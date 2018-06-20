@@ -14,11 +14,11 @@ public class DevInspectionBean {
 
     private String deviceName;
 
-    private Date exeTime;
+    private String exeTime;
 
     private Long exeCycle;
 
-    private Long exeUser;
+    private String exeUser;
 
     private String exeDesc;
 
