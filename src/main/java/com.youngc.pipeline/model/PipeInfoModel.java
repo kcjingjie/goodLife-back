@@ -8,11 +8,15 @@ import java.util.Date;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PipeInfoModel {
+    private Long id;
+
     private Long deviceId;
 
     private Long unitId;
 
     private Long modelId;
+
+    private String modelName;
 
     private String deviceAlias;
 

@@ -66,6 +66,7 @@ public class InfoManagerController {
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         PipeInfoModel pipeInfoModel = new PipeInfoModel();
 
+        pipeInfoModel.setDeviceId(pipeInfoBean.getDeviceId());
         pipeInfoModel.setModelId(pipeInfoBean.getModelId());
         pipeInfoModel.setDeviceAlias(pipeInfoBean.getDeviceAlias());
         pipeInfoModel.setDeviceName(pipeInfoBean.getDeviceName());
@@ -77,9 +78,21 @@ public class InfoManagerController {
         return ResultGenerator.generate(ResultCode.SUCCESS, infoManagerService.updateInfo(pipeInfoModel));
     }
 
+    //删除设备信息
+    @DeleteMapping(value = "/del")
+    public Result deleteRoleList(@RequestParam("idList") String idList) {
+        infoManagerService.delete(idList);
+        return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
     //根据设备编号查询是否有重复
     @GetMapping("/code")
     public Result getUnitByCode(@RequestParam String code) {
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getInfoByCode(code));
+    }
+
+    //查询设备模型信息
+    @GetMapping("/getModel")
+    public Result getModel(){
+        return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getDevModel());
     }
 }
