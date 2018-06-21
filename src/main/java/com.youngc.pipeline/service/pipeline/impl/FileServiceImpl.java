@@ -296,7 +296,6 @@ public class FileServiceImpl implements FileService {
                         os.write(buffer, 0, i);
                         i = bis.read(buffer);
                     }
-                    System.out.println("success");
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
