@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-APP_MAINCLASS=com.youngc.iot.service.Application
+APP_MAINCLASS=com.youngc.pipeline.Application
 
 JAVA_HOME=~/jdk1.8.0_144
 
 
+JAVA_OPTS="-server -Xms512m -Xmx2048m -Xss512k"
 
 
 APP_HOME=$(cd "`dirname $0`/.." && pwd)
@@ -38,7 +39,7 @@ start() {
         return 0
     else
         echo -n "Starting $APP_MAINCLASS ..."
-        nohup $JAVA_HOME/bin/java $JAVA_OPTS -classpath $CLASSPATH $APP_MAINCLASS >$APP_HOME/log/stdout.log &
+        nohup $JAVA_HOME/bin/java $JAVA_OPTS -classpath $CLASSPATH $APP_MAINCLASS >$APP_HOME/run.log 2>&1 &
         checkPid
         if [ "$pid" -ne 0 ]; then
             echo "(pid=$pid) [OK]"
