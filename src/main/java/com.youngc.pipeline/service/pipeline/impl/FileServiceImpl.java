@@ -11,10 +11,13 @@ import com.youngc.pipeline.model.FileModel;
 import com.youngc.pipeline.service.pipeline.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -217,7 +220,7 @@ public class FileServiceImpl implements FileService {
         String devName = "";
         String folderName = "";
         // 文件上传后的路径
-        String filePath = "E://test//";
+        String filePath = "E://pipeline//";
         devName = fileMapper.getDevNameByDevId(devId);
         if (Long.parseLong(folderId) != 0) {
             FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
@@ -267,5 +270,53 @@ public class FileServiceImpl implements FileService {
             e.printStackTrace();
         }
         return "上传失败";
+    }
+
+    /**
+     * 下载文件
+     */
+    public String downloadFileInfo(HttpServletRequest request, HttpServletResponse response,
+                                   @RequestParam String fileName, @RequestParam String filePath) {
+        if (fileName != null) {
+            File file = new File(filePath, fileName);
+            if (file.exists()) {
+                FileInputStream fis = null;
+                BufferedInputStream bis = null;
+                try {
+                    response.setContentType("application/force-download");// 设置强制下载不打开
+                    response.addHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));// 设置文件名
+                    byte[] buffer = new byte[1024];
+
+
+                    fis = new FileInputStream(file);
+                    bis = new BufferedInputStream(fis);
+                    OutputStream os = response.getOutputStream();
+                    int i = bis.read(buffer);
+                    while (i != -1) {
+                        os.write(buffer, 0, i);
+                        i = bis.read(buffer);
+                    }
+                    System.out.println("success");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (bis != null) {
+                        try {
+                            bis.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (fis != null) {
+                        try {
+                            fis.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

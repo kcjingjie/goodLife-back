@@ -5,6 +5,8 @@ import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.model.FileModel;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -23,4 +25,7 @@ public interface FileService {
     String uploadFileInfo(String folderId, Long devId, Long userId, MultipartFile file);
 
     List<FileModel> getFolderFileInfo(Long fileId);
+
+    String downloadFileInfo(HttpServletRequest request, HttpServletResponse response,
+                             String fileName,  String filePath);
 }

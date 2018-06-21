@@ -65,7 +65,7 @@ public class FileController {
         fileModel.setType(fileBean.getType());
         fileModel.setDevName(fileBean.getDevName());
 
-        String filePath = "E://test//" + fileBean.getDevName() + "//" + fileModel.getFileName();
+        String filePath = "E://pipeline//" + fileBean.getDevName() + "//" + fileModel.getFileName();
         fileModel.setFilePath(filePath);
 
 //        File dest = new File(filePath );
@@ -97,46 +97,7 @@ public class FileController {
     @GetMapping("/download")
     public String downloadFileInfo(HttpServletRequest request, HttpServletResponse response,
                                    @RequestParam String fileName, @RequestParam String filePath) {
-        if (fileName != null) {
-            File file = new File(filePath, fileName);
-            if (file.exists()) {
-                FileInputStream fis = null;
-                BufferedInputStream bis = null;
-                try {
-                    response.setContentType("application/force-download");// 设置强制下载不打开
-                    response.addHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));// 设置文件名
-                    byte[] buffer = new byte[1024];
-
-
-                    fis = new FileInputStream(file);
-                    bis = new BufferedInputStream(fis);
-                    OutputStream os = response.getOutputStream();
-                    int i = bis.read(buffer);
-                    while (i != -1) {
-                        os.write(buffer, 0, i);
-                        i = bis.read(buffer);
-                    }
-                    System.out.println("success");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (bis != null) {
-                        try {
-                            bis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (fis != null) {
-                        try {
-                            fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }
+        fileService.downloadFileInfo(request, response, fileName, filePath);
         return null;
     }
 }
