@@ -83,4 +83,24 @@ public interface FileMapper {
     @Select(" SELECT type,file_id,file_name,dev_id,file_path,last_time" +
             " FROM dev_file where folder_id = #{fileId};")
     List<FileModel> getFolderFileInfo(@Param("fileId") Long fileId);
+
+    /**
+     * 根据设备ID查询设备名称
+     *
+     * @param
+     * @return
+     */
+    @Select(" SELECT device_name FROM dev_info " +
+            " WHERE device_id = #{devId};")
+    String getDevNameByDevId(@Param("devId") Long devId);
+
+    /**
+     * 根据folder_id查询文件夹名称
+     *
+     * @param
+     * @return
+     */
+    @Select(" SELECT file_name,file_path FROM dev_file " +
+            " WHERE file_id = #{folderId};")
+    FileModel getFileNameByFileId(@Param("folderId") Long folderId);
 }

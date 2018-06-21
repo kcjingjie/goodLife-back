@@ -129,7 +129,7 @@ public class FileServiceImpl implements FileService {
     }
 
     /**
-     * 添加文件夹信息
+     * 添加文件信息
      */
     public boolean addfolder(FileModel fileModel) {
         fileMapper.postFolder(fileModel);
@@ -139,12 +139,65 @@ public class FileServiceImpl implements FileService {
     /**
      * 删除档案信息
      */
-    public boolean deleteFileInfo(String fileId, String type) {
-        fileMapper.deleteFile(fileId);
-        if (Integer.parseInt(type) != 3) {
-
+    public boolean deleteFileInfo(String fileId, String fileName, String type) {
+        try {
+            FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(fileId));
+            String filePath = fileModel.getFilePath();
+            if (Integer.parseInt(type) != 3) {
+                File file = new File(filePath + fileName);
+                file.delete();
+            } else {
+                delFolder(filePath);
+            }
+            fileMapper.deleteFile(fileId);
+        } catch (Exception e) {
+            System.out.println("Exception occured");
+            e.printStackTrace();
         }
         return true;
+    }
+
+    //删除文件夹
+    public static void delFolder(String folderPath) {
+        try {
+            delAllFile(folderPath); //删除完里面所有内容
+            String filePath = folderPath;
+            filePath = filePath.toString();
+            File myFilePath = new java.io.File(filePath);
+            myFilePath.delete(); //删除空文件夹
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //删除文件夹下所有文件
+    public static boolean delAllFile(String path) {
+        boolean flag = false;
+        File file = new File(path);
+        if (!file.exists()) {
+            return flag;
+        }
+        if (!file.isDirectory()) {
+            return flag;
+        }
+        String[] tempList = file.list();
+        File temp = null;
+        for (int i = 0; i < tempList.length; i++) {
+            if (path.endsWith(File.separator)) {
+                temp = new File(path + tempList[i]);
+            } else {
+                temp = new File(path + File.separator + tempList[i]);
+            }
+            if (temp.isFile()) {
+                temp.delete();
+            }
+            if (temp.isDirectory()) {
+                delAllFile(path + "/" + tempList[i]);//先删除文件夹里面的文件
+                delFolder(path + "/" + tempList[i]);//再删除空文件夹
+                flag = true;
+            }
+        }
+        return flag;
     }
 
     /**
@@ -158,17 +211,29 @@ public class FileServiceImpl implements FileService {
      * 上传文件
      */
     public String uploadFileInfo(String folderId, Long devId, Long userId, MultipartFile file) {
-
         if (file.isEmpty()) {
             return "上传文件为空";
+        }
+        String devName = "";
+        String folderName = "";
+        // 文件上传后的路径
+        String filePath = "E://test//";
+        devName = fileMapper.getDevNameByDevId(devId);
+        if (Long.parseLong(folderId) != 0) {
+            FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
+            folderName = fileModel.getFileName();
+            // 文件上传后的路径
+            filePath = filePath + devName + "//" + folderName + "//";
+        } else {
+            // 文件上传后的路径
+            filePath = filePath + devName + "//";
         }
 
         // 获取文件名
         String fileName = file.getOriginalFilename();
         // 获取文件的后缀名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        // 文件上传后的路径
-        String filePath = "E://test//";
+
         // 解决中文问题，liunx下中文路径，图片显示问题
         // fileName = UUID.randomUUID() + suffixName;
         File dest = new File(filePath + fileName);

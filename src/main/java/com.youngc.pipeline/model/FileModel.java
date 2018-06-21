@@ -24,6 +24,8 @@ public class FileModel {
 
     private String filePath;
 
+    private String devName;
+
     private Long userId;
 
     private String lastTime;

@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 
 
 /**
@@ -61,16 +63,24 @@ public class FileController {
         fileModel.setFolderId(Long.parseLong(fileBean.getFolderId()));
         fileModel.setUserId(user.getUserId());
         fileModel.setType(fileBean.getType());
-        fileModel.setFilePath(fileBean.getFilePath());
+        fileModel.setDevName(fileBean.getDevName());
 
+        String filePath = "E://test//" + fileBean.getDevName() + "//" + fileModel.getFileName();
+        fileModel.setFilePath(filePath);
+
+//        File dest = new File(filePath );
+//        // 检测是否存在目录
+//        if (!dest.getParentFile().exists()) {
+//            dest.getParentFile().mkdirs();
+//        }
         return ResultGenerator.generate(ResultCode.SUCCESS, fileService.addfolder(fileModel));
     }
 
 
     @ApiOperation("删除文件信息")
     @DeleteMapping
-    public Result deleteFileInfo(@RequestParam String fileId, @RequestParam String type) {
-        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.deleteFileInfo(fileId, type));
+    public Result deleteFileInfo(@RequestParam String fileId, @RequestParam String fileName, @RequestParam String type) {
+        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.deleteFileInfo(fileId, fileName, type));
     }
 
     @ApiOperation("上传文件信息")
@@ -85,20 +95,19 @@ public class FileController {
 
     @ApiOperation("下载文件信息")
     @GetMapping("/download")
-    public Result downloadFileInfo(org.apache.catalina.servlet4preview.http.HttpServletRequest request, HttpServletResponse response, @RequestParam String fileName) {
+    public String downloadFileInfo(HttpServletRequest request, HttpServletResponse response,
+                                   @RequestParam String fileName, @RequestParam String filePath) {
         if (fileName != null) {
-            //当前是从该工程的E://test//下获取文件(该目录可以在下面一行代码配置)然后下载到C:\\users\\downloads即本机的默认下载的目录
-            String realPath = request.getServletContext().getRealPath(
-                    "E://test//");
-            File file = new File(realPath, fileName);
+            File file = new File(filePath, fileName);
             if (file.exists()) {
-                response.setContentType("application/force-download");// 设置强制下载不打开
-                response.addHeader("Content-Disposition",
-                        "attachment;fileName=" + fileName);// 设置文件名
-                byte[] buffer = new byte[1024];
                 FileInputStream fis = null;
                 BufferedInputStream bis = null;
                 try {
+                    response.setContentType("application/force-download");// 设置强制下载不打开
+                    response.addHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));// 设置文件名
+                    byte[] buffer = new byte[1024];
+
+
                     fis = new FileInputStream(file);
                     bis = new BufferedInputStream(fis);
                     OutputStream os = response.getOutputStream();
@@ -107,6 +116,7 @@ public class FileController {
                         os.write(buffer, 0, i);
                         i = bis.read(buffer);
                     }
+                    System.out.println("success");
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -127,6 +137,6 @@ public class FileController {
                 }
             }
         }
-        return ResultGenerator.generate(ResultCode.SUCCESS);
+        return null;
     }
 }

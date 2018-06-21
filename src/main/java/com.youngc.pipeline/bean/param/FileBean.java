@@ -18,6 +18,6 @@ public class FileBean {
 
     private String type;
 
-    private String filePath;
+    private String devName;
 
 }

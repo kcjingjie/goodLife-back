@@ -18,7 +18,7 @@ public interface FileService {
 
     boolean addfolder(FileModel fileModel);
 
-    boolean deleteFileInfo(String fileId, String type);
+    boolean deleteFileInfo(String fileId, String fileName, String type);
 
     String uploadFileInfo(String folderId, Long devId, Long userId, MultipartFile file);
 
