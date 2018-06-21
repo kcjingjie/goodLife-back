@@ -3,6 +3,7 @@ package com.youngc.pipeline.service.pipeline;
 
 import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.model.FileModel;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,7 +18,9 @@ public interface FileService {
 
     boolean addfolder(FileModel fileModel);
 
-    boolean deleteFileInfo(String fileId,  String type);
+    boolean deleteFileInfo(String fileId, String type);
+
+    String uploadFileInfo(String folderId, Long devId, Long userId, MultipartFile file);
 
     List<FileModel> getFolderFileInfo(Long fileId);
 }

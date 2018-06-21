@@ -2,6 +2,8 @@ package com.youngc.pipeline.service.pipeline.impl;
 
 
 import com.youngc.pipeline.bean.context.TreeNode;
+import com.youngc.pipeline.bean.param.FileBean;
+import com.youngc.pipeline.controller.pipeline.FileController;
 import com.youngc.pipeline.mapper.pipeline.FileMapper;
 import com.youngc.pipeline.mapper.system.OrgMapper;
 import com.youngc.pipeline.mapper.system.SysDataRoleMapper;
@@ -9,7 +11,10 @@ import com.youngc.pipeline.model.FileModel;
 import com.youngc.pipeline.service.pipeline.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -134,17 +139,68 @@ public class FileServiceImpl implements FileService {
     /**
      * 删除档案信息
      */
-    public boolean deleteFileInfo(String fileId,  String type) {
+    public boolean deleteFileInfo(String fileId, String type) {
         fileMapper.deleteFile(fileId);
-        if(Integer.parseInt(type) !=3){
+        if (Integer.parseInt(type) != 3) {
 
         }
         return true;
     }
+
     /**
      * 查询文件夹下文件信息
      */
-    public List<FileModel> getFolderFileInfo(Long fileId){
+    public List<FileModel> getFolderFileInfo(Long fileId) {
         return fileMapper.getFolderFileInfo(fileId);
+    }
+
+    /**
+     * 上传文件
+     */
+    public String uploadFileInfo(String folderId, Long devId, Long userId, MultipartFile file) {
+
+        if (file.isEmpty()) {
+            return "上传文件为空";
+        }
+
+        // 获取文件名
+        String fileName = file.getOriginalFilename();
+        // 获取文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        // 文件上传后的路径
+        String filePath = "E://test//";
+        // 解决中文问题，liunx下中文路径，图片显示问题
+        // fileName = UUID.randomUUID() + suffixName;
+        File dest = new File(filePath + fileName);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        FileModel fileModel = new FileModel();
+        if (suffixName.equals(".jpg") || suffixName.equals(".jpeg") || suffixName.equals(".png") || suffixName.equals(".bmp")) {
+            fileModel.setType("2");
+        } else if (suffixName.equals(".pdf")) {
+            fileModel.setType("1");
+        } else if (suffixName.equals(".docx") || suffixName.equals(".doc")) {
+            fileModel.setType("4");
+        } else if (suffixName.equals(".xls") || suffixName.equals(".xlsx")) {
+            fileModel.setType("5");
+        }
+        fileModel.setFileName(fileName);
+        fileModel.setDevId(devId);
+        fileModel.setFolderId(Long.parseLong(folderId));
+        fileModel.setUserId(userId);
+        fileModel.setFilePath(filePath);
+
+        try {
+            addfolder(fileModel);
+            file.transferTo(dest);
+            return "上传成功";
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败";
     }
 }

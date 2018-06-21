@@ -48,22 +48,21 @@ public class FileController {
     }
 
 
-    @ApiOperation("添加文件夹信息")
+    @ApiOperation("添加文件信息")
     @PostMapping
     public Result postFolder(@RequestBody FileBean fileBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
 
-
         Long devId = Long.parseLong(fileBean.getDevId().split("_")[1]);
         FileModel fileModel = new FileModel();
         fileModel.setFileName(fileBean.getFileName());
         fileModel.setDevId(devId);
-        System.out.println(fileBean.getFolderId());
         fileModel.setFolderId(Long.parseLong(fileBean.getFolderId()));
         fileModel.setUserId(user.getUserId());
         fileModel.setType(fileBean.getType());
         fileModel.setFilePath(fileBean.getFilePath());
+
         return ResultGenerator.generate(ResultCode.SUCCESS, fileService.addfolder(fileModel));
     }
 
@@ -76,59 +75,21 @@ public class FileController {
 
     @ApiOperation("上传文件信息")
     @PostMapping("/upload")
-    public String uploadFileInfo(@RequestParam String folderId, @RequestParam String devId, @RequestParam MultipartFile file) {
-        if (file.isEmpty()) {
-            return "文件为空";
-        }
-        FileBean fileBean = new FileBean();
+    public Result uploadFileInfo(@RequestParam String folderId, @RequestParam String devId, @RequestParam MultipartFile file) {
+        com.youngc.pipeline.bean.context.UserBean user
+                = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+        Long devIds = Long.parseLong(devId.split("_")[1]);
+        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.uploadFileInfo(folderId, devIds, user.getUserId(), file));
 
-        // 获取文件名
-        String fileName = file.getOriginalFilename();
-        // 获取文件的后缀名
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        // 文件上传后的路径
-        String filePath = "E://test//";
-        // 解决中文问题，liunx下中文路径，图片显示问题
-        // fileName = UUID.randomUUID() + suffixName;
-        File dest = new File(filePath + fileName);
-        // 检测是否存在目录
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
-
-        fileBean.setDevId(devId);
-        fileBean.setFileName(fileName);
-        fileBean.setFolderId(folderId);
-        fileBean.setFilePath(filePath);
-        if(suffixName.equals(".jpg")||suffixName.equals(".jpeg")||suffixName.equals(".png")||suffixName.equals(".bmp")){
-            fileBean.setType("2");
-        }else if(suffixName.equals(".pdf")){
-            fileBean.setType("1");
-        }else if(suffixName.equals(".docx")||suffixName.equals(".doc")){
-            fileBean.setType("4");
-        }else if(suffixName.equals(".xls")||suffixName.equals(".xlsx")){
-            fileBean.setType("5");
-        }
-        try {
-            postFolder(fileBean);
-            file.transferTo(dest);
-            return "上传成功";
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "上传失败";
     }
 
     @ApiOperation("下载文件信息")
-    @PostMapping("/download")
-    public String downloadFileInfo(org.apache.catalina.servlet4preview.http.HttpServletRequest request, HttpServletResponse response) {
-        String fileName = "FileUploadTests.java";
+    @GetMapping("/download")
+    public Result downloadFileInfo(org.apache.catalina.servlet4preview.http.HttpServletRequest request, HttpServletResponse response, @RequestParam String fileName) {
         if (fileName != null) {
-            //当前是从该工程的WEB-INF//File//下获取文件(该目录可以在下面一行代码配置)然后下载到C:\\users\\downloads即本机的默认下载的目录
+            //当前是从该工程的E://test//下获取文件(该目录可以在下面一行代码配置)然后下载到C:\\users\\downloads即本机的默认下载的目录
             String realPath = request.getServletContext().getRealPath(
-                    "//WEB-INF//");
+                    "E://test//");
             File file = new File(realPath, fileName);
             if (file.exists()) {
                 response.setContentType("application/force-download");// 设置强制下载不打开
@@ -146,7 +107,6 @@ public class FileController {
                         os.write(buffer, 0, i);
                         i = bis.read(buffer);
                     }
-                    System.out.println("success");
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -167,6 +127,6 @@ public class FileController {
                 }
             }
         }
-        return null;
+        return ResultGenerator.generate(ResultCode.SUCCESS);
     }
 }
