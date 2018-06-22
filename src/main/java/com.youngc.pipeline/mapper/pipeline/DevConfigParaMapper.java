@@ -12,7 +12,7 @@ public interface DevConfigParaMapper {
     //检索设备标准参数信息
     @Select("SELECT dcp.id,para_name,para_id,para_value,para_unit,para_type,sda.data_name type_name from dev_config_para dcp " +
             " LEFT JOIN dev_info di on di.device_id=dcp.device_id " +
-            " LEFT JOIN sys_dict_data sda on sda.dict_value='config_type' AND sda.data_value=dcp.para_type " +
+            " LEFT JOIN sys_dict_data sda on sda.dict_value='para_type' AND sda.data_value=dcp.para_type " +
             " WHERE dcp.device_id=#{deviceId}")
     List<DevConfigParaModel> getList(@Param("deviceId") Long deviceId);
 
