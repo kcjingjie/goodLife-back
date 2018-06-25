@@ -1,9 +1,7 @@
 package com.youngc.pipeline.controller.maintenance;
 
 import com.youngc.pipeline.bean.param.DevCheckBean;
-import com.youngc.pipeline.bean.param.DevInspectionBean;
 import com.youngc.pipeline.model.DevCheckModel;
-import com.youngc.pipeline.model.DevInspectionModel;
 import com.youngc.pipeline.result.Result;
 import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.result.ResultGenerator;
