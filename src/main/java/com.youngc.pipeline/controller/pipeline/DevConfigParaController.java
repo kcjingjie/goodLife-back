@@ -19,7 +19,7 @@ public class DevConfigParaController {
     @Autowired
     private DevConfigParaService devConfigParaService;
 
-    //模糊检索单位下的设备标准参数信息
+    //检索单位下的设备标准参数信息
     @GetMapping(value = "/getList")
     public Result getList(@RequestParam Long deviceId, @RequestParam int pageNum, @RequestParam int pageSize){
         return ResultGenerator.generate(devConfigParaService.getList(deviceId,pageNum,pageSize));
