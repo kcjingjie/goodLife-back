@@ -19,19 +19,34 @@ public class InfoManagerController {
     @Autowired
     private InfoManagerService infoManagerService;
 
+    /**
+     * 获取单位树
+     * @return
+     */
     @GetMapping("/orgUnitTree")
     public Result getOrgUnitTree() {
 
         return ResultGenerator.generate(ResultCode.SUCCESS, infoManagerService.getOrgUnitTree());
     }
 
-    //模糊检索单位下的设备信息
+    /**
+     * 分页获取设备信息
+     * @param keyWord
+     * @param pid
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = "/getList")
     public Result getList(@RequestParam String keyWord,@RequestParam Long pid, @RequestParam int pageNum, @RequestParam int pageSize){
         return ResultGenerator.generate(infoManagerService.getList(keyWord,pid,pageNum,pageSize));
     }
 
-    //添加设备信息
+    /**
+     * 添加设备信息
+     * @param pipeInfoBean
+     * @return
+     */
     @PostMapping
     public Result post(@RequestBody PipeInfoBean pipeInfoBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -53,13 +68,19 @@ public class InfoManagerController {
         return ResultGenerator.generate(ResultCode.SUCCESS, infoManagerService.insert(pipeInfoModel));
     }
 
-    //根据设备id查询设备信息
+    /**
+     * 根据设备id查询设备信息
+     * @param deviceId
+     * @return
+     */
     @GetMapping("/{deviceId}")
     public Result getDetails(@PathVariable Long deviceId) {
         return ResultGenerator.generate(ResultCode.SUCCESS, infoManagerService.getInfo(deviceId));
     }
 
-    //修改设备信息
+    /**
+     * 修改设备信息
+     */
     @PutMapping
     public Result put(@RequestBody PipeInfoBean pipeInfoBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -78,19 +99,29 @@ public class InfoManagerController {
         return ResultGenerator.generate(ResultCode.SUCCESS, infoManagerService.updateInfo(pipeInfoModel));
     }
 
-    //删除设备信息
+    /**
+     * 删除设备信息
+     */
     @DeleteMapping(value = "/del")
     public Result delete(@RequestParam("idList") String idList) {
         infoManagerService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
-    //根据设备编号查询是否有重复
+
+    /**
+     * 查询设备编号是否唯一
+     * @param code
+     * @return
+     */
     @GetMapping("/code")
     public Result getInfoByCode(@RequestParam String code) {
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getInfoByCode(code));
     }
 
-    //查询设备模型信息
+    /**
+     * 查询设备模型id，模型名称
+     * @return
+     */
     @GetMapping("/getModel")
     public Result getModel(){
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getDevModel());

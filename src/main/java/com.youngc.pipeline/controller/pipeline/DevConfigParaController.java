@@ -19,13 +19,23 @@ public class DevConfigParaController {
     @Autowired
     private DevConfigParaService devConfigParaService;
 
-    //检索单位下的设备标准参数信息
+    /**
+     * 分页获取设备标准参数信息
+     * @param deviceId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = "/getList")
     public Result getList(@RequestParam Long deviceId, @RequestParam int pageNum, @RequestParam int pageSize){
         return ResultGenerator.generate(devConfigParaService.getList(deviceId,pageNum,pageSize));
     }
 
-    //添加设备标准参数信息
+    /**
+     * 添加设备标准参数信息
+     * @param devConfigParaBean
+     * @return
+     */
     @PostMapping
     public Result post(@RequestBody DevConfigParaBean devConfigParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -45,13 +55,21 @@ public class DevConfigParaController {
         return ResultGenerator.generate(ResultCode.SUCCESS, devConfigParaService.insert(devConfigParaModel));
     }
 
-    //根据设备id查询设备标准参数信息
+    /**
+     * 根据id查询设备标准参数信息
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Result getDetails(@PathVariable Long id) {
         return ResultGenerator.generate(ResultCode.SUCCESS, devConfigParaService.getInfo(id));
     }
 
-    //修改设备标准参数信息
+    /**
+     * 修改设备标准参数信息
+     * @param devConfigParaBean
+     * @return
+     */
     @PutMapping
     public Result put(@RequestBody DevConfigParaBean devConfigParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -71,13 +89,23 @@ public class DevConfigParaController {
         return ResultGenerator.generate(ResultCode.SUCCESS, devConfigParaService.updateInfo(devConfigParaModel));
     }
 
-    //删除设备标准参数信息
+    /**
+     * 删除设备标准参数信息
+     * @param idList
+     * @return
+     */
     @DeleteMapping(value = "/del")
     public Result delete(@RequestParam("idList") String idList) {
         devConfigParaService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
-    //根据参数标识是否有重复
+
+    /**
+     * 查询设备标准参数的标识是否唯一
+     * @param deviceId
+     * @param paraId
+     * @return
+     */
     @GetMapping("/code")
     public Result getInfoByCode(@RequestParam Long deviceId,@RequestParam String paraId) {
         return ResultGenerator.generate(ResultCode.SUCCESS,devConfigParaService.getInfoByCode(deviceId,paraId));

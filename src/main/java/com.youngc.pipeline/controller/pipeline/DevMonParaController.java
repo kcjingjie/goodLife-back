@@ -19,13 +19,23 @@ public class DevMonParaController {
     @Autowired
     private DevMonParaService devMonParaService;
 
-    //模糊检索单位下的设备监测参数信息
+    /**
+     * 分页获取设备监测参数信息
+     * @param deviceId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = "/getList")
     public Result getList(@RequestParam Long deviceId, @RequestParam int pageNum, @RequestParam int pageSize){
         return ResultGenerator.generate(devMonParaService.getList(deviceId,pageNum,pageSize));
     }
 
-    //添加设备监测参数信息
+    /**
+     * 添加设备监测参数信息
+     * @param devMonParaBean
+     * @return
+     */
     @PostMapping
     public Result post(@RequestBody DevMonParaBean devMonParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -47,13 +57,21 @@ public class DevMonParaController {
         return ResultGenerator.generate(ResultCode.SUCCESS, devMonParaService.insert(devMonParaModel));
     }
 
-    //根据设备id查询设备监测参数信息
+    /**
+     * 根据id获取设备监测参数信息
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Result getDetails(@PathVariable Long id) {
         return ResultGenerator.generate(ResultCode.SUCCESS, devMonParaService.getInfo(id));
     }
 
-    //修改设备监测参数信息
+    /**
+     * 修改设备监测参数信息
+     * @param devMonParaBean
+     * @return
+     */
     @PutMapping
     public Result put(@RequestBody DevMonParaBean devMonParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -75,13 +93,23 @@ public class DevMonParaController {
         return ResultGenerator.generate(ResultCode.SUCCESS, devMonParaService.updateInfo(devMonParaModel));
     }
 
-    //删除设备监测参数信息
+    /**
+     * 删除设备监测参数信息
+     * @param idList
+     * @return
+     */
     @DeleteMapping(value = "/del")
     public Result delete(@RequestParam("idList") String idList) {
         devMonParaService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
-    //查询设备监测参数标识是否有重复
+
+    /**
+     * 查询设备监测参数的标识是否唯一
+     * @param deviceId
+     * @param paraId
+     * @return
+     */
     @GetMapping("/code")
     public Result getInfoByCode(@RequestParam Long deviceId,@RequestParam String paraId) {
         return ResultGenerator.generate(ResultCode.SUCCESS,devMonParaService.getInfoByCode(deviceId,paraId));

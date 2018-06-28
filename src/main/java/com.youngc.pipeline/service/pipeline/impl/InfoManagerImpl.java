@@ -28,7 +28,10 @@ public class InfoManagerImpl implements InfoManagerService{
     @Autowired
     private InfoManagerMapper infoManagerMapper;
 
-    //获取组织单位树，查询设备
+    /**
+     * 获取单位树
+     * @return
+     */
     public List<TreeNode> getOrgUnitTree() {
 
         List<Map> org = orgMapper.getTree();
@@ -76,38 +79,66 @@ public class InfoManagerImpl implements InfoManagerService{
         return children;
     }
 
-    //模糊检索单位下的设备
+    /**
+     * 分页获取设备信息
+     * @param keyWord
+     * @param pid
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     public Page getList(String keyWord,Long pid, int pageNum, int pageSize){
         PageHelper.startPage(pageNum, pageSize);
         return (Page)infoManagerMapper.getList(keyWord,pid);
     }
-    //根据id查询设备信息
+    /**
+     * 根据设备id查询设备信息
+     * @param deviceId
+     * @return
+     */
     public PipeInfoModel getInfo(Long id) {
         return infoManagerMapper.getInfo(id);
     }
 
-    //修改设备信息
+    /**
+     * 修改设备信息
+     */
     public PipeInfoModel updateInfo(PipeInfoModel pipeInfoModel) {
         infoManagerMapper.updateInfo(pipeInfoModel);
         return pipeInfoModel;
     }
 
-    //添加设备信息
+    /**
+     * 添加设备信息
+     * @param pipeInfoBean
+     * @return
+     */
     public PipeInfoModel insert(PipeInfoModel pipeInfoModel) {
         infoManagerMapper.insert(pipeInfoModel);
         return pipeInfoModel;
     }
 
-    //删除时设备
+    /**
+     * 删除设备信息
+     */
     public boolean delete(String ids) {
         infoManagerMapper.delete(ids);
         return true;
     }
 
+    /**
+     * 查询设备编号是否唯一
+     * @param code
+     * @return
+     */
     public PipeInfoModel getInfoByCode(String code) {
         return infoManagerMapper.getInfoByCode(code);
     }
 
+    /**
+     * 查询设备模型id，模型名称
+     * @return
+     */
     public List getDevModel() {
         return infoManagerMapper.getDevModel();
     }

@@ -108,7 +108,6 @@ public class DictionaryQueryController {
     public Result getInfoByValue(@RequestParam("value") String value) {
         return ResultGenerator.generate(ResultCode.SUCCESS, dictionaryQueryService.getDictInfoByValue(value));
     }
-    ////
 
     /**
      * 查询数据字典内容表中的数据

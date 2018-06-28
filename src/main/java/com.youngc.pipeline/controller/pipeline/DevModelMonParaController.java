@@ -17,12 +17,23 @@ public class DevModelMonParaController {
     @Autowired
     private DevModelMonParaService devModelMonParaService;
 
+    /**
+     * 分页获取模型监测参数信息
+     * @param modelId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = "/getList")
     public Result getList(@RequestParam Long modelId, @RequestParam int pageNum, @RequestParam int pageSize){
         return ResultGenerator.generate(devModelMonParaService.getList(modelId,pageNum,pageSize));
     }
 
-    //添加设备标准参数信息
+    /**
+     * 添加模型监测参数信息
+     * @param devModelMonParaModel
+     * @return
+     */
     @PostMapping
     public Result post(@RequestBody DevModelMonParaBean devModelMonParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -42,13 +53,21 @@ public class DevModelMonParaController {
         return ResultGenerator.generate(ResultCode.SUCCESS, devModelMonParaService.insert(devModelMonParaModel));
     }
 
-    //根据设备id查询设备标准参数信息
+    /**
+     * 根据id获取模型监测参数信息
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Result getDetails(@PathVariable Long id) {
         return ResultGenerator.generate(ResultCode.SUCCESS, devModelMonParaService.getInfo(id));
     }
 
-    //修改设备标准参数信息
+    /**
+     * 修改模型监测参数信息
+     * @param devModelMonParaModel
+     * @return
+             */
     @PutMapping
     public Result put(@RequestBody DevModelMonParaBean devModelMonParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -68,13 +87,19 @@ public class DevModelMonParaController {
         return ResultGenerator.generate(ResultCode.SUCCESS, devModelMonParaService.updateInfo(devModelMonParaModel));
     }
 
-    //删除设备标准参数信息
+    /**
+     * 删除模型监测参数信息
+     * @param idList
+     * @return
+     */
     @DeleteMapping(value = "/del")
     public Result delete(@RequestParam("idList") String idList) {
         devModelMonParaService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
-    //根据参数标识是否有重复
+    /**
+     * 查询模型监测参数的标识是否唯一
+     */
     @GetMapping("/code")
     public Result getInfoByCode(@RequestParam Long modelId,@RequestParam String paraId) {
         return ResultGenerator.generate(ResultCode.SUCCESS,devModelMonParaService.getInfoByCode(modelId,paraId));

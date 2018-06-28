@@ -18,12 +18,23 @@ public class DevModelConfigParaController {
     @Autowired
     private DevModelConfigParaService devModelConfigParaService;
 
+    /**
+     * 分页获取模型标准参数信息
+     * @param modelId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = "/getList")
     public Result getList(@RequestParam Long modelId, @RequestParam int pageNum, @RequestParam int pageSize){
         return ResultGenerator.generate(devModelConfigParaService.getList(modelId,pageNum,pageSize));
     }
 
-    //添加设备标准参数信息
+    /**
+     * 添加模型标准参数信息
+     * @param devModelConfigParaBean
+     * @return
+     */
     @PostMapping
     public Result post(@RequestBody DevModelConfigParaBean devModelConfigParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -43,13 +54,21 @@ public class DevModelConfigParaController {
         return ResultGenerator.generate(ResultCode.SUCCESS, devModelConfigParaService.insert(devModelConfigParaModel));
     }
 
-    //根据设备id查询设备标准参数信息
+    /**
+     * 根据id获取模型标准参数信息
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Result getDetails(@PathVariable Long id) {
         return ResultGenerator.generate(ResultCode.SUCCESS, devModelConfigParaService.getInfo(id));
     }
 
-    //修改设备标准参数信息
+    /**
+     * 修改模型标准参数信息
+     * @param devModelConfigParaBean
+     * @return
+     */
     @PutMapping
     public Result put(@RequestBody DevModelConfigParaBean devModelConfigParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -69,13 +88,23 @@ public class DevModelConfigParaController {
         return ResultGenerator.generate(ResultCode.SUCCESS, devModelConfigParaService.updateInfo(devModelConfigParaModel));
     }
 
-    //删除设备标准参数信息
+    /**
+     * 删除模型标准参数信息
+     * @param idList
+     * @return
+     */
     @DeleteMapping(value = "/del")
     public Result delete(@RequestParam("idList") String idList) {
         devModelConfigParaService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
-    //根据参数标识是否有重复
+
+    /**
+     * 查询模型标准参数标识是否唯一
+     * @param modelId
+     * @param paraId
+     * @return
+     */
     @GetMapping("/code")
     public Result getInfoByCode(@RequestParam Long modelId,@RequestParam String paraId) {
         return ResultGenerator.generate(ResultCode.SUCCESS,devModelConfigParaService.getInfoByCode(modelId,paraId));

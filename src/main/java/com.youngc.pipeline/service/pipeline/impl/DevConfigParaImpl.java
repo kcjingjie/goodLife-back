@@ -14,36 +14,63 @@ public class DevConfigParaImpl implements DevConfigParaService{
     @Autowired
     private DevConfigParaMapper devConfigParaMapper;
 
-    //检索设备标准参数列表
+    /**
+     * 分页获取设备标准参数信息
+     * @param deviceId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     public Page getList(Long deviceId, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         return (Page)devConfigParaMapper.getList(deviceId);
     }
 
-    //根据id查询设备标准参数信息
+    /**
+     * 根据id查询设备标准参数信息
+     * @param id
+     * @return
+     */
     public DevConfigParaModel getInfo(Long id) {
         return devConfigParaMapper.getInfo(id);
     }
 
-    //更新设备标准参数信息
+    /**
+     * 修改设备标准参数信息
+     * @param devConfigParaBean
+     * @return
+     */
     public DevConfigParaModel updateInfo(DevConfigParaModel devConfigParaModel) {
         devConfigParaMapper.updateInfo(devConfigParaModel);
         return devConfigParaModel;
     }
 
-    //添加设备标准参数信息
+    /**
+     * 添加设备标准参数信息
+     * @param devConfigParaBean
+     * @return
+     */
     public DevConfigParaModel insert(DevConfigParaModel devConfigParaModel) {
         devConfigParaMapper.insert(devConfigParaModel);
         return devConfigParaModel;
     }
 
-    //删除设备标准参数信息
+    /**
+     * 删除设备标准参数信息
+     * @param idList
+     * @return
+     */
     public boolean delete(String idList) {
         devConfigParaMapper.delete(idList);
         return true;
     }
 
-    //查询参数标识是否重复
+    /**
+     * 查询设备标准参数的标识是否唯一
+     * @param deviceId
+     * @param paraId
+     * @return
+     */
     public DevConfigParaModel getInfoByCode(Long deviceId, String paraId) {
         return devConfigParaMapper.getInfoByCode(deviceId,paraId);
     }
