@@ -45,9 +45,7 @@ public class DevMonParaController {
         devMonParaModel.setDeviceId(devMonParaBean.getDeviceId());
         devMonParaModel.setParaName(devMonParaBean.getParaName());
         devMonParaModel.setParaId(devMonParaBean.getParaId());
-        devMonParaModel.setParaValue(devMonParaBean.getParaValue());
-        devMonParaModel.setParaValueUp(devMonParaBean.getParaValueUp());
-        devMonParaModel.setParaValueDown(devMonParaBean.getParaValueDown());
+        devMonParaModel.setParaDataType(devMonParaBean.getParaDataType());
         devMonParaModel.setParaType(devMonParaBean.getParaType());
         devMonParaModel.setParaUnit(devMonParaBean.getParaUnit());
         devMonParaModel.setRemark(devMonParaBean.getRemark());
@@ -82,9 +80,7 @@ public class DevMonParaController {
         devMonParaModel.setDeviceId(devMonParaBean.getDeviceId());
         devMonParaModel.setParaName(devMonParaBean.getParaName());
         devMonParaModel.setParaId(devMonParaBean.getParaId());
-        devMonParaModel.setParaValue(devMonParaBean.getParaValue());
-        devMonParaModel.setParaValueUp(devMonParaBean.getParaValueUp());
-        devMonParaModel.setParaValueDown(devMonParaBean.getParaValueDown());
+        devMonParaModel.setParaDataType(devMonParaBean.getParaDataType());
         devMonParaModel.setParaType(devMonParaBean.getParaType());
         devMonParaModel.setParaUnit(devMonParaBean.getParaUnit());
         devMonParaModel.setRemark(devMonParaBean.getRemark());

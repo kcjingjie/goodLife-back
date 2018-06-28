@@ -16,11 +16,9 @@ public class DevMonParaBean {
 
     private String paraId;
 
-    private String paraValueUp;
+    private int paraDataType;
 
-    private String paraValueDown;
-
-    private String paraValue;
+    private String dataName;
 
     private String paraUnit;
 

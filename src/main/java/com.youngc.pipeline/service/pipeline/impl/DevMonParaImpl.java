@@ -36,7 +36,7 @@ public class DevMonParaImpl implements DevMonParaService{
 
     /**
      * 修改设备监测参数信息
-     * @param devMonParaBean
+     * @param devMonParaModel
      * @return
      */
     public DevMonParaModel updateInfo(DevMonParaModel devMonParaModel) {
@@ -46,7 +46,7 @@ public class DevMonParaImpl implements DevMonParaService{
 
     /**
      * 添加设备监测参数信息
-     * @param devMonParaBean
+     * @param devMonParaModel
      * @return
      */
     public DevMonParaModel insert(DevMonParaModel devMonParaModel) {

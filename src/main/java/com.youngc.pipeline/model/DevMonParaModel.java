@@ -9,10 +9,6 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DevMonParaModel {
 
-    private String paraValueUp;
-
-    private String paraValueDown;
-
     private  Long id;
 
     private Long deviceId;
@@ -23,7 +19,9 @@ public class DevMonParaModel {
 
     private String paraId;
 
-    private String paraValue;
+    private int paraDataType;
+
+    private String dataName;
 
     private String paraUnit;
 

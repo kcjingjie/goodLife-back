@@ -14,19 +14,20 @@ public interface DevMonParaMapper {
      * @param deviceId
      * @return
      */
-    @Select("SELECT dmp.id,para_name,para_id,para_value,para_unit,para_type,para_value_up,para_value_down,sda.data_name type_name from dev_mon_para dmp " +
+    @Select("SELECT dmp.id,para_name,para_id,para_unit,para_type,sda.data_name type_name,para_data_type,sda2.data_name from dev_mon_para dmp " +
             " LEFT JOIN dev_info di on di.device_id=dmp.device_id " +
             " LEFT JOIN sys_dict_data sda on sda.dict_value='para_type' AND sda.data_value=dmp.para_type " +
+            " LEFT JOIN sys_dict_data sda2 on sda2.dict_value='para_data_type' AND sda2.data_value=dmp.para_data_type " +
             " WHERE dmp.device_id=#{deviceId}")
     List<DevMonParaModel> getList(@Param("deviceId") Long deviceId);
 
     /**
      * 添加设备监测参数信息
-     * @param devMonParaBean
+     * @param devMonParaModel
      * @return
      */
-    @Insert(" INSERT INTO dev_mon_para (device_id, para_name, para_id,para_value,para_unit,para_value_up,para_value_down,para_type,remark,add_person, add_time, last_person, last_time)" +
-            " VALUES(#{deviceId}, #{paraName}, #{paraId},#{paraValue}, #{paraUnit},#{paraValueUp},#{paraValueDown},#{paraType},#{remark},#{addPerson}, now(), #{lastPerson}, now())")
+    @Insert(" INSERT INTO dev_mon_para (device_id, para_name, para_id,para_unit,para_type,para_data_type,remark,add_person, add_time, last_person, last_time)" +
+            " VALUES(#{deviceId}, #{paraName}, #{paraId}, #{paraUnit},#{paraType},#{paraDataType},#{remark},#{addPerson}, now(), #{lastPerson}, now())")
     @Options(useGeneratedKeys = true, keyColumn = "id")
     int insert(DevMonParaModel devMonParaModel);
 
@@ -43,16 +44,16 @@ public interface DevMonParaMapper {
      * @param id
      * @return
      */
-    @Select(" SELECT id,para_name,para_id,para_value,para_unit,para_value_up,para_value_down,para_type,remark" +
+    @Select(" SELECT id,para_name,para_id,para_data_type,para_unit,para_type,remark" +
             " FROM dev_mon_para WHERE id = #{id}")
     DevMonParaModel getInfo(@Param("id") Long id);
 
     /**
      * 修改设备监测参数信息
-     * @param devMonParaBean
+     * @param devMonParaModel
      * @return
      */
-    @Update(" UPDATE dev_mon_para SET para_name = #{paraName}, para_id = #{paraId},para_value_up=#{paraValueUp},para_value_down=#{paraValueDown},para_value=#{paraValue},para_unit=#{paraUnit}," +
+    @Update(" UPDATE dev_mon_para SET para_name = #{paraName}, para_id = #{paraId},para_data_type=#{paraDataType},para_unit=#{paraUnit}," +
             " para_type=#{paraType},remark=#{remark}, last_person = #{lastPerson}, last_time = now() WHERE id = #{id}")
     int updateInfo(DevMonParaModel devMonParaModel);
 
