@@ -14,7 +14,7 @@ public interface DevModelMonParaMapper {
      * @param modelId
      * @return
      */
-    @Select("SELECT dmmp.id,para_name,para_id,para_value,para_unit,para_type,sda.data_name type_name,para_data_type,sda2.data_name dataName from dev_model_mon_para dmmp " +
+    @Select("SELECT dmmp.id,para_name,para_id,para_unit,para_type,sda.data_name type_name,para_data_type,sda2.data_name dataName from dev_model_mon_para dmmp " +
             " LEFT JOIN dev_model dm on dm.model_id=dmmp.model_id " +
             " LEFT JOIN sys_dict_data sda on sda.dict_value='para_type' AND sda.data_value=dmmp.para_type " +
             " LEFT JOIN sys_dict_data sda2 on sda2.dict_value='para_data_type' AND sda2.data_value=dmmp.para_data_type " +

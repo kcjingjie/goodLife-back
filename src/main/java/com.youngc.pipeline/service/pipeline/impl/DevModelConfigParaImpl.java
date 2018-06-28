@@ -36,7 +36,7 @@ public class DevModelConfigParaImpl implements DevModelConfigParaService{
 
     /**
      * 修改模型标准参数信息
-     * @param devModelConfigParaBean
+     * @param devModelConfigParaModel
      * @return
      */
     public DevModelConfigParaModel updateInfo(DevModelConfigParaModel devModelConfigParaModel) {
@@ -46,7 +46,7 @@ public class DevModelConfigParaImpl implements DevModelConfigParaService{
 
     /**
      * 添加模型标准参数信息
-     * @param devModelConfigParaBean
+     * @param devModelConfigParaModel
      * @return
      */
     public DevModelConfigParaModel insert(DevModelConfigParaModel devModelConfigParaModel) {

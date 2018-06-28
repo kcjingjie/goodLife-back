@@ -3,6 +3,7 @@ package com.youngc.pipeline.service.pipeline.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.youngc.pipeline.bean.context.TreeNode;
+import com.youngc.pipeline.mapper.pipeline.DevModelConfigParaMapper;
 import com.youngc.pipeline.mapper.pipeline.InfoManagerMapper;
 import com.youngc.pipeline.mapper.system.OrgMapper;
 import com.youngc.pipeline.mapper.system.SysDataRoleMapper;
@@ -28,6 +29,9 @@ public class InfoManagerImpl implements InfoManagerService{
 
     @Autowired
     private InfoManagerMapper infoManagerMapper;
+
+    @Autowired
+    private DevModelConfigParaMapper devModelConfigParaMapper;
 
     /**
      * 获取单位树
@@ -104,8 +108,17 @@ public class InfoManagerImpl implements InfoManagerService{
     /**
      * 修改设备信息
      */
+    @Transactional
     public PipeInfoModel updateInfo(PipeInfoModel pipeInfoModel) {
         infoManagerMapper.updateInfo(pipeInfoModel);
+        Long deviceId = pipeInfoModel.getDeviceId();
+        Long modelId = pipeInfoModel.getModelId();
+        Long personId = pipeInfoModel.getLastPerson();
+        String id = deviceId+"";
+        infoManagerMapper.deleteConfigPara(id);
+        infoManagerMapper.deleteMonPara(id);
+        infoManagerMapper.insertConfigParas(deviceId,modelId,personId);
+        infoManagerMapper.insertMonParas(deviceId,modelId,personId);
         return pipeInfoModel;
     }
 
@@ -116,9 +129,17 @@ public class InfoManagerImpl implements InfoManagerService{
      */
     public PipeInfoModel insert(PipeInfoModel pipeInfoModel) {
         infoManagerMapper.insert(pipeInfoModel);
+        Long deviceId = pipeInfoModel.getId();
+        Long modelId = pipeInfoModel.getModelId();
+        Long personId = pipeInfoModel.getLastPerson();
+        infoManagerMapper.insertConfigParas(deviceId,modelId,personId);
+        infoManagerMapper.insertMonParas(deviceId,modelId,personId);
         return pipeInfoModel;
     }
 
+    public List getDevModelConfig(Long modelId){
+        return devModelConfigParaMapper.getList(modelId);
+    }
     /**
      * 删除设备信息，同时删除设备下的监测参数与标准参数
      */

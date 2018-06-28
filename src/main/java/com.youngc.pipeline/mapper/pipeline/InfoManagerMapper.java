@@ -24,13 +24,27 @@ public interface InfoManagerMapper {
 
     /**
      * 添加设备信息
-     * @param pipeInfoBean
+     * @param pipeInfoModel
      * @return
      */
     @Insert(" INSERT INTO dev_info (unit_id, model_id, device_alias,device_name,device_code,device_desc,status,address,add_person, add_time, last_person, last_time)" +
             " VALUES(#{unitId}, #{modelId}, #{deviceAlias},#{deviceName}, #{deviceCode},#{deviceDesc},#{status},#{address},#{addPerson}, now(), #{lastPerson}, now())")
     @Options(useGeneratedKeys = true, keyColumn = "device_id")
     int insert(PipeInfoModel pipeInfoModel);
+
+    /**
+     *复制设备模型下的标准参数信息，添加到设备标准参数信息表中
+     */
+    @Insert(" INSERT INTO dev_config_para ( para_name, para_id,para_value,para_unit,para_type,remark,device_id,add_person, add_time, last_person, last_time)" +
+            " SELECT para_name, para_id,para_value,para_unit,para_type,remark,#{deviceId},#{personId},now(),#{personId},now() from dev_model_config_para where model_id=#{modelId} ")
+    int insertConfigParas(@Param("deviceId")Long deviceId,@Param("modelId")Long modelId,@Param("personId")Long personId);
+
+    /**
+     *复制设备模型下的监测参数信息，添加到设备监测参数信息表中
+     */
+    @Insert(" INSERT INTO dev_mon_para ( para_name, para_id,para_unit,para_type,para_data_type,remark,device_id,add_person, add_time, last_person, last_time)" +
+            " SELECT para_name, para_id,para_unit,para_type,para_data_type,remark,#{deviceId},#{personId},now(),#{personId},now() from dev_model_mon_para where model_id=#{modelId} ")
+    int insertMonParas(@Param("deviceId")Long deviceId,@Param("modelId")Long modelId,@Param("personId")Long personId);
 
     /**
      * 删除设备信息
