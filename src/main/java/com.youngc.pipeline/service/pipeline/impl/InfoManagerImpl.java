@@ -12,6 +12,7 @@ import com.youngc.pipeline.model.UnitModel;
 import com.youngc.pipeline.service.pipeline.InfoManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -93,7 +94,7 @@ public class InfoManagerImpl implements InfoManagerService{
     }
     /**
      * 根据设备id查询设备信息
-     * @param deviceId
+     * @param id
      * @return
      */
     public PipeInfoModel getInfo(Long id) {
@@ -110,7 +111,7 @@ public class InfoManagerImpl implements InfoManagerService{
 
     /**
      * 添加设备信息
-     * @param pipeInfoBean
+     * @param pipeInfoModel
      * @return
      */
     public PipeInfoModel insert(PipeInfoModel pipeInfoModel) {
@@ -119,10 +120,13 @@ public class InfoManagerImpl implements InfoManagerService{
     }
 
     /**
-     * 删除设备信息
+     * 删除设备信息，同时删除设备下的监测参数与标准参数
      */
+    @Transactional
     public boolean delete(String ids) {
         infoManagerMapper.delete(ids);
+        infoManagerMapper.deleteConfigPara(ids);
+        infoManagerMapper.deleteMonPara(ids);
         return true;
     }
 

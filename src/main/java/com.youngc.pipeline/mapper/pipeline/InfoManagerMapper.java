@@ -39,6 +39,18 @@ public interface InfoManagerMapper {
     int delete(@Param("idList") String  idList);
 
     /**
+     * 删除设备下的标准参数信息
+     */
+    @Delete(" DELETE FROM dev_config_para WHERE device_id IN (${idList});")
+    int deleteConfigPara(@Param("idList") String  idList);
+
+    /**
+     * 删除设备下监测参数信息
+     */
+    @Delete(" DELETE FROM dev_mon_para WHERE device_id IN (${idList});")
+    int deleteMonPara(@Param("idList") String  idList);
+
+    /**
      * 根据设备id查询设备信息
      * @param deviceId
      * @return

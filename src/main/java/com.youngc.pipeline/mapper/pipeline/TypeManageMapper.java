@@ -54,6 +54,19 @@ public interface TypeManageMapper {
     int deleteTypeList(@Param("idList") String idList);
 
     /**
+     * 删除设备类型下的标准参数信息
+     */
+    @Delete(" DELETE FROM dev_model_config_para WHERE model_id IN (${idList});")
+    int deleteConfigPara(@Param("idList") String  idList);
+
+    /**
+     * 删除设备类型下监测参数信息
+     */
+    @Delete(" DELETE FROM dev_model_mon_para WHERE model_id IN (${idList});")
+    int deleteMonPara(@Param("idList") String  idList);
+
+
+    /**
      * 通过编码查询类型
      * @param code
      * @return
