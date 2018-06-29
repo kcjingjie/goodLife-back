@@ -27,7 +27,6 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthTokenMapper authTokenMapper;
 
-    private Long zero = 0L;
 
     public Map login(String userName, String rawPassword) throws ServiceException {
 
@@ -40,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
             String token = EncryptUtil.encodeMD5(user.getUserId() + Calendar.getInstance().getTime().toString());
 
             // user already logged in
-            if (!zero.equals(authTokenMapper.isTokenExistsById(user.getUserId()))) {
+            if (!authTokenMapper.isTokenExistsById(user.getUserId()).equals(0)) {
                 authTokenMapper.updateToken(user.getUserId(), token);
             } else {
                 // 用户首次登陆
@@ -80,7 +79,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     public boolean logout(String token) {
-        if (zero.equals(authTokenMapper.isTokenExists(token))) {
+        if (authTokenMapper.isTokenExists(token).equals(0)) {
             return false;
         }
 

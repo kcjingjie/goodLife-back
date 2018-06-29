@@ -1,4 +1,4 @@
-package com.youngc.pipeline.service.controller.auth;
+package com.youngc.pipeline.controller.auth;
 
 import com.youngc.pipeline.Application;
 import org.junit.Before;
