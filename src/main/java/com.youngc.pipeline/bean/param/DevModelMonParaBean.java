@@ -2,15 +2,13 @@ package com.youngc.pipeline.bean.param;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class DevMonParaBean {
+public class DevModelMonParaBean {
     private  Long id;
 
-    private Long deviceId;
+    private Long modelId;
 
-    private String deviceName;
+    private String modelName;
 
     private String paraName;
 
@@ -27,5 +25,4 @@ public class DevMonParaBean {
     private String typeName;
 
     private String remark;
-
 }

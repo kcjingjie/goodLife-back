@@ -7,13 +7,12 @@ import java.util.Date;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DevMonParaModel {
-
+public class DevModelMonParaModel {
     private  Long id;
 
-    private Long deviceId;
+    private Long modelId;
 
-    private String deviceName;
+    private String modelName;
 
     private String paraName;
 

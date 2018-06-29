@@ -8,6 +8,7 @@ import com.youngc.pipeline.service.pipeline.TypeManageService;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TypeManageImpl implements TypeManageService {
@@ -58,12 +59,15 @@ public class TypeManageImpl implements TypeManageService {
     }
 
     /**
-     * 删除类型信息
+     * 删除类型信息,同时删除设备类型下的标准参数与监测参数
      * @param idList
      * @return
      */
+    @Transactional
     public boolean deleteTypeList(String idList){
         typeManageMapper.deleteTypeList(idList);
+        typeManageMapper.deleteConfigPara(idList);
+        typeManageMapper.deleteMonPara(idList);
         return true;
     }
 
