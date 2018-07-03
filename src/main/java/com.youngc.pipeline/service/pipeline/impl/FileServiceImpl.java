@@ -214,6 +214,7 @@ public class FileServiceImpl implements FileService {
      * 上传文件
      */
     public String uploadFileInfo(String folderId, Long devId, Long userId, MultipartFile file) {
+        System.out.println(file);
         if (file.isEmpty()) {
             return "上传文件为空";
         }

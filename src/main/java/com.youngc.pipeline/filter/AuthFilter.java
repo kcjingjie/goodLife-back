@@ -39,7 +39,7 @@ public class AuthFilter implements Filter {
             Arrays.asList("/auth/login", "/auth/logout", "/register")));
 
     private static final Set<String> TOKEN_IN_URL_PATHS = Collections.unmodifiableSet(new HashSet<String>(
-            Arrays.asList("/export")));
+            Arrays.asList("/export","/file/upload","/file/download")));
 
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -72,6 +72,7 @@ public class AuthFilter implements Filter {
         //
 
         String path = request.getRequestURI().substring(request.getContextPath().length()).replaceAll("[/]+$", "");
+
         if (request.getMethod().toUpperCase().equals("OPTIONS")
                 || ALLOWED_PATHS.contains(path)) {
             filterChain.doFilter(servletRequest, servletResponse);
@@ -85,7 +86,8 @@ public class AuthFilter implements Filter {
         else {
             token = request.getHeader("X-Auth-Token");
         }
-
+        System.out.println(path);
+        System.out.println(token);
         if (token == null || token.equals("") || !authService.isTokenExist(token)) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
