@@ -2,6 +2,7 @@ package com.youngc.pipeline.service.pipeline;
 
 import com.github.pagehelper.Page;
 import com.youngc.pipeline.bean.context.TreeNode;
+import com.youngc.pipeline.model.ImageModel;
 import com.youngc.pipeline.model.PipeInfoModel;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface InfoManagerService {
     PipeInfoModel getInfoByCode(String code);
 
     List getDevModel();
+
+    ImageModel getImageUrl(Long deviceId);
 }

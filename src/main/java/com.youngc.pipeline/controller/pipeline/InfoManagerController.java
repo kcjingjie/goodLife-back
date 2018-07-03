@@ -128,4 +128,9 @@ public class InfoManagerController {
     public Result getModel(){
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getDevModel());
     }
+
+    @GetMapping("/getImgUrl")
+    public Result getImageUrl(@RequestParam Long deviceId) {
+        return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getImageUrl(deviceId));
+    }
 }

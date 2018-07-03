@@ -1,5 +1,6 @@
 package com.youngc.pipeline.mapper.pipeline;
 
+import com.youngc.pipeline.model.ImageModel;
 import com.youngc.pipeline.model.PipeInfoModel;
 import com.youngc.pipeline.model.TypeManageModel;
 import org.apache.ibatis.annotations.*;
@@ -94,4 +95,11 @@ public interface InfoManagerMapper {
      */
     @Select("SELECT model_id,model_name FROM dev_model ")
     List<TypeManageModel> getDevModel();
+
+    /**
+     * 查询设备单管图地址
+     */
+    @Select("SELECT image_url from dev_info LEFT JOIN sys_image " +
+            " on sys_image.id=dev_info.image_id WHERE device_id=#{deviceId};")
+    ImageModel getImageUrl(@Param("deviceId") Long deviceId);
 }

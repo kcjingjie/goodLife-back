@@ -7,6 +7,7 @@ import com.youngc.pipeline.mapper.pipeline.DevModelConfigParaMapper;
 import com.youngc.pipeline.mapper.pipeline.InfoManagerMapper;
 import com.youngc.pipeline.mapper.system.OrgMapper;
 import com.youngc.pipeline.mapper.system.SysDataRoleMapper;
+import com.youngc.pipeline.model.ImageModel;
 import com.youngc.pipeline.model.PipeInfoModel;
 import com.youngc.pipeline.model.TypeManageModel;
 import com.youngc.pipeline.model.UnitModel;
@@ -166,6 +167,15 @@ public class InfoManagerImpl implements InfoManagerService{
      */
     public List getDevModel() {
         return infoManagerMapper.getDevModel();
+    }
+
+    /**
+     * 查询单管图的路径
+     * @param deviceId
+     * @return
+     */
+    public ImageModel getImageUrl(Long deviceId) {
+        return infoManagerMapper.getImageUrl(deviceId);
     }
 
 
