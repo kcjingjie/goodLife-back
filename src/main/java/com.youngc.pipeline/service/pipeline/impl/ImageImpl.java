@@ -21,8 +21,8 @@ public class ImageImpl implements ImageService{
             return "上传文件为空";
         }
         // 文件上传后的路径
-        String filePath = "E://pipelineImage//";
-
+       // String filePath = "E://pipelineImage//";
+        String filePath="http://localhost:8080/pipeline/";
         // 获取文件名
         String fileName = file.getOriginalFilename();
         // 获取文件的后缀名
