@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ImageService {
 
-    String uploadFileInfo(long userId, MultipartFile file);
+    String uploadFileInfo(Long userId, MultipartFile file);
 
     List<ImageModel> getList();
 
