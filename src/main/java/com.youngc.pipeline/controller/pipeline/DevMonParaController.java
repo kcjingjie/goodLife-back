@@ -32,6 +32,15 @@ public class DevMonParaController {
     }
 
     /**
+     * 查询设备所有监测参数信息
+     * @param deviceId
+     * @return
+     */
+    @GetMapping(value = "/getListAll")
+    public Result getListAll(@RequestParam Long deviceId){
+        return ResultGenerator.generate(ResultCode.SUCCESS,devMonParaService.getListAll(deviceId));
+    }
+    /**
      * 添加设备监测参数信息
      * @param devMonParaBean
      * @return

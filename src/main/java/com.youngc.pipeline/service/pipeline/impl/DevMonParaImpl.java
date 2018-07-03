@@ -8,6 +8,8 @@ import com.youngc.pipeline.service.pipeline.DevMonParaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DevMonParaImpl implements DevMonParaService{
     @Autowired
@@ -24,6 +26,16 @@ public class DevMonParaImpl implements DevMonParaService{
         PageHelper.startPage(pageNum,pageSize);
         return (Page)devMonParaMapper.getList(deviceId);
     }
+
+    /**
+     * 查询设备所有监测参数信息
+     * @param deviceId
+     * @return
+     */
+    public List getListAll(Long deviceId) {
+        return devMonParaMapper.getList(deviceId);
+    }
+
 
     /**
      * 根据id获取设备监测参数信息

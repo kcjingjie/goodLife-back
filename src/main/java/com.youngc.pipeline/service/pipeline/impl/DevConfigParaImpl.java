@@ -8,6 +8,8 @@ import com.youngc.pipeline.service.pipeline.DevConfigParaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DevConfigParaImpl implements DevConfigParaService{
 
@@ -24,6 +26,15 @@ public class DevConfigParaImpl implements DevConfigParaService{
     public Page getList(Long deviceId, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         return (Page)devConfigParaMapper.getList(deviceId);
+    }
+
+    /**
+     * 查询所有设备标准参数信息
+     * @param deviceId
+     * @return
+     */
+    public List getListAll(Long deviceId) {
+        return devConfigParaMapper.getList(deviceId);
     }
 
     /**

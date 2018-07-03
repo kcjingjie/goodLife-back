@@ -4,8 +4,12 @@ import com.github.pagehelper.Page;
 import com.youngc.pipeline.model.DevConfigParaModel;
 import com.youngc.pipeline.model.PipeInfoModel;
 
+import java.util.List;
+
 public interface DevConfigParaService {
     Page getList( Long deviceId, int pageNum, int pageSize);
+
+    List getListAll(Long deviceId);
 
     DevConfigParaModel getInfo(Long id);
 

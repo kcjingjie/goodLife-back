@@ -16,6 +16,8 @@ public class PipeInfoModel {
 
     private Long modelId;
 
+    private Long imageId;
+
     private String modelName;
 
     private String deviceAlias;

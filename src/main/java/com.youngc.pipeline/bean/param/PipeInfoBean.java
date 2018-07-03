@@ -10,6 +10,8 @@ public class PipeInfoBean {
 
     private Long modelId;
 
+    private Long imageId;
+
     private String deviceAlias;
 
     private String deviceName;

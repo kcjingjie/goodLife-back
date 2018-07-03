@@ -32,6 +32,15 @@ public class DevConfigParaController {
     }
 
     /**
+     * 查询设备所有标准参数信息
+     * @param deviceId
+     * @return
+     */
+    @GetMapping(value = "/getListAll")
+    public Result getListAll(@RequestParam Long deviceId){
+        return ResultGenerator.generate(ResultCode.SUCCESS,devConfigParaService.getListAll(deviceId));
+    }
+    /**
      * 添加设备标准参数信息
      * @param devConfigParaBean
      * @return
