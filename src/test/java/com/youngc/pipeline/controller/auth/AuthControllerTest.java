@@ -1,6 +1,9 @@
 package com.youngc.pipeline.controller.auth;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youngc.pipeline.Application;
+import com.youngc.pipeline.result.PlatformPageResult;
+import com.youngc.pipeline.result.ResultCode;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.Map;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -61,9 +67,17 @@ public class AuthControllerTest {
 
     @Test
     public void logout() throws Exception {
+        MvcResult result = mvc.perform(post("/auth/login")
+                .param("userName", "admin")
+                .param("password", "123456")
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andReturn();
+        ObjectMapper objectMapper = new ObjectMapper();
+        PlatformPageResult r = objectMapper.readValue(result.getResponse().getContentAsString(), PlatformPageResult.class);
+        Map user = (Map) r.getData();
 
         mvc.perform(get("/auth/logout")
-                .header("X-Auth-Token", token)
+                .param("token", user.get("token").toString())
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())

@@ -1,5 +1,9 @@
 package com.youngc.pipeline.controller.pipeline;
 
+import com.youngc.pipeline.bean.param.ImageMarkBean;
+import com.youngc.pipeline.bean.param.PipeInfoBean;
+import com.youngc.pipeline.model.ImageMarkModel;
+import com.youngc.pipeline.model.PipeInfoModel;
 import com.youngc.pipeline.result.Result;
 import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.result.ResultGenerator;
@@ -32,6 +36,36 @@ public class ImageController {
     @DeleteMapping
     public Result deleteFileInfo(@RequestParam("id") Long id, @RequestParam("imageName") String imageName, @RequestParam("imageUrl") String imageUrl) {
         return ResultGenerator.generate(ResultCode.SUCCESS, imageService.delete(id, imageName, imageUrl));
+    }
+
+    /**
+     * 存储图片标注信息
+     */
+    @PostMapping("/postImageMark")
+    public Result post(@RequestBody ImageMarkBean imageMarkBean) {
+        com.youngc.pipeline.bean.context.UserBean user
+                = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+        ImageMarkModel imageMarkModel = new ImageMarkModel();
+
+        imageMarkModel.setImageId(imageMarkBean.getImageId());
+        imageMarkModel.setAxisX(imageMarkBean.getAxisX());
+        imageMarkModel.setAxisY(imageMarkBean.getAxisY());
+        imageMarkModel.setRemark(imageMarkBean.getRemark());
+
+        imageMarkModel.setAddPerson(user.getUserId());
+        imageMarkModel.setLastPerson(user.getUserId());
+
+        return ResultGenerator.generate(ResultCode.SUCCESS, imageService.postImageMark(imageMarkModel));
+    }
+
+    /**
+     * 查询图片标注信息列表
+     * @param imageId
+     * @return
+     */
+    @GetMapping("/getImageMarkList")
+    public Result getMarkList(Long imageId){
+        return ResultGenerator.generate(ResultCode.SUCCESS,imageService.getMarkList(imageId));
     }
 
 

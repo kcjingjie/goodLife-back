@@ -1,6 +1,7 @@
 package com.youngc.pipeline.service.pipeline;
 
 import com.youngc.pipeline.model.FileModel;
+import com.youngc.pipeline.model.ImageMarkModel;
 import com.youngc.pipeline.model.ImageModel;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,4 +14,8 @@ public interface ImageService {
     List<ImageModel> getList();
 
     boolean delete(Long id, String imageName, String imageUrl);
+
+    ImageMarkModel postImageMark(ImageMarkModel imageMarkModel);
+
+    List<ImageMarkModel> getMarkList(Long imageId);
 }

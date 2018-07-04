@@ -2,6 +2,7 @@ package com.youngc.pipeline.service.pipeline.impl;
 
 import com.youngc.pipeline.mapper.pipeline.ImageMapper;
 import com.youngc.pipeline.model.FileModel;
+import com.youngc.pipeline.model.ImageMarkModel;
 import com.youngc.pipeline.model.ImageModel;
 import com.youngc.pipeline.service.pipeline.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,4 +75,25 @@ public class ImageImpl implements ImageService{
         }
         return true;
     }
+
+    /**
+     * 存储图片标注信息
+     * @param imageMarkModel
+     * @return
+     */
+    public ImageMarkModel postImageMark(ImageMarkModel imageMarkModel) {
+        imageMapper.postImageMark(imageMarkModel);
+        return imageMarkModel;
+    }
+
+    /**
+     * 获取图片标注信息列表
+     * @param imageId
+     * @return
+     */
+    public List<ImageMarkModel> getMarkList(Long imageId) {
+        return imageMapper.getMarkList(imageId);
+    }
+
+
 }
