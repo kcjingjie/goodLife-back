@@ -25,7 +25,8 @@ public class DevConfigParaImpl implements DevConfigParaService{
      */
     public Page getList(Long deviceId, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        return (Page)devConfigParaMapper.getList(deviceId);
+        Page p =  (Page)devConfigParaMapper.getList(deviceId);
+        return p;
     }
 
     /**
