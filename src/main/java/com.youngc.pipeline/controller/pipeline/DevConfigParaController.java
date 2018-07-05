@@ -46,7 +46,7 @@ public class DevConfigParaController {
      * @return
      */
     @PostMapping
-    public Result post(@RequestBody DevConfigParaBean devConfigParaBean) {
+    public Result postInfo(@RequestBody DevConfigParaBean devConfigParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevConfigParaModel devConfigParaModel = new DevConfigParaModel();
@@ -80,7 +80,7 @@ public class DevConfigParaController {
      * @return
      */
     @PutMapping
-    public Result put(@RequestBody DevConfigParaBean devConfigParaBean) {
+    public Result putInfo(@RequestBody DevConfigParaBean devConfigParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevConfigParaModel devConfigParaModel = new DevConfigParaModel();
@@ -104,7 +104,7 @@ public class DevConfigParaController {
      * @return
      */
     @DeleteMapping(value = "/del")
-    public Result delete(@RequestParam("idList") String idList) {
+    public Result deleteInfo(@RequestParam("idList") String idList) {
         devConfigParaService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
@@ -119,5 +119,6 @@ public class DevConfigParaController {
     public Result getInfoByCode(@RequestParam Long deviceId,@RequestParam String paraId) {
         return ResultGenerator.generate(ResultCode.SUCCESS,devConfigParaService.getInfoByCode(deviceId,paraId));
     }
+
 
 }
