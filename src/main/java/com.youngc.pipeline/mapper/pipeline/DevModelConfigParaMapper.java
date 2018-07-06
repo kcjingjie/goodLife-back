@@ -22,7 +22,7 @@ public interface DevModelConfigParaMapper {
 
     /**
      * 添加模型标准参数信息
-     * @param devModelConfigParaBean
+     * @param devModelConfigParaModel
      * @return
      */
     @Insert(" INSERT INTO dev_model_config_para (model_id, para_name, para_id,para_value,para_unit,para_type,remark,add_person, add_time, last_person, last_time)" +
@@ -49,7 +49,7 @@ public interface DevModelConfigParaMapper {
 
     /**
      * 修改模型标准参数信息
-     * @param devModelConfigParaBean
+     * @param devModelConfigParaModel
      * @return
      */
     @Update(" UPDATE dev_model_config_para SET para_name = #{paraName}, para_id = #{paraId},para_value=#{paraValue},para_unit=#{paraUnit}," +
@@ -63,5 +63,5 @@ public interface DevModelConfigParaMapper {
      * @return
      */
     @Select("SELECT id FROM dev_model_config_para WHERE model_id=#{modelId} AND para_id=#{paraId}")
-    DevModelConfigParaModel getInfoByCode(@Param("modelId") Long modelId,@Param("paraId") String paraId);
+    List<DevModelConfigParaModel> getInfoByCode(@Param("modelId") Long modelId,@Param("paraId") String paraId);
 }

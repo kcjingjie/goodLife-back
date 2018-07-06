@@ -8,6 +8,8 @@ import com.youngc.pipeline.service.pipeline.DevModelConfigParaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DevModelConfigParaImpl implements DevModelConfigParaService{
     @Autowired
@@ -70,7 +72,7 @@ public class DevModelConfigParaImpl implements DevModelConfigParaService{
      * @param paraId
      * @return
      */
-    public DevModelConfigParaModel getInfoByCode(Long modelId, String paraId) {
+    public List<DevModelConfigParaModel> getInfoByCode(Long modelId, String paraId) {
         return devModelConfigParaMapper.getInfoByCode(modelId,paraId);
     }
 }

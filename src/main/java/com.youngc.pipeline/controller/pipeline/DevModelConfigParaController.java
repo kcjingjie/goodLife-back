@@ -36,7 +36,7 @@ public class DevModelConfigParaController {
      * @return
      */
     @PostMapping
-    public Result post(@RequestBody DevModelConfigParaBean devModelConfigParaBean) {
+    public Result postInfo(@RequestBody DevModelConfigParaBean devModelConfigParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevModelConfigParaModel devModelConfigParaModel = new DevModelConfigParaModel();
@@ -70,7 +70,7 @@ public class DevModelConfigParaController {
      * @return
      */
     @PutMapping
-    public Result put(@RequestBody DevModelConfigParaBean devModelConfigParaBean) {
+    public Result putInfo(@RequestBody DevModelConfigParaBean devModelConfigParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevModelConfigParaModel devModelConfigParaModel = new DevModelConfigParaModel();
@@ -94,7 +94,7 @@ public class DevModelConfigParaController {
      * @return
      */
     @DeleteMapping(value = "/del")
-    public Result delete(@RequestParam("idList") String idList) {
+    public Result deleteInfo(@RequestParam("idList") String idList) {
         devModelConfigParaService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }

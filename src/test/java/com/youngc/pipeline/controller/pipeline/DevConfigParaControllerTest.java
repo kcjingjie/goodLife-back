@@ -113,7 +113,6 @@ public class DevConfigParaControllerTest {
 
             ;
                // .andExpect(jsonPath("$.data.id").value(equalTo(37)))
-        ;
     }
 
     @Test
