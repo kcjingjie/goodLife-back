@@ -46,7 +46,7 @@ public class DevMonParaController {
      * @return
      */
     @PostMapping
-    public Result post(@RequestBody DevMonParaBean devMonParaBean) {
+    public Result postInfo(@RequestBody DevMonParaBean devMonParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevMonParaModel devMonParaModel = new DevMonParaModel();
@@ -80,7 +80,7 @@ public class DevMonParaController {
      * @return
      */
     @PutMapping
-    public Result put(@RequestBody DevMonParaBean devMonParaBean) {
+    public Result putInfo(@RequestBody DevMonParaBean devMonParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevMonParaModel devMonParaModel = new DevMonParaModel();
@@ -104,7 +104,7 @@ public class DevMonParaController {
      * @return
      */
     @DeleteMapping(value = "/del")
-    public Result delete(@RequestParam("idList") String idList) {
+    public Result deleteInfo(@RequestParam("idList") String idList) {
         devMonParaService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
