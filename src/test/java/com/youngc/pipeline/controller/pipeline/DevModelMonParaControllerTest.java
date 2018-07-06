@@ -81,8 +81,8 @@ public class DevModelMonParaControllerTest {
                 .andExpect(jsonPath("$.data.paraUnit").value(equalTo("V")))
                 .andExpect(jsonPath("$.data.paraType").value(equalTo(1)))
                 .andExpect(jsonPath("$.data.remark").value(equalTo("")))
-               /* .andExpect(jsonPath("$.data.addPerson").value(equalTo(28)))
-                .andExpect(jsonPath("$.data.lastPerson").value(equalTo(28)))*/
+                .andExpect(jsonPath("$.data.addPerson").value(equalTo(1)))
+                .andExpect(jsonPath("$.data.lastPerson").value(equalTo(1)))
         ;
     }
 

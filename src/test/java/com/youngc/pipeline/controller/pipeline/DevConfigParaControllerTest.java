@@ -68,7 +68,7 @@ public class DevConfigParaControllerTest {
     public void postInfo() throws Exception {
         DevConfigParaModel devConfigParaModel = new DevConfigParaModel();
         Long id = new Long(10);
-        Long userId = new Long(28);
+        Long userId = new Long(1);
         devConfigParaModel.setDeviceId(id);
         devConfigParaModel.setParaName("管道长度");
         devConfigParaModel.setParaId("10002");
@@ -97,8 +97,8 @@ public class DevConfigParaControllerTest {
                 .andExpect(jsonPath("$.data.paraUnit").value(equalTo("m")))
                 .andExpect(jsonPath("$.data.paraType").value(equalTo(1)))
                 .andExpect(jsonPath("$.data.remark").value(equalTo("")))
-               /* .andExpect(jsonPath("$.data.addPerson").value(equalTo(28)))
-                .andExpect(jsonPath("$.data.lastPerson").value(equalTo(28)))*/
+                .andExpect(jsonPath("$.data.addPerson").value(equalTo(1)))
+                .andExpect(jsonPath("$.data.lastPerson").value(equalTo(1)))
                ;
 
     }
@@ -120,7 +120,7 @@ public class DevConfigParaControllerTest {
     public void putInfo()throws Exception{
         DevConfigParaModel devConfigParaModel = new DevConfigParaModel();
         Long devId = new Long(10);
-        Long userId = new Long(20);
+        Long userId = new Long(1);
         Long id = new Long(37);
         devConfigParaModel.setId(id);
         devConfigParaModel.setDeviceId(devId);
@@ -150,7 +150,7 @@ public class DevConfigParaControllerTest {
                 .andExpect(jsonPath("$.data.paraUnit").value(equalTo("m")))
                 .andExpect(jsonPath("$.data.paraType").value(equalTo(1)))
                 .andExpect(jsonPath("$.data.remark").value(equalTo("")))
-               /* .andExpect(jsonPath("$.data.lastPerson").value(equalTo(20)))*/
+                .andExpect(jsonPath("$.data.lastPerson").value(equalTo(1)))
                ;
     }
     @Test

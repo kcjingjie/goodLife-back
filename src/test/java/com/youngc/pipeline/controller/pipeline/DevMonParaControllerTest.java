@@ -59,7 +59,7 @@ public class DevMonParaControllerTest {
     public void postInfo()throws Exception{
         DevMonParaModel devMonParaModel = new DevMonParaModel();
         Long id = new Long(10);
-        Long userId = new Long(28);
+        Long userId = new Long(1);
         devMonParaModel.setDeviceId(id);
         devMonParaModel.setParaName("电流");
         devMonParaModel.setParaId("10002");
@@ -106,7 +106,7 @@ public class DevMonParaControllerTest {
         DevMonParaModel devMonParaModel = new DevMonParaModel();
         Long id = new Long(10);
         Long deviceId = new Long(10);
-        Long userId = new Long(28);
+        Long userId = new Long(1);
         devMonParaModel.setId(id);
         devMonParaModel.setDeviceId(deviceId);
         devMonParaModel.setParaName("电流");
