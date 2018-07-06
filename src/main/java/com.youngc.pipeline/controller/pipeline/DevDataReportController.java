@@ -28,7 +28,7 @@ public class DevDataReportController {
      * 根据管道的类型查询设备个数
      */
     @GetMapping("/byType")
-    public Result getDevConutByType(){
+    public Result getDevCountByType(){
         return ResultGenerator.generate(ResultCode.SUCCESS,devDataReportService.getDevConutByType());
     }
 

@@ -31,4 +31,13 @@ public class DevDataReportControllerTest {
 
     }
 
+    @Test
+    public void getDevCountByType()throws Exception{
+        mockMvc.perform(get("/dataReport/byType")
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(containsString("200")))
+        ;
+    }
+
 }
