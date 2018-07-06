@@ -61,5 +61,5 @@ public interface DevModelMonParaMapper {
      * 查询模型监测参数的标识是否唯一
      */
     @Select("SELECT id FROM dev_model_mon_para WHERE model_id=#{modelId} AND para_id=#{paraId}")
-    DevModelMonParaModel getInfoByCode(@Param("modelId") Long modelId,@Param("paraId") String paraId);
+    List<DevModelMonParaModel> getInfoByCode(@Param("modelId") Long modelId,@Param("paraId") String paraId);
 }

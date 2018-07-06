@@ -31,11 +31,11 @@ public class DevModelMonParaController {
 
     /**
      * 添加模型监测参数信息
-     * @param devModelMonParaModel
+     * @param devModelMonParaBean
      * @return
      */
     @PostMapping
-    public Result post(@RequestBody DevModelMonParaBean devModelMonParaBean) {
+    public Result postInfo(@RequestBody DevModelMonParaBean devModelMonParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevModelMonParaModel devModelMonParaModel = new DevModelMonParaModel();
@@ -65,11 +65,11 @@ public class DevModelMonParaController {
 
     /**
      * 修改模型监测参数信息
-     * @param devModelMonParaModel
+     * @param devModelMonParaBean
      * @return
              */
     @PutMapping
-    public Result put(@RequestBody DevModelMonParaBean devModelMonParaBean) {
+    public Result putInfo(@RequestBody DevModelMonParaBean devModelMonParaBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevModelMonParaModel devModelMonParaModel = new DevModelMonParaModel();
@@ -93,7 +93,7 @@ public class DevModelMonParaController {
      * @return
      */
     @DeleteMapping(value = "/del")
-    public Result delete(@RequestParam("idList") String idList) {
+    public Result deleteInfo(@RequestParam("idList") String idList) {
         devModelMonParaService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }

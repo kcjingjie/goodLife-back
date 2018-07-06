@@ -4,6 +4,8 @@ import com.github.pagehelper.Page;
 import com.youngc.pipeline.model.DevModelConfigParaModel;
 import com.youngc.pipeline.model.DevModelMonParaModel;
 
+import java.util.List;
+
 public interface DevModelMonParaService {
     Page getList(Long modelId, int pageNum, int pageSize);
 
@@ -15,5 +17,5 @@ public interface DevModelMonParaService {
 
     boolean delete(String idList);
 
-    DevModelMonParaModel getInfoByCode(Long modelId,String paraId);
+   List<DevModelMonParaModel>  getInfoByCode(Long modelId, String paraId);
 }

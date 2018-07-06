@@ -8,6 +8,8 @@ import com.youngc.pipeline.service.pipeline.DevModelMonParaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DevModelMonParaImpl implements DevModelMonParaService {
     @Autowired
@@ -67,7 +69,7 @@ public class DevModelMonParaImpl implements DevModelMonParaService {
     /**
      * 查询模型监测参数的标识是否唯一
      */
-    public DevModelMonParaModel getInfoByCode(Long modelId, String paraId) {
+    public List<DevModelMonParaModel> getInfoByCode(Long modelId, String paraId) {
         return devModelMonParaMapper.getInfoByCode(modelId, paraId);
     }
 }
