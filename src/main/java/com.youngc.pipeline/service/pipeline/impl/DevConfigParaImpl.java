@@ -83,7 +83,7 @@ public class DevConfigParaImpl implements DevConfigParaService{
      * @param paraId
      * @return
      */
-    public DevConfigParaModel getInfoByCode(Long deviceId, String paraId) {
+    public List<DevConfigParaModel> getInfoByCode(Long deviceId, String paraId) {
         return devConfigParaMapper.getInfoByCode(deviceId,paraId);
     }
 }

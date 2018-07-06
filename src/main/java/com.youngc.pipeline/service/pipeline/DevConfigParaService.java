@@ -19,5 +19,5 @@ public interface DevConfigParaService {
 
     boolean delete(String idList);
 
-    DevConfigParaModel getInfoByCode(Long deviceId,String paraId);
+   List<DevConfigParaModel> getInfoByCode(Long deviceId,String paraId);
 }

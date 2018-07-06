@@ -109,7 +109,10 @@ public class DevConfigParaControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.code").value(containsString("200")))
-                .andExpect(jsonPath("$.data.id").value(equalTo(37)))
+                .andExpect(jsonPath("$.msg").value(equalTo("操作成功！")))
+
+            ;
+               // .andExpect(jsonPath("$.data.id").value(equalTo(37)))
         ;
     }
 

@@ -63,7 +63,7 @@ public interface DevConfigParaMapper {
      * @return
      */
     @Select("SELECT id FROM dev_config_para WHERE device_id=#{deviceId} AND para_id=#{paraId}")
-    DevConfigParaModel getInfoByCode(@Param("deviceId") Long deviceId,@Param("paraId") String paraId);
+   List<DevConfigParaModel>  getInfoByCode(@Param("deviceId") Long deviceId,@Param("paraId") String paraId);
 
 }
 
