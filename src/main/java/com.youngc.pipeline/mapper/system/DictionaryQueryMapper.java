@@ -69,7 +69,7 @@ public interface DictionaryQueryMapper {
      */
     @Select(" SELECT id,dict_value " +
             " FROM sys_dictionary WHERE dict_value = #{value}")
-    DictionaryQueryModel getDictInfoByValue(@Param("value") String value);
+    List<DictionaryQueryModel> getDictInfoByValue(@Param("value") String value);
 
     /**
      * 数据字典内容sys_dict_data操作
@@ -121,7 +121,7 @@ public interface DictionaryQueryMapper {
      */
     @Select(" SELECT id,data_value,dict_value" +
             " FROM sys_dict_data WHERE  dict_value = #{dictValue} and data_value=#{dataValue}")
-    DictionaryValueModel getDictValueByValue(@Param("dictValue") String dictValue,@Param("dataValue") int dataValue);
+    List<DictionaryValueModel> getDictValueByValue(@Param("dictValue") String dictValue,@Param("dataValue") int dataValue);
 
 //    @Select(" SELECT sdd.data_name name,sdd.data_value value FROM sys_dict_data sdd" +
 //            " INNER JOIN sys_dictionary sd ON sd.dict_value = sdd.dict_value" +

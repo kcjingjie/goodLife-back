@@ -21,7 +21,7 @@ public interface DictionaryQueryService {
 
     boolean deleteDictList(String idList);
 
-    DictionaryQueryModel getDictInfoByValue(String value);
+    List<DictionaryQueryModel> getDictInfoByValue(String value);
 
     //数据字典内容操作sys_dict_data
     Page getDictValueList(String keyWord,int pageNum, int pageSize);
@@ -34,7 +34,7 @@ public interface DictionaryQueryService {
 
     boolean deleteDictValueList(String idList);
 
-    DictionaryValueModel getDictValueByValue(String dictValue,int dataValue);
+    List<DictionaryValueModel> getDictValueByValue(String dictValue,int dataValue);
 
 //    /**
 //     * 查询字典信息
