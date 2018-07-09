@@ -20,7 +20,7 @@ public interface InfoManagerService {
 
     boolean delete(String unitIds);
 
-    PipeInfoModel getInfoByCode(String code);
+    List<PipeInfoModel> getInfoByCode(String code);
 
     List getDevModel();
 

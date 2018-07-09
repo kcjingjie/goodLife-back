@@ -23,6 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,6 +43,7 @@ public class DevConfigParaControllerTest {
                 .param("pageNum", "1")
                 .param("pageSize","10")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data",notNullValue()))
@@ -58,6 +60,7 @@ public class DevConfigParaControllerTest {
         mockMvc.perform(get("/devConfigPara/getListAll")
                 .param("deviceId","1")
                 .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data",notNullValue()));
@@ -88,6 +91,7 @@ public class DevConfigParaControllerTest {
                 //判断返回值，是否达到预期，
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 //使用jsonPath解析返回值，判断具体的内容
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data.deviceId").value(equalTo(10)))
@@ -108,6 +112,7 @@ public class DevConfigParaControllerTest {
         mockMvc.perform(get("/devConfigPara/37"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.msg").value(equalTo("操作成功！")))
 
@@ -141,6 +146,7 @@ public class DevConfigParaControllerTest {
                 //判断返回值，是否达到预期，
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 //使用jsonPath解析返回值，判断具体的内容
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data.deviceId").value(equalTo(10)))
@@ -159,6 +165,7 @@ public class DevConfigParaControllerTest {
         mockMvc.perform(delete("/devConfigPara/del")
                 .param("idList", "37")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
         ;
@@ -171,6 +178,7 @@ public class DevConfigParaControllerTest {
                 .param("deviceId", "8")
                 .param("paraId", "10002")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data",notNullValue()));

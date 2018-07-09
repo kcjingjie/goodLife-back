@@ -72,6 +72,6 @@ public interface TypeManageMapper {
      * @return
      */
     @Select("SELECT model_id FROM dev_model WHERE model_code=#{code}")
-    TypeManageModel getByCode(String code);
+   List<TypeManageModel> getByCode(String code);
 
 }

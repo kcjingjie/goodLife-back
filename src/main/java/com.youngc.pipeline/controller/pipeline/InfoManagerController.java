@@ -48,7 +48,7 @@ public class InfoManagerController {
      * @return
      */
     @PostMapping
-    public Result post(@RequestBody PipeInfoBean pipeInfoBean) {
+    public Result postInfo(@RequestBody PipeInfoBean pipeInfoBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         PipeInfoModel pipeInfoModel = new PipeInfoModel();
@@ -83,7 +83,7 @@ public class InfoManagerController {
      * 修改设备信息
      */
     @PutMapping
-    public Result put(@RequestBody PipeInfoBean pipeInfoBean) {
+    public Result putInfo(@RequestBody PipeInfoBean pipeInfoBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         PipeInfoModel pipeInfoModel = new PipeInfoModel();
@@ -105,7 +105,7 @@ public class InfoManagerController {
      * 删除设备信息
      */
     @DeleteMapping(value = "/del")
-    public Result delete(@RequestParam("idList") String idList) {
+    public Result deleteInfo(@RequestParam("idList") String idList) {
         infoManagerService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }

@@ -35,7 +35,7 @@ public class DevUnitController {
      * @return
      */
     @PostMapping
-    public Result post(@RequestBody DevUnitBean devUnitBean) {
+    public Result postInfo(@RequestBody DevUnitBean devUnitBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevUnitModel devUnitModel = new DevUnitModel();
@@ -68,7 +68,7 @@ public class DevUnitController {
      * @return
      */
     @PutMapping
-    public Result put(@RequestBody DevUnitBean devUnitBean) {
+    public Result putInfo(@RequestBody DevUnitBean devUnitBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevUnitModel devUnitModel = new DevUnitModel();
@@ -91,7 +91,7 @@ public class DevUnitController {
      * @return
      */
     @DeleteMapping(value = "/del")
-    public Result delete(@RequestParam("idList") String idList) {
+    public Result deleteInfo(@RequestParam("idList") String idList) {
         devUnitService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }

@@ -21,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,6 +40,7 @@ public class DevModelConfigParaControllerTest {
                 .param("pageNum", "1")
                 .param("pageSize","10")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data",notNullValue())
@@ -69,6 +71,7 @@ public class DevModelConfigParaControllerTest {
                 .content(mapper.writeValueAsString(devModelConfigParaModel)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data.modelId").value(equalTo(1)))
                 .andExpect(jsonPath("$.data.paraName").value(equalTo("温度")))
@@ -85,6 +88,7 @@ public class DevModelConfigParaControllerTest {
         mockMvc.perform(get("/devModelConfig/3"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.msg").value(equalTo("操作成功！")))
 
@@ -117,6 +121,7 @@ public class DevModelConfigParaControllerTest {
                 .content(mapper.writeValueAsString(devModelConfigParaModel)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data.modelId").value(equalTo(1)))
                 .andExpect(jsonPath("$.data.paraName").value(equalTo("温度")))
@@ -134,6 +139,7 @@ public class DevModelConfigParaControllerTest {
         mockMvc.perform(delete("/devModelConfig/del")
                 .param("idList", "3")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
         ;
@@ -145,6 +151,7 @@ public class DevModelConfigParaControllerTest {
                 .param("modelId", "3")
                 .param("paraId", "10001")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data",notNullValue()));

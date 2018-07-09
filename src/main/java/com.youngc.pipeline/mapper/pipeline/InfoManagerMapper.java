@@ -87,7 +87,7 @@ public interface InfoManagerMapper {
      * @return
      */
     @Select("SELECT device_id FROM dev_info WHERE device_code=#{code}")
-    PipeInfoModel getInfoByCode(@Param("code") String code);
+    List<PipeInfoModel> getInfoByCode(@Param("code") String code);
 
     /**
      * 查询设备模型id，模型名称

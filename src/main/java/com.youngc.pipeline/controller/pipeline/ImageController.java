@@ -42,7 +42,7 @@ public class ImageController {
      * 存储图片标注信息
      */
     @PostMapping("/postImageMark")
-    public Result post(@RequestBody ImageMarkBean imageMarkBean) {
+    public Result postMarkInfo(@RequestBody ImageMarkBean imageMarkBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         ImageMarkModel imageMarkModel = new ImageMarkModel();

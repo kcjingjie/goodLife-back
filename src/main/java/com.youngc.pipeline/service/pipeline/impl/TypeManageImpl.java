@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class TypeManageImpl implements TypeManageService {
 
@@ -76,7 +78,7 @@ public class TypeManageImpl implements TypeManageService {
      * @param code
      * @return
      */
-    public TypeManageModel getByCode(String code){
+    public List<TypeManageModel> getByCode(String code){
         return typeManageMapper.getByCode(code);
     }
 }

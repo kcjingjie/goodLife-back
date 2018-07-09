@@ -157,7 +157,7 @@ public class InfoManagerImpl implements InfoManagerService{
      * @param code
      * @return
      */
-    public PipeInfoModel getInfoByCode(String code) {
+    public List<PipeInfoModel> getInfoByCode(String code) {
         return infoManagerMapper.getInfoByCode(code);
     }
 

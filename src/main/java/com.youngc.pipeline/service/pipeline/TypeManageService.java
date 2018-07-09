@@ -3,6 +3,8 @@ package com.youngc.pipeline.service.pipeline;
 import com.github.pagehelper.Page;
 import com.youngc.pipeline.model.TypeManageModel;
 
+import java.util.List;
+
 public interface TypeManageService {
     Page getList(String keyWord, int pageNum, int pageSize);
 
@@ -14,5 +16,5 @@ public interface TypeManageService {
 
     boolean  deleteTypeList(String idList);
 
-    TypeManageModel getByCode(String code);
+    List<TypeManageModel> getByCode(String code);
 }
