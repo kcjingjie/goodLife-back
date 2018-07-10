@@ -25,7 +25,14 @@ public interface DevDataReportMapper {
             "RIGHT  JOIN dev_model on dev_model.model_id=dev_info.model_id " +
             "RIGHT JOIN (SELECT data_name ,data_value from sys_dict_data WHERE dict_value='deviceType')sd " +
             "ON sd.data_value=dev_model.model_type GROUP BY sd.data_value ;")
-    List <DevDataReportModel> getDevConutByType();
+    List <DevDataReportModel> getDevCountByType();
+
+    /**
+     * 根据单位划分
+     */
+    @Select("SELECT unit_name name,COUNT(device_id) number from dev_info " +
+            "RIGHT  JOIN sys_unit on dev_info.unit_id = sys_unit.unit_id GROUP BY sys_unit.unit_id")
+    List<DevDataReportModel> getDevCountByUnit();
 
 }
 

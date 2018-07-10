@@ -27,6 +27,16 @@ public class DevDataReportImpl implements DevDataReportService{
      * @return
      */
     public List<DevDataReportModel> getDevConutByType() {
-        return devDataReportMapper.getDevConutByType();
+
+        return devDataReportMapper.getDevCountByType();
     }
+
+    /**
+     * 根据单位查询
+     */
+    public List<DevDataReportModel> getDevCountByUnit() {
+        return devDataReportMapper.getDevCountByUnit();
+    }
+
+
 }

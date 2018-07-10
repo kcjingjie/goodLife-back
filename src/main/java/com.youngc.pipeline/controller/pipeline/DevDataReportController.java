@@ -32,4 +32,12 @@ public class DevDataReportController {
         return ResultGenerator.generate(ResultCode.SUCCESS,devDataReportService.getDevConutByType());
     }
 
+    /**
+     * 根据单位查询
+     */
+    @GetMapping("/byUnit")
+    public Result getDevCountByUnit(){
+        return ResultGenerator.generate(ResultCode.SUCCESS,devDataReportService.getDevCountByUnit());
+    }
+
 }

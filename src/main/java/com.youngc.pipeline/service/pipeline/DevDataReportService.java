@@ -8,4 +8,6 @@ public interface DevDataReportService {
     List<DevDataReportModel> getDevCountByModel();
 
     List<DevDataReportModel> getDevConutByType();
+
+    List<DevDataReportModel> getDevCountByUnit();
 }
