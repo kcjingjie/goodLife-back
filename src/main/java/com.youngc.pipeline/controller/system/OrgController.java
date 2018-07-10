@@ -42,7 +42,7 @@ public class OrgController {
 
     @ApiOperation("修改组织信息")
     @PutMapping
-    public Result getOrgInfo(@RequestBody OrgBean orgBean) {
+    public Result putOrgInfo(@RequestBody OrgBean orgBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
 
