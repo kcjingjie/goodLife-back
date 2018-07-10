@@ -70,5 +70,5 @@ public interface UnitMapper {
      * @return
      */
     @Select("SELECT unit_id FROM sys_unit WHERE unit_code=#{code}")
-    UnitModel getUnitByCode(String code);
+    List<UnitModel> getUnitByCode(String code);
 }

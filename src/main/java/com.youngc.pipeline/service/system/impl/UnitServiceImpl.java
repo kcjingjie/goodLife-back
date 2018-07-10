@@ -9,6 +9,8 @@ import com.youngc.pipeline.service.system.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UnitServiceImpl implements UnitService{
 
@@ -71,7 +73,7 @@ public class UnitServiceImpl implements UnitService{
      * @param code
      * @return
      */
-    public UnitModel getUnitByCode(String code){
+    public List<UnitModel> getUnitByCode(String code){
         return unitMapper.getUnitByCode(code);
     }
 }

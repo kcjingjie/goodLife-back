@@ -3,6 +3,8 @@ package com.youngc.pipeline.service.system;
 import com.github.pagehelper.Page;
 import com.youngc.pipeline.model.UnitModel;
 
+import java.util.List;
+
 public interface UnitService {
 
     Page getList(String keyword, int pageNum, int pageSize);
@@ -15,5 +17,5 @@ public interface UnitService {
 
     boolean deleteUnitList(String unitIds);
 
-    UnitModel getUnitByCode(String code);
+    List<UnitModel> getUnitByCode(String code);
 }
