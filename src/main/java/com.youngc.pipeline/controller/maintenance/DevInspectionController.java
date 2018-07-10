@@ -28,7 +28,7 @@ public class DevInspectionController {
 
     //添加巡检计划
     @PostMapping
-    public Result post(@RequestBody DevInspectionBean devInspectionBean) {
+    public Result postInfo(@RequestBody DevInspectionBean devInspectionBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevInspectionModel devInspectionModel = new DevInspectionModel();
@@ -48,7 +48,7 @@ public class DevInspectionController {
 
     //删除巡检计划
     @DeleteMapping(value = "/del")
-    public Result delete(@RequestParam("idList") String idList) {
+    public Result deleteInfo(@RequestParam("idList") String idList) {
         devInspectionService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
@@ -61,7 +61,7 @@ public class DevInspectionController {
 
     //修改巡检计划信息
     @PutMapping
-    public Result put(@RequestBody DevInspectionBean devInspectionBean) {
+    public Result putInfo(@RequestBody DevInspectionBean devInspectionBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevInspectionModel devInspectionModel = new DevInspectionModel();

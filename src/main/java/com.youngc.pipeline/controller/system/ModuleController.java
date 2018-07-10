@@ -52,7 +52,7 @@ public class ModuleController {
 
     @ApiOperation("修改模块信息")
     @PutMapping
-    public Result getOrgInfo(@RequestBody ModuleBean moduleBean) {
+    public Result putInfo(@RequestBody ModuleBean moduleBean) {
         UserBean user = (UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
 
         ModuleModel moduleModel = new ModuleModel();
@@ -73,7 +73,7 @@ public class ModuleController {
 
     @ApiOperation("添加模块信息")
     @PostMapping
-    public Result postGroupInfo(@RequestBody ModuleBean moduleBean) {
+    public Result postInfo(@RequestBody ModuleBean moduleBean) {
         UserBean user = (UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
 
         ModuleModel moduleModel = new ModuleModel();

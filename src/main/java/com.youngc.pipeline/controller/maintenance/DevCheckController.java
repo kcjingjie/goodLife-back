@@ -25,7 +25,7 @@ public class DevCheckController {
 
     //添加检验计划
     @PostMapping
-    public Result post(@RequestBody DevCheckBean devCheckBean) {
+    public Result postInfo(@RequestBody DevCheckBean devCheckBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevCheckModel devCheckModel = new DevCheckModel();
@@ -47,7 +47,7 @@ public class DevCheckController {
 
     //删除检验计划
     @DeleteMapping(value = "/del")
-    public Result delete(@RequestParam("idList") String idList) {
+    public Result deleteInfo(@RequestParam("idList") String idList) {
         devCheckService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
@@ -60,7 +60,7 @@ public class DevCheckController {
 
     //修改检验计划信息
     @PutMapping
-    public Result put(@RequestBody DevCheckBean devCheckBean) {
+    public Result putInfo(@RequestBody DevCheckBean devCheckBean) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         DevCheckModel devCheckModel = new DevCheckModel();
