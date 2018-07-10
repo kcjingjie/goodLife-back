@@ -31,9 +31,9 @@ public class UnitContorller {
                 return ResultGenerator.generate(unitService.getList(keyword, pageNum, pageSize));
         }
 
-        @GetMapping("/{userId}")
-        public Result getUnitDetails(@PathVariable Long userId) {
-                return ResultGenerator.generate(ResultCode.SUCCESS, unitService.getUnitDetails(userId));
+        @GetMapping("/{unitId}")
+        public Result getUnitDetails(@PathVariable Long unitId) {
+                return ResultGenerator.generate(ResultCode.SUCCESS, unitService.getUnitDetails(unitId));
         }
 
         /**

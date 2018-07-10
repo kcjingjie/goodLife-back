@@ -30,7 +30,7 @@ public interface UnitMapper {
     @Select(" SELECT su.unit_id,su.unit_code,su.unit_name,su.phone_one,su.phone_two,su.contact_one,su.contact_two,su.email," +
             " su.address,su.org_id,su.remark,so.org_name FROM sys_unit su" +
             " LEFT JOIN sys_organize so on so.org_id = su.org_id" +
-            " WHERE su.org_id = #{unitId}")
+            " WHERE su.unit_id = #{unitId}")
     UnitModel getUnitInfo(Long unitId);
 
     /**
