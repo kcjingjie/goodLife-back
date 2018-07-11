@@ -3,6 +3,7 @@ package com.youngc.pipeline.service.system;
 import com.github.pagehelper.Page;
 import com.youngc.pipeline.model.UnitModel;
 import com.youngc.pipeline.model.UserManagerModel;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -30,4 +31,6 @@ public interface UserManagerService {
     boolean putUserRole(String roleIds, Long userId, Long personId);
 
     boolean putUserDataRole(String droleIds, Long userId, Long personId);
+
+    List<UserManagerModel> getInfoByUserName(String userName);
 }

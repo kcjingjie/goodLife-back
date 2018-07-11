@@ -158,4 +158,9 @@ public class UserManagerController {
     public  Result getDataRoleList(){
         return ResultGenerator.generate(ResultCode.SUCCESS,userManagerService.getDataRoleList());
     }
+
+    @GetMapping(value = "/userName")
+    public  Result getInfoByUserName(@RequestParam("userName") String userName){
+        return ResultGenerator.generate(ResultCode.SUCCESS,userManagerService.getInfoByUserName(userName));
+    }
 }

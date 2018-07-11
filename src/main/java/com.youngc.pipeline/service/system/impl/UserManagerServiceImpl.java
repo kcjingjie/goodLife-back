@@ -187,4 +187,13 @@ public class UserManagerServiceImpl implements UserManagerService {
         return true;
     }
 
+    /**
+     * 根据用户名查询是否唯一
+     * @param userName
+     * @return
+     */
+    public List<UserManagerModel> getInfoByUserName(String userName) {
+        return userManagerMapper.getInfoByUserName(userName);
+    }
+
 }

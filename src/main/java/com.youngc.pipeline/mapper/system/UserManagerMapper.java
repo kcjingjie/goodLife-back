@@ -92,31 +92,71 @@ public interface UserManagerMapper {
     @Select("SELECT role_id,role_name  FROM sys_role")
     List<SysRoleModel> getRoleList();
 
-    //查询数据角色表的内容
+    /**
+     * 查询数据角色表的内容
+     */
+
     @Select("SELECT drole_id,drole_name FROM sys_data_role")
     List<SysDataRoleModel> getDataRoleList();
 
-    //删除用户权限
+    /**
+     * 删除用户权限
+     * @param userId
+     * @return
+     */
+
     @Delete(" DELETE FROM sys_user_role WHERE user_id = #{userId}")
     int deleteUserRole(@Param("userId") Long userId);
 
-    //批量删除用户权限
+    /**
+     * 批量删除用户权限
+     * @param userIds
+     * @return
+     */
     @Delete(" DELETE FROM sys_user_role WHERE user_id in ( ${userIds} )")
     int deleteUsersRole(@Param("userIds") String userIds);
 
-    //给用户分配权限
+    /**
+     * 给用户分配权限
+     * @param roleIds
+     * @param userId
+     * @param personId
+     * @return
+     */
     @InsertProvider(type = SystemSqlProvider.class, method = "insertUserRole")
     int insertUserRole(List<String> roleIds,  Long userId,  Long personId);
 
-    //删除用户下的数据角色
+    /**
+     * 删除用户下的数据角色
+     * @param userId
+     * @return
+     */
     @Delete(" DELETE FROM sys_user_data_role WHERE user_id = #{userId}")
     int deleteUserDataRole(@Param("userId") Long userId);
 
-    //批量删除用户下的数据角色
+    /**
+     * 批量删除用户下的数据角色
+     * @param userIds
+     * @return
+     */
     @Delete(" DELETE FROM sys_user_data_role WHERE user_id in ( ${userIds} )")
     int deleteUsersDataRole(@Param("userIds") String userIds);
 
-    //给用户添加数据角色的权限
+    /**
+     * 给用户添加数据角色的权限
+     * @param roleIds
+     * @param userId
+     * @param personId
+     * @return
+     */
     @InsertProvider(type = SystemSqlProvider.class, method = "insertUserDataRole")
     int insertUserDataRole(List<String> roleIds,  Long userId,  Long personId);
+
+    /**
+     * 根据用户名查询是否唯一
+     * @param userName
+     * @return
+     */
+    @Select("SELECT user_id from sys_user WHERE user_name=#{userName}")
+    List<UserManagerModel> getInfoByUserName(@Param("userName") String userName);
 }
