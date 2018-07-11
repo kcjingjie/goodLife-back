@@ -14,17 +14,17 @@ public class PipeInfoModel {
 
     private Long unitId;
 
-    private Long modelId;
+    //private Long modelId;
 
     private Long imageId;
 
-    private String modelName;
+    //private String modelName;
 
     private String deviceAlias;
 
     private String deviceName;
 
-    private String deviceCode;
+   // private String deviceCode;
 
     private String customCode;
 
@@ -32,7 +32,7 @@ public class PipeInfoModel {
 
     private int status;
 
-    private String address;
+    //private String address;
 
     private Long addPerson;
 

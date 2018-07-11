@@ -112,14 +112,14 @@ public class InfoManagerImpl implements InfoManagerService{
     @Transactional
     public PipeInfoModel updateInfo(PipeInfoModel pipeInfoModel) {
         infoManagerMapper.updateInfo(pipeInfoModel);
-        Long deviceId = pipeInfoModel.getDeviceId();
+       /* Long deviceId = pipeInfoModel.getDeviceId();
         Long modelId = pipeInfoModel.getModelId();
         Long personId = pipeInfoModel.getLastPerson();
         String id = deviceId+"";
         infoManagerMapper.deleteConfigPara(id);
         infoManagerMapper.deleteMonPara(id);
         infoManagerMapper.insertConfigParas(deviceId,modelId,personId);
-        infoManagerMapper.insertMonParas(deviceId,modelId,personId);
+        infoManagerMapper.insertMonParas(deviceId,modelId,personId);*/
         return pipeInfoModel;
     }
 
@@ -130,11 +130,11 @@ public class InfoManagerImpl implements InfoManagerService{
      */
     public PipeInfoModel insert(PipeInfoModel pipeInfoModel) {
         infoManagerMapper.insert(pipeInfoModel);
-        Long deviceId = pipeInfoModel.getId();
+      /*  Long deviceId = pipeInfoModel.getId();
         Long modelId = pipeInfoModel.getModelId();
         Long personId = pipeInfoModel.getLastPerson();
         infoManagerMapper.insertConfigParas(deviceId,modelId,personId);
-        infoManagerMapper.insertMonParas(deviceId,modelId,personId);
+        infoManagerMapper.insertMonParas(deviceId,modelId,personId);*/
         return pipeInfoModel;
     }
 

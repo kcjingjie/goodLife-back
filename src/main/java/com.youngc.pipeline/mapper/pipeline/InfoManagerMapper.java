@@ -17,8 +17,7 @@ public interface InfoManagerMapper {
      * @param pid
      * @return
      */
-    @Select("SELECT device_id,unit_id,dev_info.model_id,device_alias,device_name,device_code,device_desc,dev_info.status,address,model_name FROM dev_info"+
-            " LEFT JOIN dev_model on dev_model.model_id=dev_info.model_id "+
+    @Select("SELECT device_id,unit_id,device_alias,device_name,device_desc,dev_info.status  FROM dev_info"+
             " WHERE ((device_name LIKE CONCAT('%', #{keyWord}, '%'))OR(device_alias LIKE CONCAT('%', #{keyWord}, '%')))"+
             " AND unit_id = #{pid}")
     List<PipeInfoModel> getList(@Param("keyWord")String keyWord, @Param("pid") Long pid);
@@ -28,8 +27,8 @@ public interface InfoManagerMapper {
      * @param pipeInfoModel
      * @return
      */
-    @Insert(" INSERT INTO dev_info (unit_id, model_id,image_id, device_alias,device_name,device_code,device_desc,status,address,add_person, add_time, last_person, last_time)" +
-            " VALUES(#{unitId}, #{modelId},#{imageId}, #{deviceAlias},#{deviceName}, #{deviceCode},#{deviceDesc},#{status},#{address},#{addPerson}, now(), #{lastPerson}, now())")
+    @Insert(" INSERT INTO dev_info (unit_id,image_id, device_alias,device_name,device_desc,status,add_person, add_time, last_person, last_time)" +
+            " VALUES(#{unitId}, #{imageId}, #{deviceAlias},#{deviceName}, #{deviceDesc},#{status},#{addPerson}, now(), #{lastPerson}, now())")
     @Options(useGeneratedKeys = true, keyColumn = "device_id")
     int insert(PipeInfoModel pipeInfoModel);
 
@@ -70,15 +69,15 @@ public interface InfoManagerMapper {
      * @param deviceId
      * @return
      */
-    @Select(" SELECT device_id,unit_id,model_id,image_id,device_alias,device_name,device_code,device_desc,status,address " +
+    @Select(" SELECT device_id,unit_id,image_id,device_alias,device_name,device_desc,status " +
             " FROM dev_info WHERE device_id = #{id}")
     PipeInfoModel getInfo(@Param("id") Long id);
 
     /**
      * 修改设备信息
      */
-    @Update(" UPDATE dev_info SET model_id = #{modelId},image_id=#{imageId}, device_alias = #{deviceAlias},device_name=#{deviceName},device_desc=#{deviceDesc}," +
-            " status=#{status},address=#{address}, last_person = #{lastPerson}, last_time = now() WHERE device_id = #{deviceId}")
+    @Update(" UPDATE dev_info SET image_id=#{imageId}, device_alias = #{deviceAlias},device_name=#{deviceName},device_desc=#{deviceDesc}," +
+            " status=#{status}, last_person = #{lastPerson}, last_time = now() WHERE device_id = #{deviceId}")
     int updateInfo(PipeInfoModel pipeInfoModel);
 
     /**
@@ -86,7 +85,7 @@ public interface InfoManagerMapper {
      * @param code
      * @return
      */
-    @Select("SELECT device_id FROM dev_info WHERE device_code=#{code}")
+    @Select("SELECT device_id FROM dev_info WHERE device_name=#{code}")
     List<PipeInfoModel> getInfoByCode(@Param("code") String code);
 
     /**

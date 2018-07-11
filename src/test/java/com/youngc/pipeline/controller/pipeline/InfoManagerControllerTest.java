@@ -66,13 +66,10 @@ public class InfoManagerControllerTest {
         Long imageId = new Long(1);
         Long userId = new Long(1);
         pipeInfoModel.setUnitId(unitId);
-        pipeInfoModel.setModelId(modelId);
         pipeInfoModel.setImageId(imageId);
         pipeInfoModel.setDeviceAlias("name");
         pipeInfoModel.setDeviceName("NAME-1");
-        pipeInfoModel.setDeviceCode("10001");
         pipeInfoModel.setStatus(1);
-        pipeInfoModel.setAddress("山东省");
         pipeInfoModel.setDeviceDesc("描述信息");
 
         pipeInfoModel.setAddPerson(userId);
@@ -89,14 +86,11 @@ public class InfoManagerControllerTest {
                 //使用jsonPath解析返回值，判断具体的内容
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data.unitId").value(equalTo(1)))
-                .andExpect(jsonPath("$.data.modelId").value(equalTo(1)))
                 .andExpect(jsonPath("$.data.imageId").value(equalTo(1)))
                 .andExpect(jsonPath("$.data.deviceAlias").value(equalTo("name")))
                 .andExpect(jsonPath("$.data.deviceName").value(equalTo("NAME-1")))
-                .andExpect(jsonPath("$.data.deviceCode").value(equalTo("10001")))
                 .andExpect(jsonPath("$.data.deviceDesc").value(equalTo("描述信息")))
                 .andExpect(jsonPath("$.data.status").value(equalTo(1)))
-                .andExpect(jsonPath("$.data.address").value(equalTo("山东省")))
                 .andExpect(jsonPath("$.data.addPerson").value(equalTo(1)))
                 .andExpect(jsonPath("$.data.lastPerson").value(equalTo(1)))
         ;
@@ -124,12 +118,10 @@ public class InfoManagerControllerTest {
         Long imageId = new Long(1);
         Long userId = new Long(1);
         pipeInfoModel.setDeviceId(id);
-        pipeInfoModel.setModelId(modelId);
         pipeInfoModel.setImageId(imageId);
         pipeInfoModel.setDeviceAlias("name");
         pipeInfoModel.setDeviceName("NAME-1");
         pipeInfoModel.setStatus(1);
-        pipeInfoModel.setAddress("山东省");
         pipeInfoModel.setDeviceDesc("描述信息");
 
         pipeInfoModel.setAddPerson(userId);
@@ -145,13 +137,11 @@ public class InfoManagerControllerTest {
                 .andDo(print())
                 //使用jsonPath解析返回值，判断具体的内容
                 .andExpect(jsonPath("$.code").value(containsString("200")))
-                .andExpect(jsonPath("$.data.modelId").value(equalTo(1)))
                 .andExpect(jsonPath("$.data.imageId").value(equalTo(1)))
                 .andExpect(jsonPath("$.data.deviceAlias").value(equalTo("name")))
                 .andExpect(jsonPath("$.data.deviceName").value(equalTo("NAME-1")))
                 .andExpect(jsonPath("$.data.deviceDesc").value(equalTo("描述信息")))
                 .andExpect(jsonPath("$.data.status").value(equalTo(1)))
-                .andExpect(jsonPath("$.data.address").value(equalTo("山东省")))
                 .andExpect(jsonPath("$.data.lastPerson").value(equalTo(1)))
         ;
     }

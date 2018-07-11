@@ -54,13 +54,10 @@ public class InfoManagerController {
         PipeInfoModel pipeInfoModel = new PipeInfoModel();
 
         pipeInfoModel.setUnitId(pipeInfoBean.getUnitId());
-        pipeInfoModel.setModelId(pipeInfoBean.getModelId());
         pipeInfoModel.setImageId(pipeInfoBean.getImageId());
         pipeInfoModel.setDeviceAlias(pipeInfoBean.getDeviceAlias());
         pipeInfoModel.setDeviceName(pipeInfoBean.getDeviceName());
-        pipeInfoModel.setDeviceCode(pipeInfoBean.getDeviceCode());
         pipeInfoModel.setStatus(pipeInfoBean.getStatus());
-        pipeInfoModel.setAddress(pipeInfoBean.getAddress());
         pipeInfoModel.setDeviceDesc(pipeInfoBean.getDeviceDesc());
 
         pipeInfoModel.setAddPerson(user.getUserId());
@@ -89,12 +86,10 @@ public class InfoManagerController {
         PipeInfoModel pipeInfoModel = new PipeInfoModel();
 
         pipeInfoModel.setDeviceId(pipeInfoBean.getDeviceId());
-        pipeInfoModel.setModelId(pipeInfoBean.getModelId());
         pipeInfoModel.setImageId(pipeInfoBean.getImageId());
         pipeInfoModel.setDeviceAlias(pipeInfoBean.getDeviceAlias());
         pipeInfoModel.setDeviceName(pipeInfoBean.getDeviceName());
         pipeInfoModel.setStatus(pipeInfoBean.getStatus());
-        pipeInfoModel.setAddress(pipeInfoBean.getAddress());
         pipeInfoModel.setDeviceDesc(pipeInfoBean.getDeviceDesc());
 
         pipeInfoModel.setLastPerson(user.getUserId());
