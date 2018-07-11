@@ -64,5 +64,5 @@ public interface DevMonParaMapper {
      * @return
      */
     @Select("SELECT id FROM dev_mon_para WHERE device_id=#{deviceId} AND para_id=#{paraId}")
-    DevMonParaModel getInfoByCode(@Param("deviceId") Long deviceId,@Param("paraId") String paraId);
+    List<DevMonParaModel> getInfoByCode(@Param("deviceId") Long deviceId,@Param("paraId") String paraId);
 }

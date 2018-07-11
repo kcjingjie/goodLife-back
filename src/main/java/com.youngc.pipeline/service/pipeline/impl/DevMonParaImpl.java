@@ -82,7 +82,7 @@ public class DevMonParaImpl implements DevMonParaService{
      * @param paraId
      * @return
      */
-    public DevMonParaModel getInfoByCode(Long deviceId, String paraId) {
+    public List<DevMonParaModel> getInfoByCode(Long deviceId, String paraId) {
 
         return devMonParaMapper.getInfoByCode(deviceId,paraId);
     }
