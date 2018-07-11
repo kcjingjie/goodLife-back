@@ -159,6 +159,12 @@ public class UserManagerController {
         return ResultGenerator.generate(ResultCode.SUCCESS,userManagerService.getDataRoleList());
     }
 
+    /**
+     * 根据用户名查询是否有重复
+     * @param userName
+     * @return
+     */
+
     @GetMapping(value = "/userName")
     public  Result getInfoByUserName(@RequestParam("userName") String userName){
         return ResultGenerator.generate(ResultCode.SUCCESS,userManagerService.getInfoByUserName(userName));

@@ -78,6 +78,13 @@ public interface SysRoleMapper {
     @Delete("DELETE FROM sys_role_module WHERE role_id=#{roleId}")
     int deleteRoleMoudle(@Param("roleId") Long  roleId);
 
+    /**
+     * 使用provider拼接插入信息
+     * @param moduleIds
+     * @param roleId
+     * @param userId
+     * @return
+     */
     @InsertProvider(type = SystemSqlProvider.class, method = "insertRoleModule")
     int insertRoleModule(List<String> moduleIds,  Long roleId,  Long userId);
 
