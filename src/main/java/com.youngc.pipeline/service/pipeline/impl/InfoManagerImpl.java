@@ -183,5 +183,13 @@ public class InfoManagerImpl implements InfoManagerService{
         return infoManagerMapper.getParaName();
     }
 
+    /**
+     * 根据单位id查询标准参数信息
+     * @return
+     */
+    public List<DevConfigParaModel> getParaValue(Long unitId) {
+        return infoManagerMapper.getParaValue(unitId);
+    }
+
 
 }

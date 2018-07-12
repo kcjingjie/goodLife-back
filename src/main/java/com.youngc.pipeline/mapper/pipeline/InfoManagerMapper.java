@@ -108,4 +108,11 @@ public interface InfoManagerMapper {
      */
     @Select("select DISTINCT para_name FROM dev_config_para order by para_id;")
     List<DevConfigParaModel> getParaName();
+
+    /**
+     * 根据单位id查询标准参数信息
+     */
+    @Select("SELECT di.device_id,dcp.para_name,dcp.para_value from  dev_info di " +
+            "LEFT JOIN dev_config_para dcp on di.device_id=dcp.device_id WHERE di.unit_id=#{unitId}")
+    List<DevConfigParaModel> getParaValue(@Param("unitId") Long  unitId);
 }

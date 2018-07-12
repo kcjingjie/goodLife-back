@@ -129,10 +129,25 @@ public class InfoManagerController {
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getImageUrl(deviceId));
     }
 
+    /**
+     * 查询标准参数名字（去重）
+     * @return
+     */
     @GetMapping("/getParaName")
     public Result getParaName(){
 
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getParaName());
+    }
+
+    /**
+     * 根据单位id查询标准参数信息
+     * @param unitId
+     * @return
+     */
+    @GetMapping("/getParaValue")
+    public Result getParaName(@RequestParam Long unitId){
+
+        return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getParaValue(unitId));
     }
 
 }
