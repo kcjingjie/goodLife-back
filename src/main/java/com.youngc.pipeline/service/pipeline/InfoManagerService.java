@@ -2,6 +2,7 @@ package com.youngc.pipeline.service.pipeline;
 
 import com.github.pagehelper.Page;
 import com.youngc.pipeline.bean.context.TreeNode;
+import com.youngc.pipeline.model.DevConfigParaModel;
 import com.youngc.pipeline.model.ImageModel;
 import com.youngc.pipeline.model.PipeInfoModel;
 
@@ -25,4 +26,6 @@ public interface InfoManagerService {
     List getDevModel();
 
     ImageModel getImageUrl(Long deviceId);
+
+    List<DevConfigParaModel> getParaName();
 }

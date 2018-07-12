@@ -8,15 +8,13 @@ public class PipeInfoBean {
 
     private Long unitId;
 
-    private Long modelId;
-
     private Long imageId;
 
     private String deviceAlias;
 
-    private String deviceName;
+    private Long deviceType;
 
-    private String deviceCode;
+    private String deviceName;
 
     private String customCode;
 
@@ -24,6 +22,5 @@ public class PipeInfoBean {
 
     private int status;
 
-    private String address;
 
 }

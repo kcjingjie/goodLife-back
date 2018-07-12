@@ -59,7 +59,7 @@ public class InfoManagerController {
         pipeInfoModel.setDeviceName(pipeInfoBean.getDeviceName());
         pipeInfoModel.setStatus(pipeInfoBean.getStatus());
         pipeInfoModel.setDeviceDesc(pipeInfoBean.getDeviceDesc());
-
+        pipeInfoModel.setDeviceType(pipeInfoBean.getDeviceType());
         pipeInfoModel.setAddPerson(user.getUserId());
         pipeInfoModel.setLastPerson(user.getUserId());
 
@@ -91,7 +91,7 @@ public class InfoManagerController {
         pipeInfoModel.setDeviceName(pipeInfoBean.getDeviceName());
         pipeInfoModel.setStatus(pipeInfoBean.getStatus());
         pipeInfoModel.setDeviceDesc(pipeInfoBean.getDeviceDesc());
-
+        pipeInfoModel.setDeviceType(pipeInfoBean.getDeviceType());
         pipeInfoModel.setLastPerson(user.getUserId());
         return ResultGenerator.generate(ResultCode.SUCCESS, infoManagerService.updateInfo(pipeInfoModel));
     }
@@ -128,4 +128,11 @@ public class InfoManagerController {
     public Result getImageUrl(@RequestParam Long deviceId) {
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getImageUrl(deviceId));
     }
+
+    @GetMapping("/getParaName")
+    public Result getParaName(){
+
+        return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getParaName());
+    }
+
 }
