@@ -14,6 +14,8 @@ public class PipeInfoBean {
 
     private Long deviceType;
 
+    private  Long deviceEquip;
+
     private String deviceName;
 
     private String customCode;

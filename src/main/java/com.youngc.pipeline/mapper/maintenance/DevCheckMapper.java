@@ -1,7 +1,6 @@
 package com.youngc.pipeline.mapper.maintenance;
 
 import com.youngc.pipeline.model.DevCheckModel;
-import com.youngc.pipeline.model.DevInspectionModel;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

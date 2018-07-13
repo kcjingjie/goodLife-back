@@ -7,23 +7,23 @@ import java.util.Date;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DevInspectionModel {
+public class DevLeakModel {
 
     private Long id;
 
     private Long devId;
 
-    private String planName;
+    private String leakNo;
 
     private String deviceName;
 
-    private String exeTime;
+    private String leakDegree;
 
-    private Long exeCycle;
+    private String occurTime;
 
-    private String exeUser;
+    private String planExeTime;
 
-    private String exeDesc;
+    private String handleMethod;
 
     private String remark;
 

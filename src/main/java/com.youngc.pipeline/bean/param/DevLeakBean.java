@@ -5,22 +5,22 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class DevInspectionBean {
+public class DevLeakBean {
     private Long id;
 
     private Long devId;
 
-    private String planName;
+    private String leakNo;
 
     private String deviceName;
 
-    private String exeTime;
+    private String leakDegree;
 
-    private Long exeCycle;
+    private String occurTime;
 
-    private String exeUser;
+    private String planExeTime;
 
-    private String exeDesc;
+    private String handleMethod;
 
     private String remark;
 }

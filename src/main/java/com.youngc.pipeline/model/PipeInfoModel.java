@@ -24,6 +24,8 @@ public class PipeInfoModel {
 
     private Long deviceType;
 
+    private Long deviceEquip;
+
     private String deviceName;
 
    // private String deviceCode;
