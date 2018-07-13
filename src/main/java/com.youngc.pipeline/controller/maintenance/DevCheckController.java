@@ -17,13 +17,23 @@ public class DevCheckController {
     @Autowired
     private DevCheckService devCheckService;
 
-    //模糊查询检验计划信息
+    /**
+     * 模糊查询检验计划信息
+     * @param keyWord
+     * @param devName
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping(value = "/getList")
-    public Result getList(@RequestParam String keyWord, @RequestParam String devName, @RequestParam int pageNum, @RequestParam int pageSize){
-        return ResultGenerator.generate(devCheckService.getList(keyWord,devName,pageNum,pageSize));
+    public Result getList( @RequestParam String devName, @RequestParam int pageNum, @RequestParam int pageSize){
+        return ResultGenerator.generate(devCheckService.getList(devName,pageNum,pageSize));
     }
 
-    //添加检验计划
+    /**
+     * 添加检验计划
+     */
+
     @PostMapping
     public Result postInfo(@RequestBody DevCheckBean devCheckBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -31,13 +41,9 @@ public class DevCheckController {
         DevCheckModel devCheckModel = new DevCheckModel();
 
         devCheckModel.setDevId(devCheckBean.getDevId());
-        devCheckModel.setPlanName(devCheckBean.getPlanName());
-        devCheckModel.setExeTime(devCheckBean.getExeTime());
+        devCheckModel.setPlanExeTime(devCheckBean.getPlanExeTime());
         devCheckModel.setCheckOrganize(devCheckBean.getCheckOrganize());
-        devCheckModel.setCheckUser(devCheckBean.getCheckUser());
         devCheckModel.setExeCycle(devCheckBean.getExeCycle());
-        devCheckModel.setExeUser(devCheckBean.getExeUser());
-        devCheckModel.setExeDesc(devCheckBean.getExeDesc());
         devCheckModel.setRemark(devCheckBean.getRemark());
         devCheckModel.setAddPerson(user.getUserId());
         devCheckModel.setLastPerson(user.getUserId());
@@ -45,20 +51,28 @@ public class DevCheckController {
         return ResultGenerator.generate(ResultCode.SUCCESS, devCheckService.insert(devCheckModel));
     }
 
-    //删除检验计划
+    /**
+     * 删除检验计划
+     * @param idList
+     * @return
+     */
     @DeleteMapping(value = "/del")
     public Result deleteInfo(@RequestParam("idList") String idList) {
         devCheckService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
     }
 
-    //根据id查询检验计划信息
+    /**
+     * 根据id查询检验计划信息
+     */
     @GetMapping("/{id}")
     public Result getDetails(@PathVariable Long id) {
         return ResultGenerator.generate(ResultCode.SUCCESS, devCheckService.getInfo(id));
     }
 
-    //修改检验计划信息
+    /**
+     * 修改检验计划信息
+     */
     @PutMapping
     public Result putInfo(@RequestBody DevCheckBean devCheckBean) {
         com.youngc.pipeline.bean.context.UserBean user
@@ -67,16 +81,33 @@ public class DevCheckController {
 
         devCheckModel.setId(devCheckBean.getId());
         devCheckModel.setDevId(devCheckBean.getDevId());
-        devCheckModel.setPlanName(devCheckBean.getPlanName());
-        devCheckModel.setExeTime(devCheckBean.getExeTime());
+        devCheckModel.setPlanExeTime(devCheckBean.getPlanExeTime());
         devCheckModel.setCheckOrganize(devCheckBean.getCheckOrganize());
-        devCheckModel.setCheckUser(devCheckBean.getCheckUser());
         devCheckModel.setExeCycle(devCheckBean.getExeCycle());
-        devCheckModel.setExeUser(devCheckBean.getExeUser());
-        devCheckModel.setExeDesc(devCheckBean.getExeDesc());
         devCheckModel.setRemark(devCheckBean.getRemark());
         devCheckModel.setLastPerson(user.getUserId());
 
         return ResultGenerator.generate(ResultCode.SUCCESS, devCheckService.updateInfo(devCheckModel));
+    }
+
+    /**
+     *
+     * @param devCheckBean
+     * @return
+     */
+    @PutMapping("/submitInfo")
+    public Result submitInfo(@RequestBody DevCheckBean devCheckBean) {
+        com.youngc.pipeline.bean.context.UserBean user
+                = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+        DevCheckModel devCheckModel = new DevCheckModel();
+
+        devCheckModel.setId(devCheckBean.getId());
+        devCheckModel.setCheckReport(devCheckBean.getCheckReport());
+        devCheckModel.setPlanExeTime(devCheckBean.getPlanExeTime());
+        devCheckModel.setLastExeTime(devCheckBean.getLastExeTime());
+        devCheckModel.setDelayReason(devCheckBean.getDelayReason());
+        devCheckModel.setLastPerson(user.getUserId());
+
+        return ResultGenerator.generate(ResultCode.SUCCESS, devCheckService.submitInfo(devCheckModel));
     }
 }

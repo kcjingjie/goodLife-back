@@ -21,9 +21,9 @@ public class DevCheckImpl implements DevCheckService{
      * @param pageSize
      * @return
      */
-    public Page getList(String keyWord, String devName, int pageNum, int pageSize) {
+    public Page getList( String devName, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return (Page)devCheckMapper.getList(keyWord,devName);
+        return (Page)devCheckMapper.getList(devName);
     }
 
     /**
@@ -63,5 +63,15 @@ public class DevCheckImpl implements DevCheckService{
     public boolean delete(String idList) {
         devCheckMapper.delete(idList);
         return true;
+    }
+
+    /**
+     * 提交计划信息
+     * @param devCheckModel
+     * @return
+     */
+    public DevCheckModel submitInfo(DevCheckModel devCheckModel) {
+        devCheckMapper.submitInfo(devCheckModel);
+        return devCheckModel;
     }
 }

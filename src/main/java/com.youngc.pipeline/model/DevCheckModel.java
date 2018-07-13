@@ -12,21 +12,25 @@ public class DevCheckModel {
 
     private Long devId;
 
-    private String planName;
-
     private String deviceName;
 
-    private String exeTime;
+    private String planExeTime;
+
+    private String lastExeTime;
+
+    private Long deviceType;
+
+    private Long deviceEquip;
+
+    private String delayTime;
+
+    private String delayReason;
 
     private Long exeCycle;
 
     private String checkOrganize;
 
-    private String checkUser;
-
-    private String exeUser;
-
-    private String exeDesc;
+    private String checkReport;
 
     private String remark;
 

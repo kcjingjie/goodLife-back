@@ -48,13 +48,9 @@ public class DevCheckControllerTest {
         DevCheckModel devCheckModel = new DevCheckModel();
 
         devCheckModel.setDevId(new Long(1));
-        devCheckModel.setPlanName("计划名称");
-        devCheckModel.setExeTime("2018-12-12");
+        devCheckModel.setPlanExeTime("2018-12-12");
         devCheckModel.setCheckOrganize("检验机构");
-        devCheckModel.setCheckUser("李四");
         devCheckModel.setExeCycle(new Long(7));
-        devCheckModel.setExeUser("王五");
-        devCheckModel.setExeDesc("描述");
         devCheckModel.setRemark("");
         ObjectMapper mapper = new ObjectMapper();
 
@@ -69,13 +65,9 @@ public class DevCheckControllerTest {
                 //使用jsonPath解析返回值，判断具体的内容
                 .andExpect(jsonPath("$.code").value(containsString("200")))
                 .andExpect(jsonPath("$.data.devId").value(equalTo(1)))
-                .andExpect(jsonPath("$.data.planName").value(equalTo("计划名称")))
-                .andExpect(jsonPath("$.data.exeTime").value(equalTo("2018-12-12")))
+                .andExpect(jsonPath("$.data.planExeTime").value(equalTo("2018-12-12")))
                 .andExpect(jsonPath("$.data.exeCycle").value(equalTo(7)))
                 .andExpect(jsonPath("$.data.checkOrganize").value(equalTo("检验机构")))
-                .andExpect(jsonPath("$.data.checkUser").value(equalTo("李四")))
-                .andExpect(jsonPath("$.data.exeUser").value(equalTo("王五")))
-                .andExpect(jsonPath("$.data.exeDesc").value(equalTo("描述")))
         ;
     }
 
@@ -107,13 +99,9 @@ public class DevCheckControllerTest {
         DevCheckModel devCheckModel = new DevCheckModel();
         devCheckModel.setId(new Long(3));
         devCheckModel.setDevId(new Long(1));
-        devCheckModel.setPlanName("计划名称");
-        devCheckModel.setExeTime("2018-12-12");
+        devCheckModel.setPlanExeTime("2018-12-12");
         devCheckModel.setCheckOrganize("检验机构");
-        devCheckModel.setCheckUser("李四");
         devCheckModel.setExeCycle(new Long(7));
-        devCheckModel.setExeUser("王五");
-        devCheckModel.setExeDesc("描述");
         devCheckModel.setRemark("");
         ObjectMapper mapper = new ObjectMapper();
 
