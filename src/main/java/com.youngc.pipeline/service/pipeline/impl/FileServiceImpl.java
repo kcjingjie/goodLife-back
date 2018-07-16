@@ -9,6 +9,8 @@ import com.youngc.pipeline.mapper.system.OrgMapper;
 import com.youngc.pipeline.mapper.system.SysDataRoleMapper;
 import com.youngc.pipeline.model.FileModel;
 import com.youngc.pipeline.service.pipeline.FileService;
+import com.youngc.pipeline.utils.FtpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +27,7 @@ import java.util.Map;
 
 
 @Service
+@Slf4j
 public class FileServiceImpl implements FileService {
     @Autowired
     private FileMapper fileMapper;
@@ -32,6 +35,9 @@ public class FileServiceImpl implements FileService {
     private OrgMapper orgMapper;
     @Autowired
     private SysDataRoleMapper sysDataRoleMapper;
+
+    @Autowired
+    private FtpUtil ftpUtil;
 
     /**
      * 查询组织单位设备树
@@ -221,16 +227,16 @@ public class FileServiceImpl implements FileService {
         String devName = "";
         String folderName = "";
         // 文件上传后的路径
-        String filePath = "E://pipeline//";
+        String filePath = "/file/";
         devName = fileMapper.getDevNameByDevId(devId);
         if (Long.parseLong(folderId) != 0) {
             FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
             folderName = fileModel.getFileName();
             // 文件上传后的路径
-            filePath = filePath + devName + "//" + folderName + "//";
+            filePath = filePath + devName + "/" + folderName + "/";
         } else {
             // 文件上传后的路径
-            filePath = filePath + devName + "//";
+            filePath = filePath + devName + "/";
         }
 
         // 获取文件名
@@ -263,7 +269,8 @@ public class FileServiceImpl implements FileService {
 
         try {
             addfolder(fileModel);
-            file.transferTo(dest);
+            ftpUtil.upFile(fileName,file.getInputStream(),filePath);
+           // file.transferTo(dest);
             return "上传成功";
         } catch (IllegalStateException e) {
             e.printStackTrace();
@@ -318,5 +325,59 @@ public class FileServiceImpl implements FileService {
             }
         }
         return null;
+    }
+
+    /**
+     * 上传单管图
+     * @param devId
+     * @param userId
+     * @param file
+     * @return
+     */
+    public String upImageInfo(Long devId, Long userId, MultipartFile file) {
+        System.out.println(file);
+        if (file.isEmpty()) {
+            return "上传文件为空";
+        }
+        String devName = "";
+        String folderName = "";
+        // 文件上传后的路径
+        String filePath = "/file/";
+        devName = fileMapper.getDevNameByDevId(devId);
+        // 文件上传后的路径
+        filePath = filePath + devName + "/";
+        // 获取文件名
+        String fileName = file.getOriginalFilename();
+        // 获取文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+
+        // 解决中文问题，liunx下中文路径，图片显示问题
+        // fileName = UUID.randomUUID() + suffixName;
+        File dest = new File(filePath + fileName);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        FileModel fileModel = new FileModel();
+
+        fileModel.setType("6");
+
+        fileModel.setFileName(fileName);
+        fileModel.setDevId(devId);
+        fileModel.setFolderId(Long.parseLong("0"));
+        fileModel.setUserId(userId);
+        fileModel.setFilePath(filePath);
+
+        try {
+            addfolder(fileModel);
+            ftpUtil.upFile(fileName,file.getInputStream(),filePath);
+            // file.transferTo(dest);
+            return "上传成功";
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败";
     }
 }

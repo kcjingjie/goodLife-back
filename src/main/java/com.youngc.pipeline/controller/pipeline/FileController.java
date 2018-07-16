@@ -100,4 +100,19 @@ public class FileController {
         fileService.downloadFileInfo(request, response, fileName, filePath);
         return null;
     }
+
+    /**
+     * 上传单管图
+     * @param devId
+     * @param file
+     * @return
+     */
+    @PostMapping("/upImage")
+    public Result uploadImageInfo( @RequestParam String devId, @RequestParam MultipartFile file) {
+        com.youngc.pipeline.bean.context.UserBean user
+                = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+        Long devIds = Long.parseLong(devId.split("_")[1]);
+        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.upImageInfo( devIds, user.getUserId(), file));
+
+    }
 }
