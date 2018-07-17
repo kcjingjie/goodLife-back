@@ -53,6 +53,7 @@ public class FileController {
 
     /**
      * 新建文件夹
+     *
      * @param fileBean
      * @return
      */
@@ -109,16 +110,17 @@ public class FileController {
 
     /**
      * 上传单管图
+     *
      * @param devId
      * @param file
      * @return
      */
     @PostMapping("/upImage")
-    public Result uploadImageInfo( @RequestParam String devId, @RequestParam MultipartFile file) {
+    public Result uploadImageInfo(@RequestParam String folderId, @RequestParam String devId, @RequestParam MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         Long devIds = Long.parseLong(devId.split("_")[1]);
-        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.upImageInfo( devIds, user.getUserId(), file));
+        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.upImageInfo(folderId, devIds, user.getUserId(), file, request, response));
 
     }
 }

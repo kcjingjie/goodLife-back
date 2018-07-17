@@ -29,5 +29,5 @@ public interface FileService {
     String downloadFileInfo(HttpServletRequest request, HttpServletResponse response,
                              String fileName,  String filePath);
 
-    String upImageInfo( Long devId, Long userId, MultipartFile file);
+    String upImageInfo(String folderId,Long devId, Long userId, MultipartFile file,HttpServletRequest request, HttpServletResponse response);
 }
