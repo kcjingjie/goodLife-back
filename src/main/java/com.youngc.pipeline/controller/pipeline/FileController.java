@@ -6,6 +6,7 @@ import com.youngc.pipeline.result.Result;
 import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.result.ResultGenerator;
 import com.youngc.pipeline.service.pipeline.FileService;
+import com.youngc.pipeline.utils.FtpUtil;
 import com.youngc.pipeline.utils.RequestContextHolderUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -50,6 +51,12 @@ public class FileController {
     }
 
 
+    /**
+     * 新建文件夹
+     *
+     * @param fileBean
+     * @return
+     */
     @ApiOperation("添加文件信息")
     @PostMapping
     public Result postFolder(@RequestBody FileBean fileBean) {
@@ -64,9 +71,10 @@ public class FileController {
         fileModel.setUserId(user.getUserId());
         fileModel.setType(fileBean.getType());
         fileModel.setDevName(fileBean.getDevName());
-
-        String filePath = "E://pipeline//" + fileBean.getDevName() + "//" + fileModel.getFileName();
+        //String filePath = "E://pipeline//" + fileBean.getDevName() + "//" + fileModel.getFileName();
+        String filePath = "/file/" + fileBean.getDevName() + "/";
         fileModel.setFilePath(filePath);
+
 
 //        File dest = new File(filePath );
 //        // 检测是否存在目录
@@ -97,7 +105,22 @@ public class FileController {
     @GetMapping("/download")
     public String downloadFileInfo(HttpServletRequest request, HttpServletResponse response,
                                    @RequestParam String fileName, @RequestParam String filePath) {
-        fileService.downloadFileInfo(request, response, fileName, filePath);
-        return null;
+        return fileService.downloadFileInfo(request, response, fileName, filePath);
+    }
+
+    /**
+     * 上传单管图
+     *
+     * @param devId
+     * @param file
+     * @return
+     */
+    @PostMapping("/upImage")
+    public Result uploadImageInfo(@RequestParam String folderId, @RequestParam String devId, @RequestParam MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
+        com.youngc.pipeline.bean.context.UserBean user
+                = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+        Long devIds = Long.parseLong(devId.split("_")[1]);
+        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.upImageInfo(folderId, devIds, user.getUserId(), file, request, response));
+
     }
 }
