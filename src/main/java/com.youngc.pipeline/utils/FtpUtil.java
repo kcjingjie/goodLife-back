@@ -2,17 +2,20 @@ package com.youngc.pipeline.utils;
 
 
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
 public class FtpUtil {
+
+    private static FTPClient ftpClient = null;
     //ftp服务器ip地址
     private static final String FTP_ADDRESS = "192.168.1.101";
     //端口号
@@ -57,6 +60,30 @@ public class FtpUtil {
         return success;
     }
 
+    public void initFtpClient() {
+        ftpClient = new FTPClient();
+        ftpClient.setControlEncoding("GBK");
+        try {
+            ftpClient.connect(FTP_ADDRESS, FTP_PORT); //连接ftp服务器
+            ftpClient.login(FTP_USERNAME, FTP_PASSWORD); //登录ftp服务器
+            int replyCode = ftpClient.getReplyCode(); //是否成功登录服务器
+            if(!FTPReply.isPositiveCompletion(replyCode)){
+                System.out.println("connect failed...ftp服务器:");
+            }
+            System.out.println("connect successfu...ftp服务器:");
+        }catch (MalformedURLException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 上传文件
+     * @param originFileName
+     * @param input
+     * @param filePath
+     * @return
+     */
     public boolean upFile(String originFileName, InputStream input,String filePath) {
         boolean success = false;
         FTPClient ftp = new FTPClient();
@@ -89,5 +116,114 @@ public class FtpUtil {
         }
         return success;
     }
+
+    /**
+     * 下载文件
+     * @param pathname
+     * @param filename
+     * @return
+     */
+    public  boolean downloadFile(String pathname, String filename,OutputStream outputStream){
+        boolean flag = false;
+        try {
+            System.out.println("开始下载文件");
+            initFtpClient();
+            //切换FTP目录
+            ftpClient.changeWorkingDirectory(pathname);
+            FTPFile[] ftpFiles = ftpClient.listFiles();
+            FTPFile ftpFile = null;
+            for(FTPFile file : ftpFiles){
+                if(file.getName().equals(filename)){
+                    ftpFile=file;
+                    break;
+                }
+            }
+            if(ftpFile ==null){
+                flag=false;
+            }else {
+            ftpClient.retrieveFile(ftpFile.getName(), outputStream);
+            flag = true;
+            System.out.println("下载文件成功");
+            }
+        } catch (Exception e) {
+            System.out.println("下载文件失败");
+            e.printStackTrace();
+        } finally{
+            if(ftpClient.isConnected()){
+                try{
+
+                    ftpClient.logout();
+                    ftpClient.disconnect();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        return flag;
+    }
+
+    /**
+     *创建文件夹
+     */
+    public boolean mkdir(String parentPath,String dir){
+        boolean stat = false;
+        try {
+            initFtpClient();
+            ftpClient.changeWorkingDirectory(parentPath);
+            ftpClient.makeDirectory(dir);
+            stat = true;
+        } catch (IOException e) {
+            stat = false;
+        }
+        return stat;
+    }
+
+    /**
+     * 删除文件夹
+     * @param pathname
+     * @return
+     */
+    public boolean rmdir(String parentPath,String pathname){
+        try{
+            initFtpClient();
+            ftpClient.changeWorkingDirectory(parentPath);
+            return ftpClient.removeDirectory(pathname);
+        }catch(Exception e){
+            return false;
+        }
+    }
+
+    /**
+     * 删除文件
+     * @param pathname
+     * @param filename
+     * @return
+     */
+    public boolean deleteFile(String pathname, String filename){
+        boolean flag = false;
+        try {
+            System.out.println("开始删除文件");
+            //切换FTP目录
+            initFtpClient();
+            ftpClient.changeWorkingDirectory(pathname);
+            ftpClient.dele(filename);
+            ftpClient.logout();
+            flag = true;
+            System.out.println("删除文件成功");
+        } catch (Exception e) {
+            System.out.println("删除文件失败");
+            e.printStackTrace();
+        } finally {
+            if(ftpClient.isConnected()){
+                try{
+                    ftpClient.disconnect();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        return flag;
+    }
+
 
 }

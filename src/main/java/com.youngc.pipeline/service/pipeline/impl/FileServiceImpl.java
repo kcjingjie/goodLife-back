@@ -141,6 +141,7 @@ public class FileServiceImpl implements FileService {
      * 添加文件信息
      */
     public boolean addfolder(FileModel fileModel) {
+        ftpUtil.mkdir(fileModel.getFilePath(),fileModel.getFileName());
         fileMapper.postFolder(fileModel);
         return true;
     }
@@ -154,9 +155,11 @@ public class FileServiceImpl implements FileService {
             String filePath = fileModel.getFilePath();
             if (Integer.parseInt(type) != 3) {
                 File file = new File(filePath + fileName);
-                file.delete();
+                //file.delete();
+                ftpUtil.deleteFile(filePath,fileName);
             } else {
-                delFolder(filePath);
+                ftpUtil.rmdir(filePath,fileName);
+                //delFolder(filePath);
             }
             fileMapper.deleteFile(fileId);
         } catch (Exception e) {
@@ -285,7 +288,7 @@ public class FileServiceImpl implements FileService {
      */
     public String downloadFileInfo(HttpServletRequest request, HttpServletResponse response,
                                    @RequestParam String fileName, @RequestParam String filePath) {
-        if (fileName != null) {
+       /* if (fileName != null) {
             File file = new File(filePath, fileName);
             if (file.exists()) {
                 FileInputStream fis = null;
@@ -323,8 +326,18 @@ public class FileServiceImpl implements FileService {
                     }
                 }
             }
+        }*/
+       String str = null;
+        try {
+            response.setHeader("Content-type","application/octet-stream");
+            response.setHeader("Content-disposition","attachment;filename="+URLEncoder.encode(fileName,"UTF-8") );
+            ftpUtil.downloadFile(filePath,fileName,response.getOutputStream());
+            str="操作成功";
+        } catch (IOException e) {
+            str ="操作失败";
+            e.printStackTrace();
         }
-        return null;
+        return str;
     }
 
     /**
