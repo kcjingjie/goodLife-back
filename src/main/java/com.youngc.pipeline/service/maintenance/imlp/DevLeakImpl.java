@@ -30,6 +30,19 @@ public class DevLeakImpl implements DevLeakService {
     }
 
     /**
+     * 分页检索未处理泄漏点信息
+     * @param keyWord
+     * @param devName
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public Page getUnhandle(String keyWord, String devName, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return (Page) devLeakMapper.getUnhandle(keyWord,devName);
+    }
+
+    /**
      * 根据id查询泄漏点信息
      * @param id
      * @return
@@ -83,5 +96,14 @@ public class DevLeakImpl implements DevLeakService {
      */
     public List<DevLeakModel> getInfoByNo(String leakNo) {
         return devLeakMapper.getInfoByNo(leakNo);
+    }
+
+    /**
+     * 修改状态
+     * @param id
+     * @return
+     */
+    public boolean changeStatus(Long id) {
+        return devLeakMapper.changeStatus(id);
     }
 }

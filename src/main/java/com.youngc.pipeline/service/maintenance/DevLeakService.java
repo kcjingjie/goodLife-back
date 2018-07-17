@@ -9,6 +9,8 @@ import java.util.List;
 public interface DevLeakService {
     Page getList(String keyWord, String devName, int pageNum, int pageSize);
 
+    Page getUnhandle(String keyWord, String devName, int pageNum, int pageSize);
+
     DevLeakModel getInfo(Long id);
 
     DevLeakModel updateInfo(DevLeakModel devLeakModel);
@@ -20,4 +22,6 @@ public interface DevLeakService {
     List getDevList();
 
     List<DevLeakModel> getInfoByNo(String leakNo);
+
+    boolean changeStatus(Long id);
 }

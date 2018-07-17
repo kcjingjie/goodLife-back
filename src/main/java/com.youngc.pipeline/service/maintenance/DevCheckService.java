@@ -6,6 +6,8 @@ import com.youngc.pipeline.model.DevCheckModel;
 public interface DevCheckService {
     Page getList( String devName, int pageNum, int pageSize);
 
+    Page getNeedList( String devName, int pageNum, int pageSize);
+
     DevCheckModel getInfo(Long id);
 
     DevCheckModel updateInfo(DevCheckModel devCheckModel);

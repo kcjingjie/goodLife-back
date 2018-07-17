@@ -19,7 +19,6 @@ public class DevCheckController {
 
     /**
      * 模糊查询检验计划信息
-     * @param keyWord
      * @param devName
      * @param pageNum
      * @param pageSize
@@ -28,6 +27,18 @@ public class DevCheckController {
     @GetMapping(value = "/getList")
     public Result getList( @RequestParam String devName, @RequestParam int pageNum, @RequestParam int pageSize){
         return ResultGenerator.generate(devCheckService.getList(devName,pageNum,pageSize));
+    }
+
+    /**
+     * 模糊查询检验计划信息
+     * @param devName
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GetMapping(value = "/getNeedList")
+    public Result getNeedList( @RequestParam String devName, @RequestParam int pageNum, @RequestParam int pageSize){
+        return ResultGenerator.generate(devCheckService.getNeedList(devName,pageNum,pageSize));
     }
 
     /**

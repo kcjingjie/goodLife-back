@@ -15,7 +15,6 @@ public class DevCheckImpl implements DevCheckService{
 
     /**
      * 分页模糊查询检验计划的内容
-     * @param keyWord
      * @param devName
      * @param pageNum
      * @param pageSize
@@ -24,6 +23,18 @@ public class DevCheckImpl implements DevCheckService{
     public Page getList( String devName, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return (Page)devCheckMapper.getList(devName);
+    }
+
+    /**
+     * 分页模糊查询检验计划的内容
+     * @param devName
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public Page getNeedList( String devName, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return (Page)devCheckMapper.getNeedList(devName);
     }
 
     /**

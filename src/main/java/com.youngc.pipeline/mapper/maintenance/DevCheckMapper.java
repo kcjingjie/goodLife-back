@@ -18,6 +18,18 @@ public interface DevCheckMapper {
     List<DevCheckModel> getList( @Param("devName") String  devName);
 
     /**
+     * 模糊检索检验计划信息
+     */
+    @Select("SELECT id,dev_id,device_equip,device_type,last_exe_time,exe_cycle,plan_exe_time,delay_time,remark,device_name,check_organize,delay_reason,check_report "+
+            "  from dev_check_plan dcp  "+
+            " LEFT JOIN dev_info di ON di.device_id=dcp.dev_id  "+
+            " WHERE device_name LIKE CONCAT('%', #{devName}, '%') "+
+            " AND datediff(plan_exe_time,now())<=7 "+
+            " AND datediff(plan_exe_time,now())>=0")
+    List<DevCheckModel> getNeedList( @Param("devName") String  devName);
+
+
+    /**
      * 添加计划信息
      */
     @Insert(" INSERT INTO dev_check_plan ( dev_id, plan_exe_time,exe_cycle,check_organize,remark,add_person, add_time, last_person, last_time)" +

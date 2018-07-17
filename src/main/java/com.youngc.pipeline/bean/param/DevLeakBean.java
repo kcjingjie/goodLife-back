@@ -8,6 +8,8 @@ import java.util.Date;
 public class DevLeakBean {
     private Long id;
 
+    private Long status;
+
     private Long devId;
 
     private String leakNo;

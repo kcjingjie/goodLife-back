@@ -31,6 +31,19 @@ public class DevLeakController {
     }
 
     /**
+     * 分页检索未处理泄漏点信息
+     * @param keyWord
+     * @param devName
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GetMapping(value = "/getUnhandle")
+    public Result getUnhandle(@RequestParam String keyWord, @RequestParam String devName, @RequestParam int pageNum, @RequestParam int pageSize){
+        return ResultGenerator.generate(devLeakService.getUnhandle(keyWord,devName,pageNum,pageSize));
+    }
+
+    /**
      * 添加泄漏点信息
      * @param devLeakBean
      * @return
@@ -117,4 +130,16 @@ public class DevLeakController {
     public Result getInfoByNo(@RequestParam String leakNo) {
         return ResultGenerator.generate(ResultCode.SUCCESS, devLeakService.getInfoByNo(leakNo));
     }
+
+    /**
+     * 修改状态
+     * @param id
+     * @return
+     */
+    @GetMapping("/changeStatus/{id}")
+    public Result changeStatus(@PathVariable Long id) {
+        return ResultGenerator.generate(ResultCode.SUCCESS, devLeakService.changeStatus(id));
+    }
+
+
 }

@@ -11,6 +11,8 @@ public class DevLeakModel {
 
     private Long id;
 
+    private Long status;
+
     private Long devId;
 
     private String leakNo;
