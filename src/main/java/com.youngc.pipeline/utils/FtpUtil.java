@@ -102,13 +102,13 @@ public class FtpUtil {
             ftp.changeWorkingDirectory(filePath);
             ftp.storeFile(originFileName, input);
             input.close();
-            ftp.logout();
             success = true;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             if (ftp.isConnected()) {
                 try {
+                    ftp.logout();
                     ftp.disconnect();
                 } catch (IOException ioe) {
                 }
