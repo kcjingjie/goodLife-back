@@ -64,8 +64,8 @@ public class ImageController {
      * @return
      */
     @GetMapping("/getImageMarkList")
-    public Result getMarkList(Long imageId){
-        return ResultGenerator.generate(ResultCode.SUCCESS,imageService.getMarkList(imageId));
+    public Result getMarkList(String imageIds){
+        return ResultGenerator.generate(ResultCode.SUCCESS,imageService.getMarkList(imageIds));
     }
 
 

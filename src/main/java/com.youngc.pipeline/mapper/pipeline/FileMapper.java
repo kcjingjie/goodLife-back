@@ -103,4 +103,13 @@ public interface FileMapper {
     @Select(" SELECT file_name,file_path FROM dev_file " +
             " WHERE file_id = #{folderId};")
     FileModel getFileNameByFileId(@Param("folderId") Long folderId);
+
+    /**
+     * 查询单管图路径
+     * @param devId
+     * @return
+     */
+    @Select("SELECT df.file_path,df.file_id,file_name from  dev_file df LEFT JOIN " +
+            "dev_info di on df.dev_id=di.device_id WHERE di.device_id= #{devId} AND df.type =6 ")
+    List<FileModel> getImageFilePath(@Param("devId") Long devId);
 }

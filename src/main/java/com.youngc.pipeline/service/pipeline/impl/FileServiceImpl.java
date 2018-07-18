@@ -345,7 +345,7 @@ public class FileServiceImpl implements FileService {
     }
 
     /**
-     * 上传单管图
+     * 上传单管图至ftp
      *
      * @param devId
      * @param userId
@@ -353,17 +353,106 @@ public class FileServiceImpl implements FileService {
      * @return
      */
     public String upImageInfo(String folderId,Long devId, Long userId, MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("file:" + file);
+        if (file.isEmpty()) {
+            return "上传文件为空";
+        }
+        String devName = "";
+        String folderName = "";
+        // 文件上传后的路径
+        String filePath = "/file/";
+        devName = fileMapper.getDevNameByDevId(devId);
+        if (Long.parseLong(folderId) != 0) {
+            FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
+            folderName = fileModel.getFileName();
+            // 文件上传后的路径
+            filePath = filePath + devName + "/" + folderName + "/";
+        } else {
+            // 文件上传后的路径
+            filePath = filePath + devName + "/";
+        }
+
+        // 获取文件名
+        String fileName = file.getOriginalFilename();
+        // 获取文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+
+        // 解决中文问题，liunx下中文路径，图片显示问题
+        // fileName = UUID.randomUUID() + suffixName;
+        File dest = new File(filePath + fileName);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        FileModel fileModel = new FileModel();
+        fileModel.setType("6");
+        fileModel.setFileName(fileName);
+        fileModel.setDevId(devId);
+        fileModel.setFolderId(Long.parseLong(folderId));
+        fileModel.setUserId(userId);
+        fileModel.setFilePath(filePath);
+
+        try {
+            addfile(fileModel);
+            ftpUtil.upFile(fileName, file.getInputStream(), filePath);
+            // file.transferTo(dest);
+            return "上传成功";
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败";
+    }
+
+    /**
+     *获取单管图图片路径
+     * @param devId
+     * @return
+     */
+    public List<FileModel> getImageFilePath(Long devId) {
+        return fileMapper.getImageFilePath(devId);
+    }
+
+    /**
+     * 加载图片
+     * @param request
+     * @param response
+     * @param fileName
+     * @param filePath
+     * @return
+     */
+    public String downloadImgInfo(HttpServletRequest request, HttpServletResponse response, String fileName, String filePath) {
+        String str = "";
+        try {
+            response.setHeader("Content-type", "image/jpeg");
+            ftpUtil.downloadFile(filePath, fileName, response.getOutputStream());
+            str = "操作成功";
+        } catch (IOException e) {
+            str = "操作失败";
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    /**
+     * 上传至相对路径
+     * @param folderId
+     * @param devId
+     * @param userId
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     */
+    public String upImgInfo(String folderId,Long devId, Long userId, MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
         String filePath = null;// 文件路径
         if (file.isEmpty()) {
             return "上传文件为空";
         }
         // 项目在容器中实际发布运行的根路径
         String realPath = request.getSession().getServletContext().getRealPath("/");
-        System.out.println("realPath:" + realPath);
         // 获取文件名
         String fileName = file.getOriginalFilename();
-        System.out.println("fileName:" + fileName);
 
         String devName = fileMapper.getDevNameByDevId(devId);
         if (Long.parseLong(folderId) != 0) {
@@ -396,9 +485,9 @@ public class FileServiceImpl implements FileService {
         try {
 
             addfolder(fileModel);
-           // ftpUtil.upFile(fileName,file.getInputStream(),filePath);
+            // ftpUtil.upFile(fileName,file.getInputStream(),filePath);
             // 转存文件到指定的路径
-             file.transferTo(dest);
+            file.transferTo(dest);
             return "上传成功";
         } catch (Exception e) {
             e.printStackTrace();

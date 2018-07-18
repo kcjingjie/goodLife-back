@@ -17,5 +17,5 @@ public interface ImageService {
 
     ImageMarkModel postImageMark(ImageMarkModel imageMarkModel);
 
-    List<ImageMarkModel> getMarkList(Long imageId);
+    List<ImageMarkModel> getMarkList(String imageId);
 }

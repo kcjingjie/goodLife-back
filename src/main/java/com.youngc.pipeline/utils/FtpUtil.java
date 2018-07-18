@@ -68,9 +68,7 @@ public class FtpUtil {
             ftpClient.login(FTP_USERNAME, FTP_PASSWORD); //登录ftp服务器
             int replyCode = ftpClient.getReplyCode(); //是否成功登录服务器
             if(!FTPReply.isPositiveCompletion(replyCode)){
-                System.out.println("connect failed...ftp服务器:");
             }
-            System.out.println("connect successfu...ftp服务器:");
         }catch (MalformedURLException e) {
             e.printStackTrace();
         }catch (IOException e) {
@@ -126,7 +124,6 @@ public class FtpUtil {
     public  boolean downloadFile(String pathname, String filename,OutputStream outputStream){
         boolean flag = false;
         try {
-            System.out.println("开始下载文件");
             initFtpClient();
             //切换FTP目录
             ftpClient.changeWorkingDirectory(pathname);
@@ -143,10 +140,8 @@ public class FtpUtil {
             }else {
             ftpClient.retrieveFile(ftpFile.getName(), outputStream);
             flag = true;
-            System.out.println("下载文件成功");
             }
         } catch (Exception e) {
-            System.out.println("下载文件失败");
             e.printStackTrace();
         } finally{
             if(ftpClient.isConnected()){
@@ -202,16 +197,13 @@ public class FtpUtil {
     public boolean deleteFile(String pathname, String filename){
         boolean flag = false;
         try {
-            System.out.println("开始删除文件");
             //切换FTP目录
             initFtpClient();
             ftpClient.changeWorkingDirectory(pathname);
             ftpClient.dele(filename);
             ftpClient.logout();
             flag = true;
-            System.out.println("删除文件成功");
         } catch (Exception e) {
-            System.out.println("删除文件失败");
             e.printStackTrace();
         } finally {
             if(ftpClient.isConnected()){

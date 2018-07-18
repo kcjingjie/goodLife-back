@@ -9,6 +9,7 @@ import com.youngc.pipeline.service.pipeline.FileService;
 import com.youngc.pipeline.utils.FtpUtil;
 import com.youngc.pipeline.utils.RequestContextHolderUtil;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,5 +123,25 @@ public class FileController {
         Long devIds = Long.parseLong(devId.split("_")[1]);
         return ResultGenerator.generate(ResultCode.SUCCESS, fileService.upImageInfo(folderId, devIds, user.getUserId(), file, request, response));
 
+    }
+
+    /**
+     * 获取设备下的单管图的图片路径
+     * @param devId
+     * @return
+     */
+    @GetMapping("/getImgPath")
+    public Result getImageFilePath(@RequestParam String devId) {
+        Long id =new Long(0);
+        if(devId!=null){
+            id = Long.parseLong(devId);
+        }
+        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.getImageFilePath(id));
+    }
+
+    @GetMapping("/downloadImg")
+    public String downloadImgInfo(HttpServletRequest request, HttpServletResponse response,
+                                   @RequestParam String fileName, @RequestParam String filePath) {
+        return fileService.downloadImgInfo(request, response, fileName, filePath);
     }
 }

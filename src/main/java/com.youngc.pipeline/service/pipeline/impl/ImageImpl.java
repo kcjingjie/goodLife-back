@@ -91,7 +91,7 @@ public class ImageImpl implements ImageService{
      * @param imageId
      * @return
      */
-    public List<ImageMarkModel> getMarkList(Long imageId) {
+    public List<ImageMarkModel> getMarkList(String imageId) {
         return imageMapper.getMarkList(imageId);
     }
 

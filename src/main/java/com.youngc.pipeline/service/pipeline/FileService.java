@@ -3,6 +3,7 @@ package com.youngc.pipeline.service.pipeline;
 
 import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.model.FileModel;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,4 +31,9 @@ public interface FileService {
                              String fileName,  String filePath);
 
     String upImageInfo(String folderId,Long devId, Long userId, MultipartFile file,HttpServletRequest request, HttpServletResponse response);
+
+    List<FileModel> getImageFilePath(Long devId);
+
+    String downloadImgInfo(HttpServletRequest request, HttpServletResponse response,
+                           String fileName,  String filePath);
 }
