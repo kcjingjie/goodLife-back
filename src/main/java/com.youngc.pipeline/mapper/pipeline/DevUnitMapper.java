@@ -2,6 +2,7 @@ package com.youngc.pipeline.mapper.pipeline;
 
 import com.youngc.pipeline.model.DevConfigParaModel;
 import com.youngc.pipeline.model.DevUnitModel;
+import com.youngc.pipeline.sqlProvider.system.SystemSqlProvider;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -55,4 +56,13 @@ public interface DevUnitMapper {
             " unit_material=#{unitMaterial},remark=#{remark}, last_person = #{lastPerson}, last_time = now() WHERE id = #{id}")
     int updateInfo(DevUnitModel devUnitModel);
 
+    /**
+     * 添加设备管件信息
+     * @param data
+     * @param userId
+     * @param devId
+     * @return
+     */
+    @InsertProvider(type = SystemSqlProvider.class, method = "readDevUnitExcel")
+    boolean readExcel(List<DevUnitModel> data,Long userId,Long devId);
 }

@@ -9,6 +9,7 @@ import com.youngc.pipeline.service.pipeline.DevUnitService;
 import com.youngc.pipeline.utils.RequestContextHolderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/devUnit")
@@ -94,6 +95,18 @@ public class DevUnitController {
     public Result deleteInfo(@RequestParam("idList") String idList) {
         devUnitService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
+
+    /**
+     * 上传数据
+     * @param devId
+     * @param file
+     * @return
+     */
+    @PostMapping(value ="/upload")
+    public Result uploadFileInfo(@RequestParam String devId,@RequestParam MultipartFile file) {
+        return ResultGenerator.generate(ResultCode.SUCCESS,devUnitService.readExcel(Long.valueOf(devId),file));
+
     }
 
 }

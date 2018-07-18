@@ -39,7 +39,7 @@ public class AuthFilter implements Filter {
             Arrays.asList("/auth/login", "/auth/logout", "/register")));
 
     private static final Set<String> TOKEN_IN_URL_PATHS = Collections.unmodifiableSet(new HashSet<String>(
-            Arrays.asList("/export","/file/upload","/file/download","/file/upImage")));
+            Arrays.asList("/export","/file/upload","/devUnit/upload","/file/download","/file/upImage")));
 
 
     public void init(FilterConfig filterConfig) throws ServletException {

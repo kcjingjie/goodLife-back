@@ -1,5 +1,7 @@
 package com.youngc.pipeline.sqlProvider.system;
 
+import com.youngc.pipeline.mapper.pipeline.DevUnitMapper;
+import com.youngc.pipeline.model.DevUnitModel;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.text.MessageFormat;
@@ -110,4 +112,25 @@ public class SystemSqlProvider {
         }
         return builder.toString();
     }
+        /**
+         * 添加设备管件信息
+         * @param para
+         * @return
+         */
+        public String readDevUnitExcel(Map<String, Object> para) {
+            List<DevUnitModel> data = (List<DevUnitModel>) para.get("arg0");
+            Long devUserId = (Long) para.get("arg1");
+            Long devId = (Long) para.get("arg2");
+            StringBuilder devBuilder = new StringBuilder("INSERT INTO dev_unit (device_id,unit_name,unit_version,  unit_number, unit_material,add_person,add_time,last_person, last_time) VALUES ");
+            MessageFormat devMessageFormat = new MessageFormat("({0},{1},{2},{3},{4},{5},now(),{6},now())");
+            for(int i=0;i<data.size();i++){
+                DevUnitModel devUnitModel=data.get(i);
+                devBuilder.append(devMessageFormat.format(new Object[]{devId,devUnitModel.getUnitName(),devUnitModel.getUnitVersion(),devUnitModel.getUnitNumber(),devUnitModel.getUnitMaterial(), devUserId, devUserId}));
+                if (i < data.size() - 1) {
+                    devBuilder.append(",");
+                }
+            }
+            return devBuilder.toString();
+        }
+
 }
