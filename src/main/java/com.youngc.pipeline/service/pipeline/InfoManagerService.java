@@ -25,8 +25,6 @@ public interface InfoManagerService {
 
     List getDevModel();
 
-    ImageModel getImageUrl(Long deviceId);
-
     List<DevConfigParaModel> getParaName();
 
     List<DevConfigParaModel> getParaValue(Long unitId);

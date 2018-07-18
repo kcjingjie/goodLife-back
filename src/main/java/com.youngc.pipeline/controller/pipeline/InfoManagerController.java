@@ -54,7 +54,6 @@ public class InfoManagerController {
         PipeInfoModel pipeInfoModel = new PipeInfoModel();
 
         pipeInfoModel.setUnitId(pipeInfoBean.getUnitId());
-        pipeInfoModel.setImageId(pipeInfoBean.getImageId());
         pipeInfoModel.setDeviceAlias(pipeInfoBean.getDeviceAlias());
         pipeInfoModel.setDeviceName(pipeInfoBean.getDeviceName());
         pipeInfoModel.setStatus(pipeInfoBean.getStatus());
@@ -87,7 +86,6 @@ public class InfoManagerController {
         PipeInfoModel pipeInfoModel = new PipeInfoModel();
 
         pipeInfoModel.setDeviceId(pipeInfoBean.getDeviceId());
-        pipeInfoModel.setImageId(pipeInfoBean.getImageId());
         pipeInfoModel.setDeviceAlias(pipeInfoBean.getDeviceAlias());
         pipeInfoModel.setDeviceName(pipeInfoBean.getDeviceName());
         pipeInfoModel.setStatus(pipeInfoBean.getStatus());
@@ -126,10 +124,6 @@ public class InfoManagerController {
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getDevModel());
     }
 
-    @GetMapping("/getImgUrl")
-    public Result getImageUrl(@RequestParam Long deviceId) {
-        return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getImageUrl(deviceId));
-    }
 
     /**
      * 查询标准参数名字（去重）

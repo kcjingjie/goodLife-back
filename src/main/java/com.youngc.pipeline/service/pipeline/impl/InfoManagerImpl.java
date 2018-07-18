@@ -165,16 +165,7 @@ public class InfoManagerImpl implements InfoManagerService{
     public List getDevModel() {
         return infoManagerMapper.getDevModel();
     }
-
-    /**
-     * 查询单管图的路径
-     * @param deviceId
-     * @return
-     */
-    public ImageModel getImageUrl(Long deviceId) {
-        return infoManagerMapper.getImageUrl(deviceId);
-    }
-
+    
     /**
      * 查询所有不重复的参数名称
      * @return
