@@ -138,14 +138,18 @@ public class FileServiceImpl implements FileService {
     }
 
     /**
-     * 添加文件信息
+     * 添加文件夹信息
      */
     public boolean addfolder(FileModel fileModel) {
         ftpUtil.mkdir(fileModel.getFilePath(), fileModel.getFileName());
         fileMapper.postFolder(fileModel);
         return true;
     }
-
+    public boolean addfile(FileModel fileModel) {
+        //ftpUtil.mkdir(fileModel.getFilePath(), fileModel.getFileName());
+        fileMapper.postFolder(fileModel);
+        return true;
+    }
     /**
      * 删除档案信息
      */
@@ -270,7 +274,7 @@ public class FileServiceImpl implements FileService {
         fileModel.setFilePath(filePath);
 
         try {
-            addfolder(fileModel);
+            addfile(fileModel);
             ftpUtil.upFile(fileName, file.getInputStream(), filePath);
             // file.transferTo(dest);
             return "上传成功";
@@ -328,6 +332,7 @@ public class FileServiceImpl implements FileService {
         }*/
         String str = null;
         try {
+            //response.setHeader("Content-type", "image/jpeg");
             response.setHeader("Content-type", "application/octet-stream");
             response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
             ftpUtil.downloadFile(filePath, fileName, response.getOutputStream());
@@ -391,7 +396,7 @@ public class FileServiceImpl implements FileService {
         try {
 
             addfolder(fileModel);
-            ftpUtil.upFile(fileName,file.getInputStream(),filePath);
+           // ftpUtil.upFile(fileName,file.getInputStream(),filePath);
             // 转存文件到指定的路径
              file.transferTo(dest);
             return "上传成功";
