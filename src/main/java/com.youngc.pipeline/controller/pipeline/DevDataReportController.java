@@ -40,4 +40,13 @@ public class DevDataReportController {
         return ResultGenerator.generate(ResultCode.SUCCESS,devDataReportService.getDevCountByUnit());
     }
 
+    /**
+     * 查询检修率
+     * @return
+     */
+    @GetMapping("/getLeakRatio")
+    public Result getLeakRatio(){
+        return ResultGenerator.generate(ResultCode.SUCCESS,devDataReportService.getLeakRatio());
+    }
+
 }

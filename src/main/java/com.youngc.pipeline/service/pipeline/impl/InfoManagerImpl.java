@@ -165,7 +165,7 @@ public class InfoManagerImpl implements InfoManagerService{
     public List getDevModel() {
         return infoManagerMapper.getDevModel();
     }
-    
+
     /**
      * 查询所有不重复的参数名称
      * @return

@@ -1,5 +1,6 @@
 package com.youngc.pipeline.mapper.maintenance;
 
+import com.youngc.pipeline.model.DevDataReportModel;
 import com.youngc.pipeline.model.DevLeakModel;
 import com.youngc.pipeline.model.PipeInfoModel;
 import org.apache.ibatis.annotations.*;
@@ -92,4 +93,7 @@ public interface DevLeakMapper {
      */
     @Update("UPDATE dev_leak_manager SET status=2 WHERE id = #{id}")
     boolean changeStatus(Long id);
+
+
+
 }

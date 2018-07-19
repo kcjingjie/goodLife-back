@@ -1,8 +1,8 @@
 package com.youngc.pipeline.service.maintenance;
 
 import com.github.pagehelper.Page;
+import com.youngc.pipeline.model.DevDataReportModel;
 import com.youngc.pipeline.model.DevLeakModel;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,4 +24,5 @@ public interface DevLeakService {
     List<DevLeakModel> getInfoByNo(String leakNo);
 
     boolean changeStatus(Long id);
+
 }

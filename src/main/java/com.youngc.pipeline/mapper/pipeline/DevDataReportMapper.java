@@ -34,5 +34,15 @@ public interface DevDataReportMapper {
             "RIGHT  JOIN sys_unit on dev_info.unit_id = sys_unit.unit_id GROUP BY sys_unit.unit_id")
     List<DevDataReportModel> getDevCountByUnit();
 
+    /**
+     * 查询已处理数
+     * @return
+     */
+    @Select("SELECT data_name name,COUNT(status) number from dev_leak_manager " +
+            " LEFT  JOIN sys_dict_data on sys_dict_data.dict_value='leak_status' " +
+            " AND sys_dict_data.data_value=dev_leak_manager.`status` " +
+            " GROUP BY dev_leak_manager.`status`")
+    List<DevDataReportModel> getLeakRatio();
+
 }
 
