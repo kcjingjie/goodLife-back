@@ -47,7 +47,7 @@ public interface ImageMapper {
      * @param imageId
      * @return
      */
-    @Select(" SELECT id,axis_x,axis_y,remark FROM sys_image_mark where image_id IN (${imageId}) ")
+    @Select(" SELECT id,image_id,axis_x,axis_y,remark FROM sys_image_mark where image_id IN (${imageId}) ")
     List<ImageMarkModel> getMarkList(@Param("imageId") String imageId);
 
 
