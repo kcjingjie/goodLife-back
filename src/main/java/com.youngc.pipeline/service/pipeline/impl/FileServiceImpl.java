@@ -452,11 +452,12 @@ public class FileServiceImpl implements FileService {
     public String upImgInfo(String folderId, Long devId, Long userId, MultipartFile file) {
         try {
         String filePath = null;// 文件路径
+            String sqlPath="";
         if (file.isEmpty()) {
             return "上传文件为空";
         }
         // 项目在容器中实际发布运行的根路径
-        String realPath = new File(ResourceUtils.getURL("src/main/resources/images").getPath()).getAbsolutePath();
+        String realPath = new File(ResourceUtils.getURL("src/main/resources/files").getPath()).getAbsolutePath();
         System.out.println("realPath     " + realPath);
         // 获取文件名
         String fileName = file.getOriginalFilename();
@@ -467,9 +468,11 @@ public class FileServiceImpl implements FileService {
             String folderName = fileModel.getFileName();
             // 文件上传后的路径
             filePath = realPath + "/" + devName + "/" + folderName + "/";
+            sqlPath="/files/" + devName + "/" + folderName + "/";
         } else {
             // 文件上传后的路径
             filePath = realPath + "/" + devName + "/";
+            sqlPath="/files/" + devName + "/";
         }
         File dest = new File(filePath + fileName);
         // 检测是否存在目录
@@ -487,7 +490,7 @@ public class FileServiceImpl implements FileService {
         fileModel.setDevId(devId);
         fileModel.setFolderId(Long.parseLong("0"));
         fileModel.setUserId(userId);
-        fileModel.setFilePath(filePath);
+        fileModel.setFilePath(sqlPath);
 
 
 
