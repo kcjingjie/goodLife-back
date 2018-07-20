@@ -23,14 +23,14 @@ public interface FileService {
 
     boolean deleteFileInfo(String fileId, String fileName, String type);
 
+    String uploadFileFtpInfo(String folderId, Long devId, Long userId, MultipartFile file);
+
     String uploadFileInfo(String folderId, Long devId, Long userId, MultipartFile file);
 
     List<FileModel> getFolderFileInfo(Long fileId);
 
     String downloadFileInfo(HttpServletRequest request, HttpServletResponse response,
                              String fileName,  String filePath);
-
-    String upImageInfo(String folderId,Long devId, Long userId, MultipartFile file,HttpServletRequest request, HttpServletResponse response);
 
     List<FileModel> getImageFilePath(Long devId);
 

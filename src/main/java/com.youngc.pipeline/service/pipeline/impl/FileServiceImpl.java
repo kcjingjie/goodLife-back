@@ -9,6 +9,7 @@ import com.youngc.pipeline.mapper.system.OrgMapper;
 import com.youngc.pipeline.mapper.system.SysDataRoleMapper;
 import com.youngc.pipeline.model.FileModel;
 import com.youngc.pipeline.service.pipeline.FileService;
+import com.youngc.pipeline.utils.FileUtil;
 import com.youngc.pipeline.utils.FtpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -228,7 +229,12 @@ public class FileServiceImpl implements FileService {
     }
 
     /**
-     * 上传文件
+     * 上传文件至相对路径
+     * @param folderId
+     * @param devId
+     * @param userId
+     * @param file
+     * @return
      */
     public String uploadFileInfo(String folderId, Long devId, Long userId, MultipartFile file) {
         if (file.isEmpty()) {
@@ -295,68 +301,104 @@ public class FileServiceImpl implements FileService {
      */
     public String downloadFileInfo(HttpServletRequest request, HttpServletResponse response,
                                    @RequestParam String fileName, @RequestParam String filePath) {
-       /* if (fileName != null) {
-            File file = new File(filePath, fileName);
-            if (file.exists()) {
-                FileInputStream fis = null;
-                BufferedInputStream bis = null;
-                try {
-                    response.setContentType("application/force-download");// 设置强制下载不打开
-                    response.addHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));// 设置文件名
-                    byte[] buffer = new byte[1024];
-
-
-                    fis = new FileInputStream(file);
-                    bis = new BufferedInputStream(fis);
-                    OutputStream os = response.getOutputStream();
-                    int i = bis.read(buffer);
-                    while (i != -1) {
-                        os.write(buffer, 0, i);
-                        i = bis.read(buffer);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (bis != null) {
-                        try {
-                            bis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (fis != null) {
-                        try {
-                            fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }*/
         String str = null;
         try {
-            //response.setHeader("Content-type", "image/jpeg");
             response.setHeader("Content-type", "application/octet-stream");
             response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
-            ftpUtil.downloadFile(filePath, fileName, response.getOutputStream());
-            str = "操作成功";
+            //ftpUtil.downloadFile(filePath, fileName, response.getOutputStream());
+            str = FileUtil.downloadFile(response,filePath,fileName);
         } catch (IOException e) {
             str = "操作失败";
             e.printStackTrace();
         }
         return str;
     }
+    /**
+     * 获取单管图图片路径
+     *
+     * @param devId
+     * @return
+     */
+    public List<FileModel> getImageFilePath(Long devId) {
+        return fileMapper.getImageFilePath(devId);
+    }
 
     /**
-     * 上传单管图至ftp
+     * 加载图片
      *
+     * @param request
+     * @param response
+     * @param fileName
+     * @param filePath
+     * @return
+     */
+    public String downloadImgInfo(HttpServletRequest request, HttpServletResponse response, String fileName, String filePath) {
+        response.setHeader("Content-type", "image/jpeg");
+        return FileUtil.downloadFile(response,filePath,fileName);
+    }
+
+    /**
+     * 上传单管图至相对路径
+     *
+     * @param folderId
      * @param devId
      * @param userId
      * @param file
      * @return
      */
-    public String upImageInfo(String folderId, Long devId, Long userId, MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
+    public String upImgInfo(String folderId, Long devId, Long userId, MultipartFile file) {
+        try {
+        String filePath = null;// 文件路径
+            String sqlPath="";
+        if (file.isEmpty()) {
+            return "上传文件为空";
+        }
+        // 项目在容器中实际发布运行的根路径
+        String realPath = new File(ResourceUtils.getURL("src/main/resources/files").getPath()).getAbsolutePath();
+        // 获取文件名
+        String fileName = file.getOriginalFilename();
+
+        String devName = fileMapper.getDevNameByDevId(devId);
+        if (Long.parseLong(folderId) != 0) {
+            FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
+            String folderName = fileModel.getFileName();
+            // 文件上传后的路径
+            filePath = realPath + "/" + devName + "/" + folderName + "/";
+            sqlPath="/files/" + devName + "/" + folderName + "/";
+        } else {
+            // 文件上传后的路径
+            filePath = realPath + "/" + devName + "/";
+            sqlPath="/files/" + devName + "/";
+        }
+        File dest = new File(filePath + fileName);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        System.out.println("dest:" + dest);
+        FileModel fileModel = new FileModel();
+
+        fileModel.setType("6");
+
+        fileModel.setFileName(fileName);
+        fileModel.setDevId(devId);
+        fileModel.setFolderId(Long.parseLong("0"));
+        fileModel.setUserId(userId);
+        fileModel.setFilePath(sqlPath);
+
+            addfile(fileModel);
+            file.transferTo(dest);
+            return "上传成功";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "上传失败";
+    }
+
+    /**
+     * 上传文件至ftp
+     */
+    public String uploadFileFtpInfo(String folderId, Long devId, Long userId, MultipartFile file) {
         if (file.isEmpty()) {
             return "上传文件为空";
         }
@@ -388,7 +430,15 @@ public class FileServiceImpl implements FileService {
             dest.getParentFile().mkdirs();
         }
         FileModel fileModel = new FileModel();
-        fileModel.setType("6");
+        if (suffixName.equals(".jpg") || suffixName.equals(".jpeg") || suffixName.equals(".png") || suffixName.equals(".bmp")) {
+            fileModel.setType("2");
+        } else if (suffixName.equals(".pdf")) {
+            fileModel.setType("1");
+        } else if (suffixName.equals(".docx") || suffixName.equals(".doc")) {
+            fileModel.setType("4");
+        } else if (suffixName.equals(".xls") || suffixName.equals(".xlsx")) {
+            fileModel.setType("5");
+        }
         fileModel.setFileName(fileName);
         fileModel.setDevId(devId);
         fileModel.setFolderId(Long.parseLong(folderId));
@@ -403,103 +453,6 @@ public class FileServiceImpl implements FileService {
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "上传失败";
-    }
-
-    /**
-     * 获取单管图图片路径
-     *
-     * @param devId
-     * @return
-     */
-    public List<FileModel> getImageFilePath(Long devId) {
-        return fileMapper.getImageFilePath(devId);
-    }
-
-    /**
-     * 加载图片
-     *
-     * @param request
-     * @param response
-     * @param fileName
-     * @param filePath
-     * @return
-     */
-    public String downloadImgInfo(HttpServletRequest request, HttpServletResponse response, String fileName, String filePath) {
-        String str = "";
-        try {
-            response.setHeader("Content-type", "image/jpeg");
-            ftpUtil.downloadFile(filePath, fileName, response.getOutputStream());
-            str = "操作成功";
-        } catch (IOException e) {
-            str = "操作失败";
-            e.printStackTrace();
-        }
-        return str;
-    }
-
-    /**
-     * 上传至相对路径
-     *
-     * @param folderId
-     * @param devId
-     * @param userId
-     * @param file
-     * @return
-     */
-    public String upImgInfo(String folderId, Long devId, Long userId, MultipartFile file) {
-        try {
-        String filePath = null;// 文件路径
-            String sqlPath="";
-        if (file.isEmpty()) {
-            return "上传文件为空";
-        }
-        // 项目在容器中实际发布运行的根路径
-        String realPath = new File(ResourceUtils.getURL("src/main/resources/files").getPath()).getAbsolutePath();
-        System.out.println("realPath     " + realPath);
-        // 获取文件名
-        String fileName = file.getOriginalFilename();
-
-        String devName = fileMapper.getDevNameByDevId(devId);
-        if (Long.parseLong(folderId) != 0) {
-            FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
-            String folderName = fileModel.getFileName();
-            // 文件上传后的路径
-            filePath = realPath + "/" + devName + "/" + folderName + "/";
-            sqlPath="/files/" + devName + "/" + folderName + "/";
-        } else {
-            // 文件上传后的路径
-            filePath = realPath + "/" + devName + "/";
-            sqlPath="/files/" + devName + "/";
-        }
-        File dest = new File(filePath + fileName);
-        // 检测是否存在目录
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
-        System.out.println("dest:" + dest);
-
-
-        FileModel fileModel = new FileModel();
-
-        fileModel.setType("6");
-
-        fileModel.setFileName(fileName);
-        fileModel.setDevId(devId);
-        fileModel.setFolderId(Long.parseLong("0"));
-        fileModel.setUserId(userId);
-        fileModel.setFilePath(sqlPath);
-
-
-
-            addfile(fileModel);
-            // ftpUtil.upFile(fileName,file.getInputStream(),filePath);
-            // 转存文件到指定的路径
-            file.transferTo(dest);
-            return "上传成功";
-        } catch (Exception e) {
             e.printStackTrace();
         }
         return "上传失败";
