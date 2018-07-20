@@ -121,7 +121,7 @@ public class FileController {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
         Long devIds = Long.parseLong(devId.split("_")[1]);
-        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.upImageInfo(folderId, devIds, user.getUserId(), file, request, response));
+        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.upImgInfo(folderId, devIds, user.getUserId(), file, request, response));
 
     }
 

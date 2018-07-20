@@ -13,11 +13,13 @@ import com.youngc.pipeline.utils.FtpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.spi.http.HttpContext;
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -451,6 +453,13 @@ public class FileServiceImpl implements FileService {
         }
         // 项目在容器中实际发布运行的根路径
         String realPath = request.getSession().getServletContext().getRealPath("/");
+        System.out.println("----"+realPath);
+        System.out.println("==="+request.getServletContext().getRealPath("/"));
+        try {
+           System.out.println("11111"+ResourceUtils.getURL("classpath:").getPath());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         // 获取文件名
         String fileName = file.getOriginalFilename();
 
@@ -484,7 +493,7 @@ public class FileServiceImpl implements FileService {
 
         try {
 
-            addfolder(fileModel);
+            addfile(fileModel);
             // ftpUtil.upFile(fileName,file.getInputStream(),filePath);
             // 转存文件到指定的路径
             file.transferTo(dest);
