@@ -453,13 +453,7 @@ public class FileServiceImpl implements FileService {
         }
         // 项目在容器中实际发布运行的根路径
         String realPath = request.getSession().getServletContext().getRealPath("/");
-        System.out.println("----"+realPath);
-        System.out.println("==="+request.getServletContext().getRealPath("/"));
-        try {
-           System.out.println("11111"+ResourceUtils.getURL("classpath:").getPath());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
         // 获取文件名
         String fileName = file.getOriginalFilename();
 
