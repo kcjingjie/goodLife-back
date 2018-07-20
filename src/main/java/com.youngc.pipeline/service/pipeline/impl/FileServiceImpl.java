@@ -456,7 +456,7 @@ public class FileServiceImpl implements FileService {
             return "上传文件为空";
         }
         // 项目在容器中实际发布运行的根路径
-        String realPath = new File(ResourceUtils.getURL("images").getPath()).getAbsolutePath();
+        String realPath = new File(ResourceUtils.getURL("src/main/resources/images").getPath()).getAbsolutePath();
         System.out.println("realPath     " + realPath);
         // 获取文件名
         String fileName = file.getOriginalFilename();
