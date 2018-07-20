@@ -147,11 +147,13 @@ public class FileServiceImpl implements FileService {
         fileMapper.postFolder(fileModel);
         return true;
     }
+
     public boolean addfile(FileModel fileModel) {
         //ftpUtil.mkdir(fileModel.getFilePath(), fileModel.getFileName());
         fileMapper.postFolder(fileModel);
         return true;
     }
+
     /**
      * 删除档案信息
      */
@@ -354,7 +356,7 @@ public class FileServiceImpl implements FileService {
      * @param file
      * @return
      */
-    public String upImageInfo(String folderId,Long devId, Long userId, MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
+    public String upImageInfo(String folderId, Long devId, Long userId, MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
         if (file.isEmpty()) {
             return "上传文件为空";
         }
@@ -407,7 +409,8 @@ public class FileServiceImpl implements FileService {
     }
 
     /**
-     *获取单管图图片路径
+     * 获取单管图图片路径
+     *
      * @param devId
      * @return
      */
@@ -417,6 +420,7 @@ public class FileServiceImpl implements FileService {
 
     /**
      * 加载图片
+     *
      * @param request
      * @param response
      * @param fileName
@@ -438,22 +442,22 @@ public class FileServiceImpl implements FileService {
 
     /**
      * 上传至相对路径
+     *
      * @param folderId
      * @param devId
      * @param userId
      * @param file
-     * @param request
-     * @param response
      * @return
      */
-    public String upImgInfo(String folderId,Long devId, Long userId, MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
+    public String upImgInfo(String folderId, Long devId, Long userId, MultipartFile file) {
+        try {
         String filePath = null;// 文件路径
         if (file.isEmpty()) {
             return "上传文件为空";
         }
         // 项目在容器中实际发布运行的根路径
-        String realPath = request.getSession().getServletContext().getRealPath("/");
-
+        String realPath = new File(ResourceUtils.getURL("images").getPath()).getAbsolutePath();
+        System.out.println("realPath     " + realPath);
         // 获取文件名
         String fileName = file.getOriginalFilename();
 
@@ -462,10 +466,10 @@ public class FileServiceImpl implements FileService {
             FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
             String folderName = fileModel.getFileName();
             // 文件上传后的路径
-            filePath = realPath + devName + "/" + folderName + "/";
+            filePath = realPath + "/" + devName + "/" + folderName + "/";
         } else {
             // 文件上传后的路径
-            filePath = realPath + devName + "/";
+            filePath = realPath + "/" + devName + "/";
         }
         File dest = new File(filePath + fileName);
         // 检测是否存在目录
@@ -485,7 +489,7 @@ public class FileServiceImpl implements FileService {
         fileModel.setUserId(userId);
         fileModel.setFilePath(filePath);
 
-        try {
+
 
             addfile(fileModel);
             // ftpUtil.upFile(fileName,file.getInputStream(),filePath);
