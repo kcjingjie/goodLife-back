@@ -144,13 +144,26 @@ public class FileServiceImpl implements FileService {
      * 添加文件夹信息
      */
     public boolean addfolder(FileModel fileModel) {
-        ftpUtil.mkdir(fileModel.getFilePath(), fileModel.getFileName());
-        fileMapper.postFolder(fileModel);
+       //ftpUtil.mkdir(fileModel.getFilePath(), fileModel.getFileName());
+        try {
+            //String path = new File(ResourceUtils.getURL("src/main/resources").getPath()).getAbsolutePath();
+            File dest = new File(ResourceUtils.getURL("src/main/resources").getPath()
+                    +fileModel.getFilePath() + fileModel.getFileName());
+            // 检测是否存在目录
+
+            if (!dest.exists()) {
+                dest.mkdir();
+                fileMapper.postFolder(fileModel);
+            }else {
+                return false;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
     public boolean addfile(FileModel fileModel) {
-        //ftpUtil.mkdir(fileModel.getFilePath(), fileModel.getFileName());
         fileMapper.postFolder(fileModel);
         return true;
     }
@@ -240,19 +253,26 @@ public class FileServiceImpl implements FileService {
         if (file.isEmpty()) {
             return "上传文件为空";
         }
-        String devName = "";
-        String folderName = "";
-        // 文件上传后的路径
-        String filePath = "/file/";
-        devName = fileMapper.getDevNameByDevId(devId);
+        String filePath = null;// 文件路径
+        String sqlPath="";
+        // 项目在容器中实际发布运行的根路径
+        String realPath = null;
+        try {
+            realPath = new File(ResourceUtils.getURL("src/main/resources/files").getPath()).getAbsolutePath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String devName = fileMapper.getDevNameByDevId(devId);
         if (Long.parseLong(folderId) != 0) {
             FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
-            folderName = fileModel.getFileName();
+            String folderName = fileModel.getFileName();
             // 文件上传后的路径
-            filePath = filePath + devName + "/" + folderName + "/";
+            filePath = realPath + "/" + devName + "/" + folderName + "/";
+            sqlPath="/files/" + devName + "/" + folderName + "/";
         } else {
             // 文件上传后的路径
-            filePath = filePath + devName + "/";
+            filePath = realPath + "/" + devName + "/";
+            sqlPath="/files/" + devName + "/";
         }
 
         // 获取文件名
@@ -260,8 +280,6 @@ public class FileServiceImpl implements FileService {
         // 获取文件的后缀名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
 
-        // 解决中文问题，liunx下中文路径，图片显示问题
-        // fileName = UUID.randomUUID() + suffixName;
         File dest = new File(filePath + fileName);
         // 检测是否存在目录
         if (!dest.getParentFile().exists()) {
@@ -281,12 +299,11 @@ public class FileServiceImpl implements FileService {
         fileModel.setDevId(devId);
         fileModel.setFolderId(Long.parseLong(folderId));
         fileModel.setUserId(userId);
-        fileModel.setFilePath(filePath);
+        fileModel.setFilePath(sqlPath);
 
         try {
             addfile(fileModel);
-            ftpUtil.upFile(fileName, file.getInputStream(), filePath);
-            // file.transferTo(dest);
+            file.transferTo(dest);
             return "上传成功";
         } catch (IllegalStateException e) {
             e.printStackTrace();

@@ -73,7 +73,7 @@ public class FileController {
         fileModel.setType(fileBean.getType());
         fileModel.setDevName(fileBean.getDevName());
         //String filePath = "E://pipeline//" + fileBean.getDevName() + "//" + fileModel.getFileName();
-        String filePath = "/file/" + fileBean.getDevName() + "/";
+        String filePath = "/files/" + fileBean.getDevName() + "/";
         fileModel.setFilePath(filePath);
 
 
