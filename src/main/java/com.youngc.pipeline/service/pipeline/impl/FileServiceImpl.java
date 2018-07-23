@@ -141,23 +141,23 @@ public class FileServiceImpl implements FileService {
     /**
      * 添加文件夹信息
      */
-    public boolean addfolder(FileModel fileModel) {
+    public String addfolder(FileModel fileModel) {
        //ftpUtil.mkdir(fileModel.getFilePath(), fileModel.getFileName());
         try {
             String realPath = new File(ResourceUtils.getURL("src/main/resources").getPath()).getAbsolutePath();
             File dest = new File(realPath +fileModel.getFilePath());
             // 检测是否存在目录
-
             if (!dest.exists()) {
                 dest.mkdirs();
                 fileMapper.postFolder(fileModel);
             }else {
-                return false;
+                return "文件夹已存在！";
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return "系统错误";
         }
-        return true;
+        return "添加成功！";
     }
 
     public boolean addfile(FileModel fileModel) {

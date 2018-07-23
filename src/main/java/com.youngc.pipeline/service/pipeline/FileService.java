@@ -19,7 +19,7 @@ public interface FileService {
 
     List<FileModel> getFileInfo(String orgId, String unitId, String devId);
 
-    boolean addfolder(FileModel fileModel);
+    String addfolder(FileModel fileModel);
 
     boolean deleteFileInfo(String fileId, String fileName, String type);
 
