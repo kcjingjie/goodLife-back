@@ -47,4 +47,13 @@ public class DevDataReportImpl implements DevDataReportService{
         List<DevDataReportModel> devDataReportModels=devDataReportMapper.getLeakRatio();
         return devDataReportModels;
     }
+
+    /**
+     * 查询合格率
+     * @return
+     */
+    public List<DevDataReportModel> getQualification(){
+        List<DevDataReportModel> devDataReportModels=devDataReportMapper.getQualification();
+        return devDataReportModels;
+    }
 }

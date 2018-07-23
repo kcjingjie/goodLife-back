@@ -339,7 +339,6 @@ public class FileServiceImpl implements FileService {
 
     /**
      * 上传单管图至相对路径
-     *
      * @param folderId
      * @param devId
      * @param userId
