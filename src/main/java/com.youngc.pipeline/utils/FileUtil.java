@@ -21,7 +21,7 @@ public class FileUtil {
         try {
             path = new File(ResourceUtils.getURL("src/main/resources").getPath());
             os = response.getOutputStream();
-            bis = new BufferedInputStream(new FileInputStream(new File(path + ""+sqlPath + fileName)));
+            bis = new BufferedInputStream(new FileInputStream(new File(path + ""+sqlPath )));
             int i = bis.read(buff);
             while (i != -1) {
                 os.write(buff, 0, buff.length);

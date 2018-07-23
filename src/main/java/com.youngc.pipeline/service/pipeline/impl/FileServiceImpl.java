@@ -23,10 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.spi.http.HttpContext;
 import java.io.*;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 @Service
@@ -146,13 +144,12 @@ public class FileServiceImpl implements FileService {
     public boolean addfolder(FileModel fileModel) {
        //ftpUtil.mkdir(fileModel.getFilePath(), fileModel.getFileName());
         try {
-            //String path = new File(ResourceUtils.getURL("src/main/resources").getPath()).getAbsolutePath();
-            File dest = new File(ResourceUtils.getURL("src/main/resources").getPath()
-                    +fileModel.getFilePath() + fileModel.getFileName());
+            String realPath = new File(ResourceUtils.getURL("src/main/resources").getPath()).getAbsolutePath();
+            File dest = new File(realPath +fileModel.getFilePath());
             // 检测是否存在目录
 
             if (!dest.exists()) {
-                dest.mkdir();
+                dest.mkdirs();
                 fileMapper.postFolder(fileModel);
             }else {
                 return false;
@@ -175,13 +172,12 @@ public class FileServiceImpl implements FileService {
         try {
             FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(fileId));
             String filePath = fileModel.getFilePath();
+            String realPath = new File(ResourceUtils.getURL("src/main/resources").getPath()).getAbsolutePath();
             if (Integer.parseInt(type) != 3) {
-                File file = new File(filePath + fileName);
-                //file.delete();
-                ftpUtil.deleteFile(filePath, fileName);
+                File file = new File(realPath+filePath);
+                file.delete();
             } else {
-                ftpUtil.rmdir(filePath, fileName);
-                //delFolder(filePath);
+                delFolder(filePath);
             }
             fileMapper.deleteFile(fileId);
         } catch (Exception e) {
@@ -197,7 +193,8 @@ public class FileServiceImpl implements FileService {
             delAllFile(folderPath); //删除完里面所有内容
             String filePath = folderPath;
             filePath = filePath.toString();
-            File myFilePath = new java.io.File(filePath);
+            String realPath = new File(ResourceUtils.getURL("src/main/resources").getPath()).getAbsolutePath();
+            File myFilePath = new java.io.File(realPath+filePath);
             myFilePath.delete(); //删除空文件夹
         } catch (Exception e) {
             e.printStackTrace();
@@ -207,7 +204,9 @@ public class FileServiceImpl implements FileService {
     //删除文件夹下所有文件
     public static boolean delAllFile(String path) {
         boolean flag = false;
-        File file = new File(path);
+        try {
+        String realPath = new File(ResourceUtils.getURL("src/main/resources").getPath()).getAbsolutePath();
+        File file = new File(realPath+path);
         if (!file.exists()) {
             return flag;
         }
@@ -217,19 +216,22 @@ public class FileServiceImpl implements FileService {
         String[] tempList = file.list();
         File temp = null;
         for (int i = 0; i < tempList.length; i++) {
-            if (path.endsWith(File.separator)) {
-                temp = new File(path + tempList[i]);
+            if ((realPath+path).endsWith(File.separator)) {
+                temp = new File(realPath+path + tempList[i]);
             } else {
-                temp = new File(path + File.separator + tempList[i]);
+                temp = new File(realPath+path + File.separator + tempList[i]);
             }
             if (temp.isFile()) {
                 temp.delete();
             }
             if (temp.isDirectory()) {
-                delAllFile(path + "/" + tempList[i]);//先删除文件夹里面的文件
-                delFolder(path + "/" + tempList[i]);//再删除空文件夹
+                delAllFile(realPath+path + "/" + tempList[i]);//先删除文件夹里面的文件
+                delFolder(realPath+path + "/" + tempList[i]);//再删除空文件夹
                 flag = true;
             }
+        }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
         return flag;
     }
@@ -258,29 +260,31 @@ public class FileServiceImpl implements FileService {
         // 项目在容器中实际发布运行的根路径
         String realPath = null;
         try {
-            realPath = new File(ResourceUtils.getURL("src/main/resources/files").getPath()).getAbsolutePath();
+            realPath = new File(ResourceUtils.getURL("src/main/resources").getPath()).getAbsolutePath();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String devName = fileMapper.getDevNameByDevId(devId);
-        if (Long.parseLong(folderId) != 0) {
-            FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
-            String folderName = fileModel.getFileName();
-            // 文件上传后的路径
-            filePath = realPath + "/" + devName + "/" + folderName + "/";
-            sqlPath="/files/" + devName + "/" + folderName + "/";
-        } else {
-            // 文件上传后的路径
-            filePath = realPath + "/" + devName + "/";
-            sqlPath="/files/" + devName + "/";
-        }
-
         // 获取文件名
         String fileName = file.getOriginalFilename();
         // 获取文件的后缀名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        //对文件重命名，时间格式
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        String formDate = df.format(new Date());
+        String devName = fileMapper.getDevNameByDevId(devId);
+        if (Long.parseLong(folderId) != 0) {
+            FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
+            String folderPath = fileModel.getFilePath();
+            // 文件上传后的路径
+            filePath = realPath + folderPath+"/"+formDate+""+suffixName;
+            sqlPath=folderPath+"/"+formDate+""+suffixName;
+        } else {
+            // 文件上传后的路径
+            filePath = realPath + "/files/" + devName + "/";
+            sqlPath="/files/" + devName + "/" + "/"+formDate+""+suffixName;
+        }
 
-        File dest = new File(filePath + fileName);
+        File dest = new File(filePath);
         // 检测是否存在目录
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
@@ -374,20 +378,25 @@ public class FileServiceImpl implements FileService {
         String realPath = new File(ResourceUtils.getURL("src/main/resources/files").getPath()).getAbsolutePath();
         // 获取文件名
         String fileName = file.getOriginalFilename();
+        // 获取文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
 
+        //对文件重命名，时间格式
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        String formDate = df.format(new Date());
         String devName = fileMapper.getDevNameByDevId(devId);
         if (Long.parseLong(folderId) != 0) {
             FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
             String folderName = fileModel.getFileName();
             // 文件上传后的路径
             filePath = realPath + "/" + devName + "/" + folderName + "/";
-            sqlPath="/files/" + devName + "/" + folderName + "/";
+            sqlPath="/files/" + devName + "/" + folderName + "/"+formDate+""+suffixName;
         } else {
             // 文件上传后的路径
             filePath = realPath + "/" + devName + "/";
-            sqlPath="/files/" + devName + "/";
+            sqlPath="/files/" + devName + "/"+formDate+""+suffixName;
         }
-        File dest = new File(filePath + fileName);
+        File dest = new File(filePath);
         // 检测是否存在目录
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();

@@ -1,6 +1,7 @@
 package com.youngc.pipeline.controller.pipeline;
 
 import com.youngc.pipeline.bean.param.FileBean;
+import com.youngc.pipeline.mapper.pipeline.FileMapper;
 import com.youngc.pipeline.model.FileModel;
 import com.youngc.pipeline.result.Result;
 import com.youngc.pipeline.result.ResultCode;
@@ -31,6 +32,9 @@ public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private FileMapper fileMapper;
 
     @ApiOperation("获取组织单位设备树")
     @GetMapping("/orgUnitDevTree")
@@ -64,16 +68,21 @@ public class FileController {
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
 
+        String filePath ="";
         Long devId = Long.parseLong(fileBean.getDevId().split("_")[1]);
         FileModel fileModel = new FileModel();
         fileModel.setFileName(fileBean.getFileName());
         fileModel.setDevId(devId);
         fileModel.setFolderId(Long.parseLong(fileBean.getFolderId()));
+        if(fileBean.getFolderId().equals("0")){
+            filePath = "/files/" + fileBean.getDevName() + "/"+fileBean.getFileName();
+        }else {
+            FileModel fm = fileMapper.getFileNameByFileId(Long.parseLong(fileBean.getFolderId()));
+            filePath=fm.getFilePath()+"/"+fileBean.getFileName();
+        }
         fileModel.setUserId(user.getUserId());
         fileModel.setType(fileBean.getType());
         fileModel.setDevName(fileBean.getDevName());
-        //String filePath = "E://pipeline//" + fileBean.getDevName() + "//" + fileModel.getFileName();
-        String filePath = "/files/" + fileBean.getDevName() + "/";
         fileModel.setFilePath(filePath);
 
 
