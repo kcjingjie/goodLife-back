@@ -49,4 +49,12 @@ public class DevDataReportController {
         return ResultGenerator.generate(ResultCode.SUCCESS,devDataReportService.getLeakRatio());
     }
 
+    /**
+     * 查询合格率
+     * @returmn
+     */
+    @GetMapping("/getQualification")
+    public Result getQualification(){
+        return ResultGenerator.generate(ResultCode.SUCCESS,devDataReportService.getQualification());
+    }
 }

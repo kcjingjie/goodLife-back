@@ -12,4 +12,6 @@ public interface DevDataReportService {
     List<DevDataReportModel> getDevCountByUnit();
 
     List<DevDataReportModel>  getLeakRatio();
+
+    List<DevDataReportModel> getQualification();
 }

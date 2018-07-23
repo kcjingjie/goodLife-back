@@ -44,5 +44,14 @@ public interface DevDataReportMapper {
             " GROUP BY dev_leak_manager.`status`")
     List<DevDataReportModel> getLeakRatio();
 
+    /**
+     * 查询合格数
+     * @return
+     */
+    @Select("SELECT data_name name,COUNT(check_result) number from dev_check_plan " +
+            " LEFT  JOIN sys_dict_data on sys_dict_data.dict_value='check_result' " +
+            " AND sys_dict_data.data_value=dev_check_plan.check_result " +
+            " GROUP BY dev_check_plan.check_result")
+    List<DevDataReportModel> getQualification();
 }
 

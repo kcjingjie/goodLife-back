@@ -24,6 +24,8 @@ public class DevCheckBean {
 
     private Long exeCycle;
 
+    private Long checkResult;
+
     private String checkOrganize;
 
     private String checkReport;

@@ -11,7 +11,7 @@ public interface DevCheckMapper {
     /**
      * 模糊检索检验计划信息
      */
-    @Select("SELECT id,dev_id,device_equip,device_type,last_exe_time,exe_cycle,plan_exe_time,delay_time,remark,device_name,check_organize,delay_reason,check_report "+
+    @Select("SELECT id,dev_id,device_equip,device_type,check_result,last_exe_time,exe_cycle,plan_exe_time,delay_time,remark,device_name,check_organize,delay_reason,check_report "+
             "  from dev_check_plan dcp  "+
             " LEFT JOIN dev_info di ON di.device_id=dcp.dev_id  "+
             " WHERE device_name LIKE CONCAT('%', #{devName}, '%') ")
@@ -68,7 +68,7 @@ public interface DevCheckMapper {
      * @param devCheckModel
      * @return
      */
-    @Update(" UPDATE dev_check_plan SET last_exe_time = #{lastExeTime},plan_exe_time=#{planExeTime},check_report=#{checkReport}," +
+    @Update(" UPDATE dev_check_plan SET last_exe_time = #{lastExeTime},plan_exe_time=#{planExeTime},check_result=#{checkResult},check_report=#{checkReport}," +
             " delay_reason=#{delayReason},last_person = #{lastPerson}, last_time = now() WHERE id = #{id}")
     int submitInfo(DevCheckModel devCheckModel);
 

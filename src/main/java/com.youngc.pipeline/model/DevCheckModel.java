@@ -28,6 +28,8 @@ public class DevCheckModel {
 
     private Long exeCycle;
 
+    private Long checkResult;
+
     private String checkOrganize;
 
     private String checkReport;
