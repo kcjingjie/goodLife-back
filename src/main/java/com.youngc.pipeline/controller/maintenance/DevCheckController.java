@@ -117,6 +117,7 @@ public class DevCheckController {
         devCheckModel.setPlanExeTime(devCheckBean.getPlanExeTime());
         devCheckModel.setLastExeTime(devCheckBean.getLastExeTime());
         devCheckModel.setCheckResult(devCheckBean.getCheckResult());
+        devCheckModel.setCheckResult(devCheckBean.getCheckResult());
         devCheckModel.setDelayReason(devCheckBean.getDelayReason());
         devCheckModel.setLastPerson(user.getUserId());
 

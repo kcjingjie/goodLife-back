@@ -69,7 +69,7 @@ public interface DevCheckMapper {
      * @return
      */
     @Update(" UPDATE dev_check_plan SET last_exe_time = #{lastExeTime},plan_exe_time=#{planExeTime},check_result=#{checkResult},check_report=#{checkReport}," +
-            " delay_reason=#{delayReason},last_person = #{lastPerson}, last_time = now() WHERE id = #{id}")
+            "  check_result=#{checkResult},delay_reason=#{delayReason},last_person = #{lastPerson}, last_time = now() WHERE id = #{id}")
     int submitInfo(DevCheckModel devCheckModel);
 
 }
