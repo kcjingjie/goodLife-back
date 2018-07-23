@@ -280,7 +280,7 @@ public class FileServiceImpl implements FileService {
             sqlPath=folderPath+"/"+formDate+""+suffixName;
         } else {
             // 文件上传后的路径
-            filePath = realPath + "/files/" + devName + "/";
+            filePath = realPath + "/files/" + devName + "/"+formDate+""+suffixName;
             sqlPath="/files/" + devName + "/" + "/"+formDate+""+suffixName;
         }
 
@@ -388,11 +388,11 @@ public class FileServiceImpl implements FileService {
             FileModel fileModel = fileMapper.getFileNameByFileId(Long.parseLong(folderId));
             String folderName = fileModel.getFileName();
             // 文件上传后的路径
-            filePath = realPath + "/" + devName + "/" + folderName + "/";
+            filePath = realPath + "/" + devName + "/" + folderName + "/"+formDate+""+suffixName;
             sqlPath="/files/" + devName + "/" + folderName + "/"+formDate+""+suffixName;
         } else {
             // 文件上传后的路径
-            filePath = realPath + "/" + devName + "/";
+            filePath = realPath + "/" + devName + "/"+formDate+""+suffixName;
             sqlPath="/files/" + devName + "/"+formDate+""+suffixName;
         }
         File dest = new File(filePath);
