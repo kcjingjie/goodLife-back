@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public interface InfoManagerMapper {
@@ -67,7 +68,7 @@ public interface InfoManagerMapper {
 
     /**
      * 根据设备id查询设备信息
-     * @param d
+     * @param id
      * @return
      */
     @Select(" SELECT device_id,unit_id,device_type,device_equip,device_alias,device_name,device_desc,status " +
@@ -115,4 +116,7 @@ public interface InfoManagerMapper {
     @Select("SELECT di.device_id,dcp.para_name,dcp.para_value from  dev_info di " +
             "LEFT JOIN dev_config_para dcp on di.device_id=dcp.device_id WHERE di.unit_id=#{unitId}")
     List<DevConfigParaModel> getParaValue(@Param("unitId") Long  unitId);
+
+    @Select("SELECT file_id,file_name,folder_id,file_path,type From dev_file WHERE dev_id=#{devId}")
+    List<Map> getFileById(Long devId);
 }

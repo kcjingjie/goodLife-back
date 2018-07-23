@@ -146,4 +146,13 @@ public class InfoManagerController {
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getParaValue(unitId));
     }
 
+    /**
+     * 根据id查询文件
+     * @param deviceId
+     * @return
+     */
+    @GetMapping("/showFile/{deviceId}")
+    public Result showFile(@PathVariable Long deviceId){
+        return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.showFile(deviceId));
+    }
 }

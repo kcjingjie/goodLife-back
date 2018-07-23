@@ -11,6 +11,10 @@ public class TreeNode {
 
     private String name;
 
+    private String path;
+
+    private String type;
+
     private List<TreeNode> children;
 
     private String checked;

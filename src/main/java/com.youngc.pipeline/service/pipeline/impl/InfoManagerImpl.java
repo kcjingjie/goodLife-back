@@ -183,4 +183,43 @@ public class InfoManagerImpl implements InfoManagerService{
     }
 
 
+    /**
+     * 根据id查询文件
+     * @param devId
+     * @return
+     */
+    public List<TreeNode> showFile(Long devId) {
+        List<Map> fileById=infoManagerMapper.getFileById(devId);
+        List<TreeNode> tree = new ArrayList<TreeNode>();
+
+        for (int i = 0; i < fileById.size(); i++) {
+            if (((Integer) (fileById.get(i).get("folder_id"))) == 0) {
+                TreeNode root = new TreeNode();
+                root.setId(((Integer) (fileById.get(i).get("file_id"))).toString());
+                root.setName((String) (fileById.get(i).get("file_name")));
+                root.setPath((String) (fileById.get(i).get("file_path")));
+                root.setType((String) (fileById.get(i).get("type")));
+                root.setChildren(getFileChilds(fileById, ((Integer) (fileById.get(i).get("file_id")))));
+                tree.add(root);
+            }
+        }
+        return tree;
+    }
+
+    public List<TreeNode> getFileChilds(List<Map> fileById,Integer fileId){
+        List<TreeNode> children = new ArrayList<TreeNode>();
+        for (int j = 0; j < fileById.size(); j++) {
+
+            if ((fileById.get(j).get("folder_id")).equals(fileId)) {
+                TreeNode node = new TreeNode();
+                node.setId(((Integer) (fileById.get(j).get("folder_id"))).toString());
+                node.setName((String) (fileById.get(j).get("file_name")));
+                node.setPath((String) (fileById.get(j).get("file_path")));
+                node.setType((String) (fileById.get(j).get("type")));
+                node.setChildren(getFileChilds(fileById, (Integer) (fileById.get(j).get("file_id"))));
+                children.add(node);
+            }
+        }
+        return children;
+    }
 }

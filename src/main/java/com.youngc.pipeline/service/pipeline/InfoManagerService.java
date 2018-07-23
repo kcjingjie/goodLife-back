@@ -5,6 +5,7 @@ import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.model.DevConfigParaModel;
 import com.youngc.pipeline.model.ImageModel;
 import com.youngc.pipeline.model.PipeInfoModel;
+import sun.reflect.generics.tree.Tree;
 
 import java.util.List;
 
@@ -28,4 +29,6 @@ public interface InfoManagerService {
     List<DevConfigParaModel> getParaName();
 
     List<DevConfigParaModel> getParaValue(Long unitId);
+
+    List<TreeNode> showFile(Long devId);
 }
