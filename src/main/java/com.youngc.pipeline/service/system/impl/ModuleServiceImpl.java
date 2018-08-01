@@ -20,13 +20,13 @@ public class ModuleServiceImpl implements ModuleService {
     /**
      * 查询模块树
      */
-    public List<TreeNode> getTree(String keyword) {
+    public List<TreeNode> getTree(String keyword,String roleIds,String droleIds) {
 
         List<Map> module;
 
         List<TreeNode> tree = new ArrayList<TreeNode>();
 
-        module = moduleMapper.getTree();
+        module = moduleMapper.getTree(roleIds);
 
         for (int i = 0; i < module.size(); i++) {
             if (((Integer) (module.get(i).get("pid"))) == 0) {

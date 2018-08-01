@@ -16,9 +16,10 @@ public interface ModuleMapper {
      * 查询模块数据
      * @return
      */
-    @Select(" SELECT module_id, module_name, pid,icon" +
-            " FROM sys_module WHERE type=1 and status=1;")
-    List<Map> getTree();
+    @Select(" SELECT DISTINCT  sm.module_id, sm.module_name, sm.pid,sm.icon" +
+            " FROM sys_module sm LEFT JOIN sys_role_module srm on srm.module_id=sm.module_id"+
+            " WHERE srm.role_id in (${roleIds}) ORDER By sm.priority")
+    List<Map> getTree(@Param("roleIds")String roleIds);
 
     /**
      * 查询模块信息
@@ -89,7 +90,7 @@ public interface ModuleMapper {
      */
     @Select(" SELECT DISTINCT  sm.module_id, sm.module_name, sm.pid,sm.icon" +
             " FROM sys_module sm LEFT JOIN sys_role_module srm on srm.module_id=sm.module_id"+
-            " WHERE srm.role_id in (${roleIds})")
+            " WHERE srm.role_id in (${roleIds}) AND sm.status=1 ORDER By sm.priority")
     List<Map> getModuleIdsByRoleIds(@Param("roleIds")String roleIds);
 
     /**

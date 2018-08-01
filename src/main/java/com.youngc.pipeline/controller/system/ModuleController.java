@@ -25,9 +25,9 @@ public class ModuleController {
 
     @ApiOperation("获取模块树")
     @GetMapping("/tree")
-    public Result getTree(@RequestParam String keyword) {
+    public Result getTree(@RequestParam String keyword,@RequestParam String roleIds,@RequestParam String droleIds) {
 
-        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getTree(keyword));
+        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getTree(keyword,roleIds,droleIds));
     }
 
     @ApiOperation("获取菜单树")

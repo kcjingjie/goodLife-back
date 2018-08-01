@@ -69,7 +69,8 @@ public interface SysRoleMapper {
      * 查询权限树
      */
     @Select("SELECT m.module_id,m.module_name,m.pid,(case when r.id is null then 0 else 1 end) checked from  sys_module m " +
-            "LEFT JOIN (select module_id,id,role_id from sys_role_module where role_id = #{roleId} ) r ON m.module_id=r.module_id ")
+            "LEFT JOIN (select module_id,id,role_id from sys_role_module where role_id = #{roleId} ) r ON m.module_id=r.module_id "+
+            " WHERE m.status=1")
     List<Map> getRoleTree(@Param("roleId") Long roleId);
 
     /**

@@ -13,7 +13,7 @@ public interface ModuleService {
     /**
      * 查询模块树
      */
-    List<TreeNode> getTree(String  keyword);
+    List<TreeNode> getTree(String  keyword,String roleIds,String droleIds);
 
     /**
      * 查询菜单树
