@@ -57,14 +57,11 @@ public class ModuleServiceImpl implements ModuleService {
     /**
      * 查询菜单树
      */
-    public List<ModuleTreeNode> getModuleTree(String keyword) {
-        List<Map> modules;
-
+    public List<ModuleTreeNode> getModuleTree(String keyword,String roleIds,String droleIds) {
 
         List<ModuleTreeNode> tree = new ArrayList<ModuleTreeNode>();
-
-        modules = moduleMapper.getTree();
-
+        System.out.println(roleIds);
+        List<Map> modules=moduleMapper.getModuleIdsByRoleIds(roleIds);
 
         for (int i = 0; i < modules.size(); i++) {
             if (((Integer) (modules.get(i).get("pid"))) == 0) {

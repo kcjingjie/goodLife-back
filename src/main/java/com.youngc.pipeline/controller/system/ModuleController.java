@@ -32,9 +32,9 @@ public class ModuleController {
 
     @ApiOperation("获取菜单树")
     @GetMapping("/moduleTree")
-    public Result getModuleTree(@RequestParam String keyword) {
+    public Result getModuleTree(@RequestParam String keyword,@RequestParam String roleIds,@RequestParam String droleIds) {
 
-        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getModuleTree(keyword));
+        return ResultGenerator.generate(ResultCode.SUCCESS,moduleService.getModuleTree(keyword,roleIds,droleIds));
     }
 
     @ApiOperation("获取模块信息")

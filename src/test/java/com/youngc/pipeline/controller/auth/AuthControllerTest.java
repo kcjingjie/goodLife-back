@@ -55,7 +55,6 @@ public class AuthControllerTest {
                 .getResponse().getContentAsString();
 
 
-
         mvc.perform(post("/auth/login")
                 .param("userName", "admin")
                 .param("password", "1234567")

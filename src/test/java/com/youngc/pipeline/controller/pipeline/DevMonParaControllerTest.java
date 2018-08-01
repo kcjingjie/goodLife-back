@@ -53,8 +53,9 @@ public class DevMonParaControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(containsString("200")))
-                .andExpect(jsonPath("$.data",notNullValue()));
+                .andExpect(jsonPath("$.data",notNullValue()))
         ;
+
     }
 
     @Test

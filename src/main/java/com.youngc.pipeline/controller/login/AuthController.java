@@ -7,9 +7,6 @@ import com.youngc.pipeline.service.login.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @author liweiqiang
- */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

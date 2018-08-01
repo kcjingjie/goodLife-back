@@ -81,4 +81,22 @@ public interface ModuleMapper {
 
     @Delete(" DELETE  FROM  sys_module WHERE module_id IN (${moduleIdStr})")
     int deleteModuleInfo(@Param("moduleIdStr") String moduleIdStr);
+
+    /**
+     * 查询关联模块id
+     * @param roleIds
+     * @return
+     */
+    @Select(" SELECT DISTINCT  sm.module_id, sm.module_name, sm.pid,sm.icon" +
+            " FROM sys_module sm LEFT JOIN sys_role_module srm on srm.module_id=sm.module_id"+
+            " WHERE srm.role_id in (${roleIds})")
+    List<Map> getModuleIdsByRoleIds(@Param("roleIds")String roleIds);
+
+    /**
+     * 查询关联模块id
+     * @param droleIds
+     * @return
+     */
+    @Select("")
+    List<Map> getModuleIdsByDroleIds(String droleIds);
 }

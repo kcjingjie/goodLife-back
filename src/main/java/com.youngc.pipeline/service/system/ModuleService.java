@@ -18,7 +18,7 @@ public interface ModuleService {
     /**
      * 查询菜单树
      */
-    List<ModuleTreeNode> getModuleTree(String  keyword);
+    List<ModuleTreeNode> getModuleTree(String  keyword,String roleIds,String droleIds);
 
     /**
      * 查询模块信息

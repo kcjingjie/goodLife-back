@@ -49,6 +49,8 @@ public class AuthServiceImpl implements AuthService {
             result.put("token", token);
             result.put("userName", userName);
             result.put("realName", user.getRealName());
+            result.put("roleIds",user.getRoleIds());
+            result.put("droleIds",user.getDroleIds());
             return result;
         }
 
