@@ -43,7 +43,7 @@ public class FileServiceImpl implements FileService {
     /**
      * 查询组织单位设备树
      */
-    public List<TreeNode> getOrgUnitTree() {
+    public List<TreeNode> getOrgUnitTree(String droleIds) {
 
         List<Map> org = orgMapper.getTree();
         List<Map> unit = sysDataRoleMapper.getOrgUnitTree();

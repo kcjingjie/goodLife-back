@@ -38,9 +38,9 @@ public class FileController {
 
     @ApiOperation("获取组织单位设备树")
     @GetMapping("/orgUnitDevTree")
-    public Result getOrgUnitTree() {
+    public Result getOrgUnitTree(@RequestParam String droleIds) {
 
-        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.getOrgUnitTree());
+        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.getOrgUnitTree(droleIds));
     }
 
     @ApiOperation("获取文件信息")

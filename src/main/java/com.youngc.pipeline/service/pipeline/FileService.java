@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface FileService {
 
-    List<TreeNode> getOrgUnitTree();
+    List<TreeNode> getOrgUnitTree(String droleIds);
 
     List<FileModel> getFileInfo(String orgId, String unitId, String devId);
 

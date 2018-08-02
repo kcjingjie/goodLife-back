@@ -109,4 +109,12 @@ public interface SysDataRoleMapper {
      */
     @InsertProvider(type = SystemSqlProvider.class, method = "putDataUnit")
     int putDataUnit(List<String> DataUnitId,  Long userId,  Long droleId);
+
+    /**
+     * 查询单位
+     * @param droleIds
+     * @return
+     */
+    @Select("")
+    List<Map> getOrgUnitTreeByDroleIds(String droleIds);
 }
