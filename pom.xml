@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.youngc.pipeline</groupId>
-    <artifactId>data-collection-service</artifactId>
+    <artifactId>pipeline-management-service</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
