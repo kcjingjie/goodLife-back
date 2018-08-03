@@ -22,7 +22,7 @@ public interface DevConfigParaMapper {
 
     /**
      * 添加设备标准参数信息
-     * @param devConfigParaBean
+     * @param devConfigParaModel
      * @return
      */
     @Insert(" INSERT INTO dev_config_para (device_id, para_name, para_id,para_value,para_unit,para_type,remark,add_person, add_time, last_person, last_time)" +
@@ -49,7 +49,7 @@ public interface DevConfigParaMapper {
 
     /**
      * 修改设备标准参数信息
-     * @param devConfigParaBean
+     * @param devConfigParaModel
      * @return
              */
     @Update(" UPDATE dev_config_para SET para_name = #{paraName}, para_id = #{paraId},para_value=#{paraValue},para_unit=#{paraUnit}," +

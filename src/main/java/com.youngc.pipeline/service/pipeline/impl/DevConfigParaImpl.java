@@ -49,7 +49,7 @@ public class DevConfigParaImpl implements DevConfigParaService{
 
     /**
      * 修改设备标准参数信息
-     * @param devConfigParaBean
+     * @param devConfigParaModel
      * @return
      */
     public DevConfigParaModel updateInfo(DevConfigParaModel devConfigParaModel) {
@@ -59,7 +59,7 @@ public class DevConfigParaImpl implements DevConfigParaService{
 
     /**
      * 添加设备标准参数信息
-     * @param devConfigParaBean
+     * @param devConfigParaModel
      * @return
      */
     public DevConfigParaModel insert(DevConfigParaModel devConfigParaModel) {
