@@ -2,6 +2,7 @@ package com.youngc.pipeline.mapper.pipeline;
 
 import com.youngc.pipeline.model.DevConfigParaModel;
 import com.youngc.pipeline.model.DevRepairModel;
+import com.youngc.pipeline.sqlProvider.system.SystemSqlProvider;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -54,4 +55,17 @@ public interface DevRepairMapper {
      */
     @Delete(" DELETE FROM dev_repair WHERE id IN (${idList});")
     int delete(@Param("idList") String  idList);
+
+    /**
+     * 添加设备管件信息
+     * @param data
+     * @param userId
+     * @param devId
+     * @return
+     */
+    @InsertProvider(type = SystemSqlProvider.class, method = "readDevRepairExcel")
+    boolean readExcel(List<DevRepairModel> data,Long userId,Long devId);
+
+    @Select("SELECT manufactor,model,specification,material,company,brand,stock,quantity,cycle,price from dev_repair WHERE device_id=#{devId}")
+    List<DevRepairModel> getExcel(Long devId);
 }

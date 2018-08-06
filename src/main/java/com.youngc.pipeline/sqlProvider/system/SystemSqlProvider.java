@@ -1,6 +1,7 @@
 package com.youngc.pipeline.sqlProvider.system;
 
 import com.youngc.pipeline.mapper.pipeline.DevUnitMapper;
+import com.youngc.pipeline.model.DevRepairModel;
 import com.youngc.pipeline.model.DevUnitModel;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -131,6 +132,29 @@ public class SystemSqlProvider {
                 }
             }
             return devBuilder.toString();
+        }
+
+        /**
+         * 添加设备管件备件
+         * @param para
+         * @return
+         */
+        public String readDevRepairExcel(Map<String, Object> para){
+            List<DevRepairModel> devRepairModels=(List<DevRepairModel>) para.get("arg0");
+            Long devUserId = (Long) para.get("arg1");
+            Long devId = (Long) para.get("arg2");
+            StringBuilder devBuilder = new StringBuilder("INSERT INTO dev_repair (device_id,manufactor,model,specification, material,company,brand,stock,quantity,cycle,price,add_person,add_time,last_person, last_time) VALUES ");
+            MessageFormat devMessageFormat = new MessageFormat("({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},now(),{12},now())");
+            for(int i=0;i<devRepairModels.size();i++){
+                DevRepairModel devRepairModel=devRepairModels.get(i);
+                devBuilder.append(devMessageFormat.format(new Object[]{devId,devRepairModel.getManufactor(),devRepairModel.getModel(),devRepairModel.getSpecification(),
+                        devRepairModel.getMaterial(),devRepairModel.getCompany(),devRepairModel.getBrand(),devRepairModel.getStock(),devRepairModel.getQuantity(),devRepairModel.getCycle(),devRepairModel.getPrice(),devUserId, devUserId}));
+                if (i < devRepairModels.size() - 1) {
+                    devBuilder.append(",");
+                }
+            }
+            return devBuilder.toString();
+
         }
 
 }

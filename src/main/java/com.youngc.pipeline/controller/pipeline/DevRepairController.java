@@ -9,6 +9,10 @@ import com.youngc.pipeline.service.pipeline.DevRepairService;
 import com.youngc.pipeline.utils.RequestContextHolderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/devRepair")
@@ -105,5 +109,28 @@ public class DevRepairController {
     public Result deleteInfo(@RequestParam("idList") String idList) {
         devRepairService.delete(idList);
         return ResultGenerator.generate(ResultCode.SUCCESS);
+    }
+
+    /**
+     * 导入Excel文件
+     * @param devId,file
+     * @return
+     */
+    @PostMapping(value ="/upload")
+    public Result uploadFileInfo(@RequestParam String devId,@RequestParam MultipartFile file) {
+        return ResultGenerator.generate(ResultCode.SUCCESS,devRepairService.readExcel(Long.valueOf(devId),file));
+    }
+
+    /**
+     * 导出Excel文件
+     * @param request
+     * @param response
+     * @param devId
+     * @return
+     */
+    @GetMapping("/download")
+    public String downloadFileInfo(HttpServletRequest request, HttpServletResponse response,
+                                   @RequestParam String devId) {
+        return devRepairService.downloadFileInfo(request, response,Long.parseLong(devId));
     }
 }
