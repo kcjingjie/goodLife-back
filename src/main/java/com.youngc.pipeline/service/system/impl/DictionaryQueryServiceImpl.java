@@ -138,7 +138,7 @@ public class DictionaryQueryServiceImpl implements DictionaryQueryService {
      * @param dataValue
      * @return
      */
-    public List<DictionaryValueModel> getDictValueByValue(String dictValue, int dataValue) {
+    public List<DictionaryValueModel> getDictValueByValue(String dictValue, String dataValue) {
         return dictionaryQueryMapper.getDictValueByValue(dictValue,dataValue);
     }
 //

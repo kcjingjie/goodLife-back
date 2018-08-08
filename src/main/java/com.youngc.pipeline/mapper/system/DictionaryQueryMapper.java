@@ -121,7 +121,7 @@ public interface DictionaryQueryMapper {
      */
     @Select(" SELECT id,data_value,dict_value" +
             " FROM sys_dict_data WHERE  dict_value = #{dictValue} and data_value=#{dataValue}")
-    List<DictionaryValueModel> getDictValueByValue(@Param("dictValue") String dictValue,@Param("dataValue") int dataValue);
+    List<DictionaryValueModel> getDictValueByValue(@Param("dictValue") String dictValue,@Param("dataValue") String dataValue);
 
 //    @Select(" SELECT sdd.data_name name,sdd.data_value value FROM sys_dict_data sdd" +
 //            " INNER JOIN sys_dictionary sd ON sd.dict_value = sdd.dict_value" +
