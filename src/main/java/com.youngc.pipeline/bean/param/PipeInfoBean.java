@@ -16,6 +16,8 @@ public class PipeInfoBean {
 
     private  Long deviceEquip;
 
+    private int pressurePipe;
+
     private String deviceName;
 
     private String customCode;

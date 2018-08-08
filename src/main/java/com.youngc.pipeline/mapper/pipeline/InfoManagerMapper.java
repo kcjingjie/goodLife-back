@@ -19,7 +19,7 @@ public interface InfoManagerMapper {
      * @param pid
      * @return
      */
-    @Select("SELECT device_id,unit_id,device_alias,device_name,device_equip,device_type,device_desc,dev_info.status  FROM dev_info"+
+    @Select("SELECT device_id,unit_id,device_alias,device_name,pressure_pipe,device_equip,device_type,device_desc,dev_info.status  FROM dev_info"+
             " WHERE ((device_name LIKE CONCAT('%', #{keyWord}, '%'))OR(device_alias LIKE CONCAT('%', #{keyWord}, '%')))"+
             " AND unit_id = #{pid}")
     List<PipeInfoModel> getList(@Param("keyWord")String keyWord, @Param("pid") Long pid);
@@ -29,8 +29,8 @@ public interface InfoManagerMapper {
      * @param pipeInfoModel
      * @return
      */
-    @Insert(" INSERT INTO dev_info (unit_id,device_type,device_equip, device_alias,device_name,device_desc,status,add_person, add_time, last_person, last_time)" +
-            " VALUES(#{unitId},#{deviceType},#{deviceEquip}, #{deviceAlias},#{deviceName}, #{deviceDesc},#{status},#{addPerson}, now(), #{lastPerson}, now())")
+    @Insert(" INSERT INTO dev_info (unit_id,device_type,device_equip, device_alias,device_name,pressure_pipe,device_desc,status,add_person, add_time, last_person, last_time)" +
+            " VALUES(#{unitId},#{deviceType},#{deviceEquip}, #{deviceAlias},#{deviceName}, #{pressurePipe},#{deviceDesc},#{status},#{addPerson}, now(), #{lastPerson}, now())")
     @Options(useGeneratedKeys = true, keyColumn = "device_id")
     int insert(PipeInfoModel pipeInfoModel);
 
@@ -71,14 +71,14 @@ public interface InfoManagerMapper {
      * @param id
      * @return
      */
-    @Select(" SELECT device_id,unit_id,device_type,device_equip,device_alias,device_name,device_desc,status " +
+    @Select(" SELECT device_id,unit_id,device_type,device_equip,device_alias,device_name,pressure_pipe,device_desc,status " +
             " FROM dev_info WHERE device_id = #{id}")
     PipeInfoModel getInfo(@Param("id") Long id);
 
     /**
      * 修改设备信息
      */
-    @Update(" UPDATE dev_info SET device_type=#{deviceType},device_equip=#{deviceEquip}, device_alias = #{deviceAlias},device_name=#{deviceName},device_desc=#{deviceDesc}," +
+    @Update(" UPDATE dev_info SET device_type=#{deviceType},device_equip=#{deviceEquip}, device_alias = #{deviceAlias},device_name=#{deviceName},pressure_pipe=#{pressurePipe},device_desc=#{deviceDesc}," +
             " status=#{status}, last_person = #{lastPerson}, last_time = now() WHERE device_id = #{deviceId}")
     int updateInfo(PipeInfoModel pipeInfoModel);
 
