@@ -19,6 +19,8 @@ public interface FileService {
 
     List<FileModel> getFileInfo(String orgId, String unitId, String devId);
 
+    List<FileModel> getFileInfo(String devId);/*@author liuyan 只通过devId这一个参数来查询文件信息*/
+
     String addfolder(FileModel fileModel);
 
     boolean deleteFileInfo(String fileId, String fileName, String type);
