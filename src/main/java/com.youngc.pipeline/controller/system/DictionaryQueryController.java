@@ -196,7 +196,7 @@ public class DictionaryQueryController {
      * @return
      */
     @GetMapping(value="/getDictValueByValue")
-    public Result getDictValueInfoByValue(@RequestParam("dictValue") String dictValue,@RequestParam("dataValue") String  dataValue) {
+    public Result getDictValueInfoByValue(@RequestParam("dictValue") String dictValue,@RequestParam("dataValue") int  dataValue) {
         return ResultGenerator.generate(ResultCode.SUCCESS, dictionaryQueryService.getDictValueByValue(dictValue,dataValue));
     }
 

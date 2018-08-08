@@ -34,7 +34,7 @@ public interface DictionaryQueryService {
 
     boolean deleteDictValueList(String idList);
 
-    List<DictionaryValueModel> getDictValueByValue(String dictValue,String dataValue);
+    List<DictionaryValueModel> getDictValueByValue(String dictValue,int dataValue);
 
 //    /**
 //     * 查询字典信息
