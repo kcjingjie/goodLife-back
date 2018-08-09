@@ -37,7 +37,7 @@ public class FileController {
     private FileMapper fileMapper;
 
     @ApiOperation("获取组织单位设备树")
-    @GetMapping("/orgUnitDevTree")
+    @GetMapping("/orgUnitDevTree" )
     public Result getOrgUnitTree(@RequestParam String droleIds) {
 
         return ResultGenerator.generate(ResultCode.SUCCESS, fileService.getOrgUnitTree(droleIds));
@@ -47,6 +47,18 @@ public class FileController {
     @GetMapping
     public Result getFileInfo(@RequestParam String orgId, @RequestParam String unitId, @RequestParam String devId) {
         return ResultGenerator.generate(ResultCode.SUCCESS, fileService.getFileInfo(orgId, unitId, devId));
+    }
+
+    /**
+     * @author liuyan
+     * @description 根据设备id进行查询
+     * @param devId
+     * @return
+     */
+    @ApiOperation("获取文件信息")
+    @GetMapping(params = "devId")
+    public Result getFileInfo(@RequestParam String devId) {
+        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.getFileInfo(devId));
     }
 
     @ApiOperation("获取文件夹下文件信息")
@@ -65,6 +77,7 @@ public class FileController {
     @ApiOperation("添加文件信息")
     @PostMapping
     public Result postFolder(@RequestBody FileBean fileBean) {
+        System.out.println(fileBean.getFolderId()+fileBean.getFileName());
         com.youngc.pipeline.bean.context.UserBean user
                 = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
 

@@ -139,6 +139,25 @@ public class FileServiceImpl implements FileService {
     }
 
     /**
+     * 查询文件信息
+     * @param devId
+     * @author liuyan
+     * @return
+     */
+
+    public List<FileModel> getFileInfo(String devId) {
+        String deviceIds = "";
+        if (devId!=null&&devId!=""){
+            String[] devIdArr = devId.split("_");
+            if (devIdArr.length==2){
+                deviceIds = devIdArr[1];
+                return fileMapper.getFileInfoByDevId(deviceIds);
+            }
+        }
+        return  null;
+    }
+
+    /**
      * 添加文件夹信息
      */
     public String addfolder(FileModel fileModel) {
@@ -290,7 +309,8 @@ public class FileServiceImpl implements FileService {
             dest.getParentFile().mkdirs();
         }
         FileModel fileModel = new FileModel();
-        if (suffixName.equals(".jpg") || suffixName.equals(".jpeg") || suffixName.equals(".png") || suffixName.equals(".bmp")) {
+        /*判断文件类型,注意大写的文件名*/
+        if (suffixName.equals(".JPEG")||suffixName.equals("JPG")||suffixName.equals("PNG")||suffixName.equals(".jpg") || suffixName.equals(".jpeg") || suffixName.equals(".png") || suffixName.equals(".bmp")) {
             fileModel.setType("2");
         } else if (suffixName.equals(".pdf")) {
             fileModel.setType("1");

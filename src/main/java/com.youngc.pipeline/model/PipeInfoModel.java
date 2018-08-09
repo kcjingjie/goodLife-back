@@ -34,6 +34,8 @@ public class PipeInfoModel {
 
     private String deviceDesc;
 
+    private int pressurePipe;
+
     private int status;
 
     //private String address;
