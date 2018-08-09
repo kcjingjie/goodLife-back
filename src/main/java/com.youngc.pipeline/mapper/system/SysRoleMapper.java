@@ -96,4 +96,5 @@ public interface SysRoleMapper {
     @InsertProvider(type = SystemSqlProvider.class, method = "insertRoleModule")
     int insertRoleModule(List<String> moduleIds,  Long roleId,  Long userId);
 
+
 }
