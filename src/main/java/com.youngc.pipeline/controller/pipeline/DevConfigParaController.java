@@ -1,13 +1,10 @@
 package com.youngc.pipeline.controller.pipeline;
 
 import com.youngc.pipeline.bean.param.DevConfigParaBean;
-import com.youngc.pipeline.bean.param.PipeInfoBean;
 import com.youngc.pipeline.model.DevConfigParaModel;
-import com.youngc.pipeline.model.PipeInfoModel;
 import com.youngc.pipeline.result.Result;
 import com.youngc.pipeline.result.ResultCode;
 import com.youngc.pipeline.result.ResultGenerator;
-import com.youngc.pipeline.service.maintenance.DevCheckService;
 import com.youngc.pipeline.service.pipeline.DevConfigParaService;
 import com.youngc.pipeline.utils.RequestContextHolderUtil;
 import org.springframework.beans.factory.annotation.Autowired;

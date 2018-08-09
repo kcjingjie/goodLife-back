@@ -1,5 +1,4 @@
 package com.youngc.pipeline.mapper.login;
-
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
