@@ -262,6 +262,7 @@ public class FileServiceImpl implements FileService {
         return fileMapper.getFolderFileInfo(fileId);
     }
 
+
     /**
      * 上传文件至相对路径
      * @param folderId
@@ -438,6 +439,24 @@ public class FileServiceImpl implements FileService {
             e.printStackTrace();
         }
         return "上传失败";
+    }
+
+    /**
+     * @author liuyan
+     * @param deviceId
+     * @param folderId
+     * @return
+     */
+    public List<FileModel> getFolderFileInfo(String deviceId, Long folderId) {
+        String deviceIds = "";
+        if (deviceId!=null&&deviceId!=""){
+            String[] devIdArr = deviceId.split("_");
+            if (devIdArr.length==2){
+                deviceIds = devIdArr[1];
+                return fileMapper.getFolderFileInfo1(deviceIds,folderId);
+            }
+        }
+        return null;
     }
 
     /**

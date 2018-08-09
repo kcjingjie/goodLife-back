@@ -63,9 +63,9 @@ public class FileController {
 
     @ApiOperation("获取文件夹下文件信息")
     @GetMapping("/folder")
-    public Result getFolderFileInfo(@RequestParam Long fileId) {
-        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.getFolderFileInfo(fileId));
-    }
+    public Result getFolderFileInfo(@RequestParam String deviceId, @RequestParam Long fileId) {
+        return ResultGenerator.generate(ResultCode.SUCCESS, fileService.getFolderFileInfo(deviceId,fileId));
+    }/**/
 
 
     /**

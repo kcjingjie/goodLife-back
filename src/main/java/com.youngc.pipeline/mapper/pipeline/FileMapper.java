@@ -85,6 +85,15 @@ public interface FileMapper {
     List<FileModel> getFolderFileInfo(@Param("fileId") Long fileId);
 
     /**
+     * @author liuyan
+     * @param deviceIds folderId
+     *
+     */
+    @Select("SELECT type,file_id,file_name,dev_id,file_path,last_time" +
+            " FROM dev_file where dev_id = #{deviceIds} and folder_id=#{folderId};")
+    List<FileModel> getFolderFileInfo1(@Param("deviceIds") String deviceIds,@Param("folderId") Long folderId);
+
+    /**
      * 根据设备ID查询设备名称
      *
      * @param
@@ -103,6 +112,7 @@ public interface FileMapper {
     @Select(" SELECT file_name,file_path FROM dev_file " +
             " WHERE file_id = #{folderId};")
     FileModel getFileNameByFileId(@Param("folderId") Long folderId);
+
 
     /**
      * 查询单管图路径
