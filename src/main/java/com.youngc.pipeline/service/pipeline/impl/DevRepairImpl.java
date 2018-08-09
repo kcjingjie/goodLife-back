@@ -173,6 +173,7 @@ public class DevRepairImpl implements DevRepairService {
             dataRow.createCell(9).setCellValue(devRepairModels.get(i).getPrice());
        }
        try {
+           response.setHeader("Content-type", "application/x-download");
            response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode("管道配件信息.xlsx", "UTF-8"));
            OutputStream out=response.getOutputStream();
            wb.write(out);

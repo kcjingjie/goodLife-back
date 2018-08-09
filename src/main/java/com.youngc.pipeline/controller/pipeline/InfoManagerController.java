@@ -11,6 +11,10 @@ import com.youngc.pipeline.service.pipeline.InfoManagerService;
 import com.youngc.pipeline.utils.RequestContextHolderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/pipeInfo")
@@ -156,5 +160,37 @@ public class InfoManagerController {
     @GetMapping("/showFile/{deviceId}")
     public Result showFile(@PathVariable Long deviceId){
         return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.showFile(deviceId));
+    }
+
+    /**
+     * 查询管道详情
+     * @param devId
+     * @return
+     */
+    @GetMapping("/getDeatail")
+    public Result getDeatail(@RequestParam Long devId){
+        return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.getDeatail(devId));
+    }
+
+    /**
+     * 导出管道Excel
+     * @param unitId
+     * @return
+     */
+    @GetMapping("/excelDownload")
+    public Result excelDownload(@RequestParam Long unitId,
+                                HttpServletRequest request,HttpServletResponse response){
+        return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.excelDownload(request,response,unitId));
+    }
+
+
+    /**
+     * 导入Excel文件
+     * @param unitId,file
+     * @return
+     */
+    @PostMapping(value ="/upload")
+    public Result uploadFileInfo(@RequestParam String unitId,@RequestParam MultipartFile file) {
+        return ResultGenerator.generate(ResultCode.SUCCESS,infoManagerService.readExcel(Long.valueOf(unitId),file));
     }
 }

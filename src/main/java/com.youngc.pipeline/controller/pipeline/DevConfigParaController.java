@@ -52,11 +52,11 @@ public class DevConfigParaController {
         DevConfigParaModel devConfigParaModel = new DevConfigParaModel();
 
         devConfigParaModel.setDeviceId(devConfigParaBean.getDeviceId());
-        devConfigParaModel.setParaName(devConfigParaBean.getParaName());
+        devConfigParaModel.setParaName(devConfigParaBean.getParaName().trim());
         devConfigParaModel.setParaId(devConfigParaBean.getParaId());
-        devConfigParaModel.setParaValue(devConfigParaBean.getParaValue());
+        devConfigParaModel.setParaValue(devConfigParaBean.getParaValue().trim());
         devConfigParaModel.setParaType(devConfigParaBean.getParaType());
-        devConfigParaModel.setParaUnit(devConfigParaBean.getParaUnit());
+        devConfigParaModel.setParaUnit(devConfigParaBean.getParaUnit().trim());
         devConfigParaModel.setRemark(devConfigParaBean.getRemark());
         devConfigParaModel.setAddPerson(user.getUserId());
         devConfigParaModel.setLastPerson(user.getUserId());
@@ -87,11 +87,11 @@ public class DevConfigParaController {
 
         devConfigParaModel.setId(devConfigParaBean.getId());
         devConfigParaModel.setDeviceId(devConfigParaBean.getDeviceId());
-        devConfigParaModel.setParaName(devConfigParaBean.getParaName());
+        devConfigParaModel.setParaName(devConfigParaBean.getParaName().trim());
         devConfigParaModel.setParaId(devConfigParaBean.getParaId());
         devConfigParaModel.setParaType(devConfigParaBean.getParaType());
-        devConfigParaModel.setParaValue(devConfigParaBean.getParaValue());
-        devConfigParaModel.setParaUnit(devConfigParaBean.getParaUnit());
+        devConfigParaModel.setParaValue(devConfigParaBean.getParaValue().trim());
+        devConfigParaModel.setParaUnit(devConfigParaBean.getParaUnit().trim());
         devConfigParaModel.setRemark(devConfigParaBean.getRemark());
 
         devConfigParaModel.setLastPerson(user.getUserId());

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -26,6 +27,10 @@ public class PipeInfoModel {
 
     private Long deviceEquip;
 
+    private  String deviceEquipName;
+
+    private String deviceTypeName;
+
     private String deviceName;
 
    // private String deviceCode;
@@ -37,6 +42,14 @@ public class PipeInfoModel {
     private int pressurePipe;
 
     private int status;
+
+    private String paraName;
+
+    private String paraId;
+
+    private String paraValue;
+
+    private String paraUnit;
 
     //private String address;
 

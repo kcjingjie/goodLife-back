@@ -9,14 +9,20 @@ import com.youngc.pipeline.mapper.system.OrgMapper;
 import com.youngc.pipeline.mapper.system.SysDataRoleMapper;
 import com.youngc.pipeline.model.*;
 import com.youngc.pipeline.service.pipeline.InfoManagerService;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.*;
 
 @Service
 public class InfoManagerImpl implements InfoManagerService{
@@ -221,5 +227,120 @@ public class InfoManagerImpl implements InfoManagerService{
             }
         }
         return children;
+    }
+
+    public List<DevConfigParaModel> getDeatail(Long devId){
+        return infoManagerMapper.getDeatail(devId);
+    }
+
+    public String excelDownload(HttpServletRequest request, HttpServletResponse response, Long unitId){
+        int j=0;
+      List<PipeInfoModel> pipeInfoModels=infoManagerMapper.excelDownload(unitId);
+        Workbook wb=new XSSFWorkbook();
+        Sheet sheet=wb.createSheet();
+        Row headRow=sheet.createRow(j++);
+        Map<String,Integer> map=new HashMap<String, Integer>();
+        map.put("输送介质",3);
+        map.put("起点位置",4);
+        map.put("终点位置",5);
+        map.put("管道直径",6);
+        map.put("管道壁厚",7);
+        map.put("管道长度",8);
+        map.put("设计压力",9);
+        map.put("设计温度",10);
+        map.put("工作压力",11);
+        map.put("工作温度",12);
+        map.put("管道材料",13);
+        map.put("焊口数量",14);
+        map.put("铺设方式",15);
+        map.put("防腐方式",16);
+        map.put("管道标识",17);
+        map.put("保温绝热方式",18);
+        map.put("探伤比例",19);
+        map.put("安装竣工日期",20);
+        map.put("投用日期",21);
+        map.put("检验时间",22);
+        headRow.createCell(0).setCellValue("管线号");
+        headRow.createCell(1).setCellValue("管道等级");
+        headRow.createCell(2).setCellValue("所属装置");
+        headRow.createCell(3).setCellValue("输送介质");
+        headRow.createCell(4).setCellValue("起点位置");
+        headRow.createCell(5).setCellValue("终点位置");
+        headRow.createCell(6).setCellValue("管道直径");
+        headRow.createCell(7).setCellValue("管道壁厚");
+        headRow.createCell(8).setCellValue("管道长度");
+        headRow.createCell(9).setCellValue("设计压力");
+        headRow.createCell(10).setCellValue("设计温度");
+        headRow.createCell(11).setCellValue("工作压力");
+        headRow.createCell(12).setCellValue("工作温度");
+        headRow.createCell(13).setCellValue("管道材料");
+        headRow.createCell(14).setCellValue("焊口数量");
+        headRow.createCell(15).setCellValue("铺设方式");
+        headRow.createCell(16).setCellValue("防腐方式");
+        headRow.createCell(17).setCellValue("管道标识");
+        headRow.createCell(18).setCellValue("保温绝热方式");
+        headRow.createCell(19).setCellValue("探伤比例");
+        headRow.createCell(20).setCellValue("安装竣工日期");
+        headRow.createCell(21).setCellValue("投用日期");
+        headRow.createCell(22).setCellValue("检验时间");
+        if(pipeInfoModels.size()==0)
+        {
+            return "暂无数据";
+        }
+        Row dataRow=sheet.createRow(j++);
+        dataRow.createCell(0).setCellValue(pipeInfoModels.get(0).getDeviceName());
+        dataRow.createCell(1).setCellValue(pipeInfoModels.get(0).getDeviceTypeName());
+        dataRow.createCell(2).setCellValue(pipeInfoModels.get(0).getDeviceEquipName());
+        if(map.get(pipeInfoModels.get(0).getParaName())!=null) {
+            dataRow.createCell(map.get(pipeInfoModels.get(0).getParaName())).setCellValue(pipeInfoModels.get(0).getParaValue() + pipeInfoModels.get(0).getParaUnit());
+        }
+        for(int i=1;i<pipeInfoModels.size();)
+        {
+            if(pipeInfoModels.get(i).getDeviceId()!=pipeInfoModels.get(i-1).getDeviceId())
+            {
+                Row dataRow1=sheet.createRow(j++);
+                dataRow1.createCell(0).setCellValue(pipeInfoModels.get(i).getDeviceName());
+                dataRow1.createCell(1).setCellValue(pipeInfoModels.get(i).getDeviceTypeName());
+                dataRow1.createCell(2).setCellValue(pipeInfoModels.get(i).getDeviceEquipName());
+                if(map.get(pipeInfoModels.get(i).getParaName())!=null) {
+                    dataRow1.createCell(map.get(pipeInfoModels.get(i).getParaName())).setCellValue(pipeInfoModels.get(i).getParaValue() + pipeInfoModels.get(i).getParaUnit());
+                }
+                i=writeExcel(dataRow1,i+1,pipeInfoModels,map);
+            }
+            else {
+                i=writeExcel(dataRow,i,pipeInfoModels,map);
+            }
+
+        }
+        try {
+            response.setHeader("Content-type", "application/x-download");
+            response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode("管道详情.xlsx", "UTF-8"));
+            OutputStream out=response.getOutputStream();
+            wb.write(out);
+        }catch (Exception e){
+            return "导出失败";
+        }
+        return "下载成功";
+    }
+
+    int writeExcel(Row dataRow,int i,List<PipeInfoModel> pipeInfoModels, Map<String,Integer> map){
+        int j=i;
+        for(;j<pipeInfoModels.size();j++)
+        {
+            if (pipeInfoModels.get(j).getDeviceId() != pipeInfoModels.get(j - 1).getDeviceId()) {
+                return j;
+            }
+            else {
+                if(map.get(pipeInfoModels.get(j).getParaName())!=null) {
+                    dataRow.createCell(map.get(pipeInfoModels.get(j).getParaName())).setCellValue(pipeInfoModels.get(j).getParaValue() + pipeInfoModels.get(j).getParaUnit());
+                }
+            }
+        }
+        return j;
+    }
+
+    public boolean readExcel(Long unitId,MultipartFile file){
+
+        return true;
     }
 }

@@ -5,8 +5,11 @@ import com.youngc.pipeline.bean.context.TreeNode;
 import com.youngc.pipeline.model.DevConfigParaModel;
 import com.youngc.pipeline.model.ImageModel;
 import com.youngc.pipeline.model.PipeInfoModel;
+import org.springframework.web.multipart.MultipartFile;
 import sun.reflect.generics.tree.Tree;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface InfoManagerService {
@@ -31,4 +34,10 @@ public interface InfoManagerService {
     List<DevConfigParaModel> getParaValue(Long unitId);
 
     List<TreeNode> showFile(Long devId);
+
+    List<DevConfigParaModel> getDeatail(Long devId);
+
+    String excelDownload(HttpServletRequest request, HttpServletResponse response, Long unitId);
+
+    boolean readExcel(Long unitId,MultipartFile file);
 }
