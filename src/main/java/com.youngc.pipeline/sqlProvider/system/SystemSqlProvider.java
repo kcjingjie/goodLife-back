@@ -1,8 +1,10 @@
 package com.youngc.pipeline.sqlProvider.system;
 
 import com.youngc.pipeline.mapper.pipeline.DevUnitMapper;
+import com.youngc.pipeline.model.DevConfigParaModel;
 import com.youngc.pipeline.model.DevRepairModel;
 import com.youngc.pipeline.model.DevUnitModel;
+import com.youngc.pipeline.model.PipeInfoModel;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.text.MessageFormat;
@@ -157,4 +159,51 @@ public class SystemSqlProvider {
 
         }
 
+        /**
+         * 导入管道信息
+         * @param para
+         * @return
+         */
+        public String addDevInfoByExcel1(Map<String,Object> para){
+            List<PipeInfoModel> pipeInfoModels=(List<PipeInfoModel>) para.get("arg0");
+            Long userId=(Long) para.get("arg1");
+            Long unitId=(Long) para.get("arg2");
+            StringBuilder devInfoBuilder = new StringBuilder("INSERT INTO dev_info (unit_id,device_name,pressure_pipe,device_equip,device_type,status,add_person,add_time,last_person, last_time) VALUES ");
+            MessageFormat devMessageFormat = new MessageFormat("({0},{1},{2},(SELECT data_value FROM sys_dict_data WHERE dict_value=''device_equip'' AND data_name={3})," +
+                    " (SELECT data_value FROM sys_dict_data WHERE dict_value=''deviceType'' AND data_name={4}),1,{5},now(),{6},now())");
+
+            for(int i=0;i<pipeInfoModels.size();i++){
+                PipeInfoModel pipeInfoModel=pipeInfoModels.get(i);
+                devInfoBuilder.append(devMessageFormat.format(new Object[]{unitId,pipeInfoModel.getDeviceName(),pipeInfoModel.getPressurePipe(),
+                    pipeInfoModel.getDeviceEquipName(),pipeInfoModel.getDeviceTypeName(),userId, userId}));
+                if (i < pipeInfoModels.size() - 1) {
+                    devInfoBuilder.append(",");
+                }
+            }
+            return devInfoBuilder.toString();
+        }
+
+        public String addDevConfigParaByExcel(Map<String,Object> para){
+            List<DevConfigParaModel> devConfigParaModels=(List<DevConfigParaModel>) para.get("arg0");
+            Long userId=(Long) para.get("arg1");
+            Long unitId=(Long) para.get("arg2");
+            StringBuilder sqlBuilder = new StringBuilder(
+                    " INSERT INTO dev_config_para(device_id, para_name," +
+                            " para_value, para_type, "+
+                            " add_person, add_time, last_person, last_time) VALUES");
+            String template="((SELECT device_id FROM dev_info WHERE unit_id=%d AND device_name=%s),%s,%s,%d,%d,now(),%d,now())";
+            for(int i=0;i<devConfigParaModels.size();i++){
+                sqlBuilder.append(String.format(template,unitId,
+                        devConfigParaModels.get(i).getDeviceName(),
+                        devConfigParaModels.get(i).getParaName(),
+                        devConfigParaModels.get(i).getParaValue(),
+                        devConfigParaModels.get(i).getParaType(),
+                        userId,
+                        userId));
+                if (i < devConfigParaModels.size() - 1) {
+                    sqlBuilder.append(",");
+                }
+            }
+            return sqlBuilder.toString();
+        }
 }

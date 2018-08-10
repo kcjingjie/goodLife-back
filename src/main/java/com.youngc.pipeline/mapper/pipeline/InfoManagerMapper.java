@@ -4,6 +4,7 @@ import com.youngc.pipeline.model.DevConfigParaModel;
 import com.youngc.pipeline.model.ImageModel;
 import com.youngc.pipeline.model.PipeInfoModel;
 import com.youngc.pipeline.model.TypeManageModel;
+import com.youngc.pipeline.sqlProvider.system.SystemSqlProvider;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -120,13 +121,42 @@ public interface InfoManagerMapper {
     @Select("SELECT file_id,file_name,folder_id,file_path,type From dev_file WHERE dev_id=#{devId}")
     List<Map> getFileById(Long devId);
 
+    /**
+     * 获取标准参数详情
+     * @param devId
+     * @return
+     */
     @Select("SELECT id,para_name,para_id,para_value,para_unit FROM dev_config_para WHERE device_id=#{devId}")
     List<DevConfigParaModel> getDeatail(Long devId);
 
+    /**
+     * Excel导出
+     * @param unitId
+     * @return
+     */
     @Select("SELECT di.device_id,di.device_name,di.device_equip,di.device_type,dcp.para_name,dcp.para_value,dcp.para_unit,sdd1.data_name as deviceEquipName,sdd2.data_name as deviceTypeName from  dev_info di " +
             " LEFT JOIN dev_config_para dcp on di.device_id=dcp.device_id "+
             " LEFT JOIN sys_dict_data sdd1 on sdd1.dict_value='device_equip'&& sdd1.data_value=di.device_equip "+
             " LEFT JOIN sys_dict_data sdd2 on sdd2.dict_value='deviceType'&& sdd2.data_value=di.device_type"+
             " WHERE di.unit_id=#{unitId} ORDER BY di.device_name")
     List<PipeInfoModel> excelDownload(Long unitId);
+
+    /**
+     * 导入管道信息
+     * @param pipeInfoModels
+     * @param userId
+     * @param unitId
+     * @return
+     */
+    @InsertProvider(type = SystemSqlProvider.class, method ="addDevInfoByExcel1")
+    int addDevInfoByExcel(List<PipeInfoModel> pipeInfoModels,Long userId,Long unitId);
+
+    /**
+     * 导入管道标准参数
+     * @param devConfigParaModels
+     * @param userId
+     * @return
+     */
+    @InsertProvider(type = SystemSqlProvider.class, method = "addDevConfigParaByExcel")
+    int addDevConfigParaByExcel(List<DevConfigParaModel> devConfigParaModels,Long userId,Long unitId);
 }

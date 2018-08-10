@@ -9,9 +9,9 @@ import com.youngc.pipeline.mapper.system.OrgMapper;
 import com.youngc.pipeline.mapper.system.SysDataRoleMapper;
 import com.youngc.pipeline.model.*;
 import com.youngc.pipeline.service.pipeline.InfoManagerService;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import com.youngc.pipeline.utils.RequestContextHolderUtil;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +20,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.*;
 
 @Service
-public class InfoManagerImpl implements InfoManagerService{
+public class InfoManagerImpl implements InfoManagerService {
     @Autowired
     private SysDataRoleMapper sysDataRoleMapper;
     @Autowired
@@ -39,6 +41,7 @@ public class InfoManagerImpl implements InfoManagerService{
 
     /**
      * 获取单位树
+     *
      * @return
      */
     public List<TreeNode> getOrgUnitTree() {
@@ -90,18 +93,21 @@ public class InfoManagerImpl implements InfoManagerService{
 
     /**
      * 分页获取设备信息
+     *
      * @param keyWord
      * @param pid
      * @param pageNum
      * @param pageSize
      * @return
      */
-    public Page getList(String keyWord,Long pid, int pageNum, int pageSize){
+    public Page getList(String keyWord, Long pid, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return (Page)infoManagerMapper.getList(keyWord,pid);
+        return (Page) infoManagerMapper.getList(keyWord, pid);
     }
+
     /**
      * 根据设备id查询设备信息
+     *
      * @param id
      * @return
      */
@@ -128,6 +134,7 @@ public class InfoManagerImpl implements InfoManagerService{
 
     /**
      * 添加设备信息
+     *
      * @param pipeInfoModel
      * @return
      */
@@ -141,9 +148,10 @@ public class InfoManagerImpl implements InfoManagerService{
         return pipeInfoModel;
     }
 
-    public List getDevModelConfig(Long modelId){
+    public List getDevModelConfig(Long modelId) {
         return devModelConfigParaMapper.getList(modelId);
     }
+
     /**
      * 删除设备信息，同时删除设备下的监测参数与标准参数
      */
@@ -157,6 +165,7 @@ public class InfoManagerImpl implements InfoManagerService{
 
     /**
      * 查询设备编号是否唯一
+     *
      * @param code
      * @return
      */
@@ -166,6 +175,7 @@ public class InfoManagerImpl implements InfoManagerService{
 
     /**
      * 查询设备模型id，模型名称
+     *
      * @return
      */
     public List getDevModel() {
@@ -174,6 +184,7 @@ public class InfoManagerImpl implements InfoManagerService{
 
     /**
      * 查询所有不重复的参数名称
+     *
      * @return
      */
     public List<DevConfigParaModel> getParaName() {
@@ -182,6 +193,7 @@ public class InfoManagerImpl implements InfoManagerService{
 
     /**
      * 根据单位id查询标准参数信息
+     *
      * @return
      */
     public List<DevConfigParaModel> getParaValue(Long unitId) {
@@ -191,11 +203,12 @@ public class InfoManagerImpl implements InfoManagerService{
 
     /**
      * 根据id查询文件
+     *
      * @param devId
      * @return
      */
     public List<TreeNode> showFile(Long devId) {
-        List<Map> fileById=infoManagerMapper.getFileById(devId);
+        List<Map> fileById = infoManagerMapper.getFileById(devId);
         List<TreeNode> tree = new ArrayList<TreeNode>();
 
         for (int i = 0; i < fileById.size(); i++) {
@@ -212,7 +225,7 @@ public class InfoManagerImpl implements InfoManagerService{
         return tree;
     }
 
-    public List<TreeNode> getFileChilds(List<Map> fileById,Integer fileId){
+    public List<TreeNode> getFileChilds(List<Map> fileById, Integer fileId) {
         List<TreeNode> children = new ArrayList<TreeNode>();
         for (int j = 0; j < fileById.size(); j++) {
 
@@ -229,37 +242,37 @@ public class InfoManagerImpl implements InfoManagerService{
         return children;
     }
 
-    public List<DevConfigParaModel> getDeatail(Long devId){
+    public List<DevConfigParaModel> getDeatail(Long devId) {
         return infoManagerMapper.getDeatail(devId);
     }
 
-    public String excelDownload(HttpServletRequest request, HttpServletResponse response, Long unitId){
-        int j=0;
-      List<PipeInfoModel> pipeInfoModels=infoManagerMapper.excelDownload(unitId);
-        Workbook wb=new XSSFWorkbook();
-        Sheet sheet=wb.createSheet();
-        Row headRow=sheet.createRow(j++);
-        Map<String,Integer> map=new HashMap<String, Integer>();
-        map.put("输送介质",3);
-        map.put("起点位置",4);
-        map.put("终点位置",5);
-        map.put("管道直径",6);
-        map.put("管道壁厚",7);
-        map.put("管道长度",8);
-        map.put("设计压力",9);
-        map.put("设计温度",10);
-        map.put("工作压力",11);
-        map.put("工作温度",12);
-        map.put("管道材料",13);
-        map.put("焊口数量",14);
-        map.put("铺设方式",15);
-        map.put("防腐方式",16);
-        map.put("管道标识",17);
-        map.put("保温绝热方式",18);
-        map.put("探伤比例",19);
-        map.put("安装竣工日期",20);
-        map.put("投用日期",21);
-        map.put("检验时间",22);
+    public String excelDownload(HttpServletRequest request, HttpServletResponse response, Long unitId) {
+        int j = 0;
+        List<PipeInfoModel> pipeInfoModels = infoManagerMapper.excelDownload(unitId);
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet();
+        Row headRow = sheet.createRow(j++);
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("输送介质", 3);
+        map.put("起点位置", 4);
+        map.put("终点位置", 5);
+        map.put("管道直径", 6);
+        map.put("管道壁厚", 7);
+        map.put("管道长度", 8);
+        map.put("设计压力", 9);
+        map.put("设计温度", 10);
+        map.put("工作压力", 11);
+        map.put("工作温度", 12);
+        map.put("管道材料", 13);
+        map.put("焊口数量", 14);
+        map.put("铺设方式", 15);
+        map.put("防腐方式", 16);
+        map.put("管道标识", 17);
+        map.put("保温绝热方式", 18);
+        map.put("探伤比例", 19);
+        map.put("安装竣工日期", 20);
+        map.put("投用日期", 21);
+        map.put("检验时间", 22);
         headRow.createCell(0).setCellValue("管线号");
         headRow.createCell(1).setCellValue("管道等级");
         headRow.createCell(2).setCellValue("所属装置");
@@ -283,55 +296,49 @@ public class InfoManagerImpl implements InfoManagerService{
         headRow.createCell(20).setCellValue("安装竣工日期");
         headRow.createCell(21).setCellValue("投用日期");
         headRow.createCell(22).setCellValue("检验时间");
-        if(pipeInfoModels.size()==0)
-        {
+        if (pipeInfoModels.size() == 0) {
             return "暂无数据";
         }
-        Row dataRow=sheet.createRow(j++);
+        Row dataRow = sheet.createRow(j++);
         dataRow.createCell(0).setCellValue(pipeInfoModels.get(0).getDeviceName());
         dataRow.createCell(1).setCellValue(pipeInfoModels.get(0).getDeviceTypeName());
         dataRow.createCell(2).setCellValue(pipeInfoModels.get(0).getDeviceEquipName());
-        if(map.get(pipeInfoModels.get(0).getParaName())!=null) {
+        if (map.get(pipeInfoModels.get(0).getParaName()) != null) {
             dataRow.createCell(map.get(pipeInfoModels.get(0).getParaName())).setCellValue(pipeInfoModels.get(0).getParaValue() + pipeInfoModels.get(0).getParaUnit());
         }
-        for(int i=1;i<pipeInfoModels.size();)
-        {
-            if(pipeInfoModels.get(i).getDeviceId()!=pipeInfoModels.get(i-1).getDeviceId())
-            {
-                Row dataRow1=sheet.createRow(j++);
+        for (int i = 1; i < pipeInfoModels.size(); ) {
+            if (pipeInfoModels.get(i).getDeviceId() != pipeInfoModels.get(i - 1).getDeviceId()) {
+                Row dataRow1 = sheet.createRow(j++);
                 dataRow1.createCell(0).setCellValue(pipeInfoModels.get(i).getDeviceName());
                 dataRow1.createCell(1).setCellValue(pipeInfoModels.get(i).getDeviceTypeName());
                 dataRow1.createCell(2).setCellValue(pipeInfoModels.get(i).getDeviceEquipName());
-                if(map.get(pipeInfoModels.get(i).getParaName())!=null) {
+                if (map.get(pipeInfoModels.get(i).getParaName()) != null) {
                     dataRow1.createCell(map.get(pipeInfoModels.get(i).getParaName())).setCellValue(pipeInfoModels.get(i).getParaValue() + pipeInfoModels.get(i).getParaUnit());
                 }
-                i=writeExcel(dataRow1,i+1,pipeInfoModels,map);
-            }
-            else {
-                i=writeExcel(dataRow,i,pipeInfoModels,map);
+                i = writeExcel(dataRow1, i + 1, pipeInfoModels, map);
+            } else {
+                i = writeExcel(dataRow, i, pipeInfoModels, map);
             }
 
         }
         try {
             response.setHeader("Content-type", "application/x-download");
             response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode("管道详情.xlsx", "UTF-8"));
-            OutputStream out=response.getOutputStream();
+            OutputStream out = response.getOutputStream();
             wb.write(out);
-        }catch (Exception e){
+        } catch (Exception e) {
             return "导出失败";
         }
         return "下载成功";
     }
 
-    int writeExcel(Row dataRow,int i,List<PipeInfoModel> pipeInfoModels, Map<String,Integer> map){
-        int j=i;
-        for(;j<pipeInfoModels.size();j++)
-        {
+    int writeExcel(Row dataRow, int i, List<PipeInfoModel> pipeInfoModels, Map<String, Integer> map) {
+        int j = i;
+        for (; j < pipeInfoModels.size(); j++) {
             if (pipeInfoModels.get(j).getDeviceId() != pipeInfoModels.get(j - 1).getDeviceId()) {
                 return j;
-            }
-            else {
-                if(map.get(pipeInfoModels.get(j).getParaName())!=null) {
+            } else {
+                if (map.get(pipeInfoModels.get(j).getParaName()) != null) {
                     dataRow.createCell(map.get(pipeInfoModels.get(j).getParaName())).setCellValue(pipeInfoModels.get(j).getParaValue() + pipeInfoModels.get(j).getParaUnit());
                 }
             }
@@ -339,8 +346,67 @@ public class InfoManagerImpl implements InfoManagerService{
         return j;
     }
 
-    public boolean readExcel(Long unitId,MultipartFile file){
+    public boolean readExcel(Long unitId, MultipartFile file) {
+        com.youngc.pipeline.bean.context.UserBean user
+                = (com.youngc.pipeline.bean.context.UserBean) RequestContextHolderUtil.getRequest().getAttribute("user");
+        List<PipeInfoModel> pipeInfoModels=new ArrayList<PipeInfoModel>();
+        List<DevConfigParaModel> devConfigParaModels=new ArrayList<DevConfigParaModel>();
+        FileInputStream input=null;
+        try{
+            input = (FileInputStream)file.getInputStream();
+            Workbook workBook = WorkbookFactory.create(input);
+            int numberOfSheets = workBook.getNumberOfSheets();
+            for (int s = 0; s < numberOfSheets; s++){
+                Sheet sheetAt = workBook.getSheetAt(s);
+                int rowsOfSheet = sheetAt.getPhysicalNumberOfRows();
+                Row headRow=sheetAt.getRow(0);
+                int headColumn=headRow.getPhysicalNumberOfCells();
+                Map<Integer,String> map=new HashMap<Integer, String>();
+                for(int headC=3;headC<headColumn;headC++){
+                    map.put(headC,headRow.getCell(headC).getStringCellValue());
+                }
+                for (int r = 1; r < rowsOfSheet; r++){
+                    Row row = sheetAt.getRow(r);
+                    if (row == null) {
+                        continue;
+                    } else{
+                        PipeInfoModel pipeInfoModel=new PipeInfoModel();
+                        pipeInfoModel.setDeviceName(row.getCell(0)!=null?"'"+row.getCell(0).getStringCellValue()+"'":"");
+                        pipeInfoModel.setDeviceTypeName(row.getCell(1)!=null?"'"+row.getCell(1).getStringCellValue()+"'":"''");
+                        pipeInfoModel.setDeviceEquipName(row.getCell(2)!=null?"'"+row.getCell(2).getStringCellValue()+"'":"''");
+                        String value=pipeInfoModel.getDeviceTypeName();
+                        pipeInfoModel.setPressurePipe((value== null||value.equals("''")||value.equals(""))?2:1);
+                        pipeInfoModels.add(pipeInfoModel);
+                        int column=row.getPhysicalNumberOfCells();
+                        for(int c=3;c<column;c++){
+                            DevConfigParaModel devConfigParaModel=new DevConfigParaModel();
+                            devConfigParaModel.setDeviceName(pipeInfoModel.getDeviceName());
+                            devConfigParaModel.setParaName("'"+map.get(c)+"'");
+                            if(row.getCell(c).getCellTypeEnum()==CellType.NUMERIC)
+                                devConfigParaModel.setParaValue(row.getCell(c)!=null?"'"+row.getCell(c).getStringCellValue()+"'":"");
+                            else {
+                                devConfigParaModel.setParaValue(row.getCell(c)!=null?"'"+row.getCell(c).getStringCellValue()+"'":"");
+                            }
+                            devConfigParaModel.setParaType(1);
+                            devConfigParaModels.add(devConfigParaModel);
+                        }
+                    }
+                }
+            }
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if (input!= null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        infoManagerMapper.addDevInfoByExcel(pipeInfoModels,user.getUserId(),unitId);
+        infoManagerMapper.addDevConfigParaByExcel(devConfigParaModels,user.getUserId(),unitId);
         return true;
     }
 }
